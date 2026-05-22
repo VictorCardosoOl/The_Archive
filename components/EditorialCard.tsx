@@ -138,7 +138,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
   if (isHero) {
     return (
       <motion.article 
-        ref={cardRef as any}
+        ref={cardRef as React.Ref<HTMLElement>}
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-10%" }}
@@ -180,7 +180,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
              
              <div 
                ref={buttonsRef}
-               className="flex items-center gap-3 shrink-0 opacity-0 -translate-x-4"
+               className="flex items-center gap-3 shrink-0 opacity-100 lg:opacity-0 lg:-translate-x-4"
              >
                 <button 
                   onClick={handlePin}
@@ -214,7 +214,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
 
   return (
     <motion.article 
-      ref={cardRef as any}
+      ref={cardRef as React.Ref<HTMLElement>}
       initial={{ opacity: 0, scale: 0.95, y: 30 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true, margin: "-5%" }}
@@ -255,7 +255,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
       <div className="mt-auto flex items-center justify-between pt-6 relative z-10">
         <div 
           ref={buttonsRef}
-          className="flex items-center gap-2 opacity-0 -translate-x-4"
+          className="flex items-center gap-2 opacity-100 lg:opacity-0 lg:-translate-x-4"
         >
            <button 
              onClick={handlePin}
@@ -279,7 +279,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
         <div aria-hidden="true" className="flex items-center gap-3 overflow-hidden ml-auto">
            <span 
              ref={exploreTextRef}
-             className="font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-editorial-black transform translate-x-12 opacity-0"
+             className="hidden lg:inline-block font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-editorial-black transform lg:translate-x-12 opacity-0"
            >
              Explorar
            </span>
@@ -288,7 +288,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
              className="w-10 h-10 rounded-full border border-editorial-gray/30 flex items-center justify-center transition-colors duration-500"
            >
                <ArrowRight 
-                 ref={arrowRef as any}
+                 ref={arrowRef as React.Ref<SVGSVGElement>}
                  size={16} 
                  className="text-editorial-black -rotate-45" 
                />

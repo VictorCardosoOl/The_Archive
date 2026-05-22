@@ -50,7 +50,6 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({
   const feedItems = isAllCategory ? listTemplates.slice(3) : listTemplates;
   const rowCount = Math.ceil(feedItems.length / cols);
   
-  const gapX = cols >= 3 ? 64 : 48; // Estimate 64px (4rem) for xl+ gap, 48px for md
   const gapY = cols >= 3 ? 80 : 64; // Reduced from 112/96
   
   const virtualizer = useVirtualizer({
@@ -78,9 +77,9 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({
         {/* Hero Section (Only if No Search) */}
         {!searchQuery && isAllCategory && heroTemplates.length > 0 && (
           <div className="mb-10 pb-10 border-b border-[#e0e0e0] mt-0">
-            <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] gap-12 xl:gap-20 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] gap-8 lg:gap-12 xl:gap-20 items-start">
               {/* Hero Column */}
-              <div className="flex flex-col gap-12 group relative">
+              <div className="flex flex-col gap-8 lg:gap-12 group relative">
                 {heroTemplates.map((template, hIdx) => (
                   <EditorialCard 
                     key={template.id} 

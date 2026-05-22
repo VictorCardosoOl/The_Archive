@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
-import { useScroll, useSpring, useTransform, MotionValue } from 'framer-motion';
+import { useScroll, useSpring, useTransform } from 'framer-motion';
 import { Template } from '../types';
 import { 
   processStaticTags, 

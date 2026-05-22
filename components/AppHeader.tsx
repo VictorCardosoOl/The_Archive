@@ -21,7 +21,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     if (isSearchExpanded && searchInputRef.current) {
       searchInputRef.current.focus();
     }
-  }, [isSearchExpanded]);
+  }, [isSearchExpanded, searchInputRef]);
 
   const handleToggleSearch = () => {
     if (isSearchExpanded) {
@@ -64,7 +64,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
       </div>
 
       {/* Animated Search */}
-      <div className="relative flex items-center justify-end h-14 min-w-[56px] xl:w-[400px]">
+      <div className="relative flex items-center justify-end h-14 lg:min-w-[56px] w-full xl:w-[400px]">
         <AnimatePresence initial={false}>
           {isSearchExpanded ? (
             <motion.div
