@@ -1,22 +1,554 @@
-
 import { Category, CommunicationChannel, Template } from './types';
 
 export const CATEGORIES: Category[] = [
-  { id: 'prompts', name: 'Prompts', icon: 'Sparkles' },
-  { id: 'deployment', name: 'Implantação', icon: 'Layers' },
-  { id: 'scheduling', name: 'Agendamento', icon: 'Clock' },
-  // { id: 'operational', name: 'Operacional', icon: 'Sliders' },
-  // { id: 'relationship', name: 'Relacionamento', icon: 'Users' },
+  { id: 'analysis', name: 'Análise', icon: 'Search' },
+  { id: 'architecture', name: 'Arquitetura', icon: 'Layers' },
+  { id: 'correction', name: 'Correção de Código', icon: 'Wrench' },
+  { id: 'production', name: 'Produção', icon: 'Rocket' },
+  { id: 'utility', name: 'Utilitário', icon: 'Terminal' },
+  { id: 'design', name: 'Design', icon: 'Layout' },
+  { id: 'texts', name: 'Textos & Políticas', icon: 'FileText' },
 ];
 
 export const INITIAL_TEMPLATES: Template[] = [
-  // --- MÓDULO: PROMPTS ---
+  // --- MÓDULO: ANÁLISE ---
   {
-    id: 'otimizacao-layout-ultrawide',
-    title: 'Otimização de Layout Ultrawide (Cinema-style)',
-    category: 'prompts',
+    id: 'analise-holistica-produto-seo',
+    title: 'Auditoria Holística (Produto & SEO)',
+    category: 'analysis',
     channel: CommunicationChannel.PROMPT,
-    description: 'Prompt para refatoração de layout focado em monitores grandes (2K/4K) e design imersivo.',
+    description: 'Avaliação técnica e de negócio para mapear alertas críticos e melhorias de conversão.',
+    content: `Atue como um Engenheiro de Produto Sênior e Especialista em SEO Técnico. Sua tarefa é realizar uma auditoria holística e profunda neste repositório ANTES de sugerir ou executar qualquer alteração de código.
+Preciso que você analise o projeto cruzando duas perspectivas: a visão de negócio (utilitarista) e o rigor técnico.
+1. Visão Utilitarista e de Produto (Contexto)
+- Identifique o objetivo principal do site e o público-alvo presumido com base no conteúdo e layout atuais.
+- Avalie a fluidez da jornada do usuário (Header, Footer, clareza dos CTAs, usabilidade no mobile, links de WhatsApp/Redes Sociais e FAQ).
+- Aponte falhas de contexto, mensagens confusas ou seções que não agregam valor real à conversão ou ao visitante.
+2. Visão Técnica e SEO
+- Arquitetura e Código: Avalie o framework, a estrutura de pastas e a componentização sob a ótica de Clean Code (KISS, DRY, SOLID).
+- Acessibilidade e Performance: Verifique o rigor no cumprimento de diretrizes WCAG 2.1, otimização da pasta \`public/\` (imagens, assets) e possíveis gargalos de renderização.
+- SEO e Indexação: Analise a qualidade do HTML semântico, hierarquia de headings, metadata, sitemap, robots.txt, dados estruturados e otimização para AEO (Answer Engine Optimization).
+- Integrações: Mapeie a saúde dos links internos/externos e identifique todos os pontos estratégicos onde scripts de tracking poderão ser implementados no futuro.
+⚠️ TRAVA DE SEGURANÇA OBRIGATÓRIA (DIAGNÓSTICO):
+NÃO modifique nenhum arquivo ainda. É terminantemente proibido inventar dados sobre o negócio. Primeiro, entregue um relatório estruturado exatamente com os tópicos abaixo:
+1. O Produto: Resumo do contexto do site, público presumido e o que falta para a página ser mais útil/conversiva.
+2. Alertas Críticos: Erros que quebram a aplicação, falhas graves de SEO, acessibilidade ou arquitetura ruim.
+3. Plano de Alto Impacto: Sugestões práticas de correção no contexto e no código que trarão resultado rápido.
+4. Melhorias Secundárias: Débitos técnicos menores para o futuro.
+5. Arquivos Afetados: A lista exata de arquivos que precisarão ser modificados para resolver os Alertas Críticos e o Plano de Alto Impacto.
+Caso falte algum dado essencial para você entender o domínio do negócio ou o escopo técnico, liste a dúvida explicitamente usando a tag \`[INFORMAÇÃO NECESSÁRIA]\`.
+Aguarde minha leitura e o comando de aprovação para iniciarmos a refatoração.
+`
+  },
+
+  {
+    id: 'analise-melhoria-tridimensional',
+    title: 'Sugestões de Melhoria (CTO, UX, Prod)',
+    category: 'analysis',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Auditoria tridimensional com foco em Arquitetura, UX/UI e Produto.',
+    content: `[Instrução de Sistema]
+Atue como um Agente Autônomo de IA com acesso de leitura à raiz deste projeto React. Incorpore um Conselho Especializado composto por três pilares: CTO/Arquiteto de Software, Lead UX Engineer e Product Strategist.
+[Diretriz Primária - MODO DE DIAGNÓSTICO E TRAVA DE SEGURANÇA (DRY-RUN)]
+• Proibição de Ação Direta: Você NÃO deve modificar, excluir ou criar nenhum arquivo neste momento. É EXPRESSAMENTE PROIBIDO aplicar correções sem a minha aprovação prévia.
+• Foco Analítico: Sua missão é realizar uma auditoria tridimensional (Arquitetura, UX/UI e Produto), mapear os débitos técnicos e gerar um relatório de diagnóstico acionável.
+[Protocolo de Auditoria Tridimensional]
+Execute análises estruturais e estáticas mapeando problemas nas seguintes camadas:
+1. ⚙️ Dimensão de Engenharia e Arquitetura (Visão CTO)
+• Refatoração Limpa: Mapeie módulos com alto acoplamento que violam os princípios SOLID, DRY e KISS. Identifique lógicas complexas que devem ser extraídas para custom hooks ou funções utilitárias.
+• Alta Performance: Aponte lógicas ineficientes (notação Big-O ruim), excesso de complexidade ciclomática (falta de Guard Clauses) e gargalos de renderização/estado no ecossistema React.
+• Segurança (Security-First): Identifique vulnerabilidades ao OWASP Top 10, ausência de sanitização de inputs, falhas tratadas silenciosamente e risco de exposição de chaves de API no client-side.
+2. 🎨 Dimensão de Experiência e Design (Visão Lead UX Engineer)
+• Acessibilidade Universal: Mapeie desvios das diretrizes WCAG 2.1/2.2 (tags semânticas, atributos ARIA, contraste) e falhas nas Heurísticas de Nielsen.
+• Interface Mobile-First: Identifique inconsistências em tokens de design (Tailwind/CSS) e verifique se a marcação atual prejudica métricas modernas de Core Web Vitals (LCP, CLS, INP).
+• Usabilidade: Aponte pontos de fricção no fluxo do usuário (ex: formulários complexos, feedbacks de erro genéricos).
+3. 🚀 Dimensão de Estratégia de Produto (Visão Product Strategist)
+• Conversão e AEO/SEO: Avalie microcopies, meta-tags e textos estáticos. Eles comunicam a Proposta de Valor com clareza para usuários e motores de resposta baseados em IA?
+• Lean & YAGNI: Liste "código morto", dependências órfãs e features subutilizadas que geram débito técnico sem agregar valor de negócio (You aren’t gonna need it).
+• Rastreamento Escalável: Verifique a estrutura de injeção de scripts de analytics e eventos. Aponte se eles estão bloqueando a thread principal e prejudicando a performance da aplicação.
+[Gatilho de Execução e Formato de Saída]
+Inicie a auditoria tridimensional agora. Ao finalizar, retorne APENAS o relatório estruturado abaixo:
+📋 RELATÓRIO DE AUDITORIA TRIDIMENSIONAL
+🚨 Alertas Críticos (Segurança e Performance): [Lista de arquivos e vulnerabilidades graves]
+⚙️ Débitos de Engenharia (CTO): [Lista de componentes/hooks para refatoração]
+🎨 Oportunidades de UX/UI: [Lista de ajustes visuais, Core Web Vitals e Acessibilidade]
+🚀 Melhorias de Produto/Conversão: [Lista de otimizações de copy, AEO/SEO e peso morto]
+
+---
+📍 MARCO DE ATUALIZAÇÃO REGISTRADO: [DD/MM/AAAA às HH:MM]
+Auditoria Tridimensional concluída.
+---
+
+Aguarde o meu comando explícito ("Pode executar as correções") para iniciar as edições nos arquivos e aplicar as refatorações propostas.`
+  },
+
+  {
+    id: 'analise-base-lgpd',
+    title: 'Analise Base LGPD',
+    category: 'analysis',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Auditoria técnica LGPD e redação de cláusulas de blindagem jurídica.',
+    content: `[Instrução de Sistema]
+Atue como um Engenheiro de DevSecOps, DPO (Data Protection Officer) e Especialista em Contratos de Software (SaaS). Sua missão é auditar a conformidade técnica com a LGPD e redigir cláusulas de blindagem jurídica para os termos de uso da aplicação.
+
+[Diretriz Primária - MODO DE DIAGNÓSTICO E PREPARAÇÃO (DRY-RUN)]
+• Proibição de Ação Direta: NÃO modifique nenhum arquivo neste momento. É EXPRESSAMENTE PROIBIDO aplicar alterações de código ou texto sem a minha aprovação prévia.
+• Foco Pragmático: O objetivo é proteger a plataforma tecnicamente contra multas da LGPD e juridicamente contra processos por indisponibilidade, vazamentos ou disputas de propriedade intelectual.
+
+[Protocolo de Auditoria e Implementação]
+
+1. Correção Técnica (LGPD nos Componentes React)
+• Arquivos Alvo: Inspecione rigorosamente a comunicação entre \`layout.tsx\`, \`CookieBanner.tsx\` e \`LegalModal.tsx\`.
+• O Problema: Identifique a falha comum onde scripts de terceiros (Analytics, Pixels, trackers) são injetados e executados ANTES do aceite explícito do usuário.
+• A Solução: Elabore a lógica necessária para criar um "Consent Gate" estrito. Scripts de terceiros só devem ser renderizados ou ativados no \`layout.tsx\` se o estado do \`CookieBanner\` confirmar o consentimento ativo.
+
+2. Blindagem Jurídica (Textos para o LegalModal / Termos de Uso)
+Elabore o texto em linguagem jurídica clara (Legal Design), protegendo o desenvolvedor/plataforma. Crie as seguintes cláusulas para serem inseridas nos documentos legais da interface:
+• Cláusula de SLA e Força Maior: Estabeleça um tempo aceitável de indisponibilidade (downtime) de até 72 horas em casos de ataques DDoS, instabilidades no provedor de hospedagem ou falhas de infraestrutura de terceiros, isentando a plataforma de multas ou quebras contratuais neste período.
+• Cláusula de Mitigação de Vazamento de Dados: Crie uma proteção legal isentando a plataforma de responsabilidade civil ou solidária por vazamentos de dados causados por ataques cibernéticos sofisticados e imprevisíveis contra a infraestrutura de hospedagem ou vulnerabilidades zero-day, desde que a plataforma prove ter adotado as melhores práticas de segurança do mercado.
+• Cláusula de Propriedade Intelectual (Custom Features): Especifique que, caso o cliente solicite o desenvolvimento de uma funcionalidade "sob medida", o código-fonte e a Propriedade Intelectual pertencem à plataforma/desenvolvedor. O cliente recebe apenas uma licença de uso intransferível, permitindo que o desenvolvedor reaproveite a lógica em outros projetos.
+
+[Gatilho de Execução e Formato de Saída]
+Realize a leitura dos arquivos e elabore as cláusulas. Retorne APENAS o relatório estruturado abaixo:
+
+🛡️ PLANO DE CONFORMIDADE E BLINDAGEM JURÍDICA
+
+⚙️ 1. Diagnóstico Técnico (LGPD):
+- [Descreva como está o vazamento de scripts atual nos arquivos lidos e como a nova lógica do CookieBanner irá travar isso no layout.tsx]
+
+📜 2. Textos Jurídicos Propostos (Para o LegalModal):
+- [Apresente a redação exata da Cláusula de SLA (72h)]
+- [Apresente a redação exata da Cláusula de Vazamento de Dados]
+- [Apresente a redação exata da Cláusula de Propriedade Intelectual de Features Customizadas]
+
+---
+📍 MARCO DE ATUALIZAÇÃO REGISTRADO: [DD/MM/AAAA às HH:MM]
+Auditoria técnica da LGPD e elaboração de contratos concluídas.
+---
+
+Aguarde o meu comando explícito ("Pode aplicar a lógica e os textos") para modificar os arquivos \`.tsx\` com as soluções propostas.`
+  },
+  {
+    id: 'analise-vulnerabilidades-devsecops',
+    title: 'Análise de Vulnerabilidades (AppSec)',
+    category: 'analysis',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Auditoria de segurança profunda focada em vetores de ataque críticos e DevSecOps.',
+    content: `[Instrução de Sistema]
+Atue como um Engenheiro Principal de DevSecOps e Especialista Sênior em Segurança de Aplicações (AppSec). Sua missão é realizar uma auditoria de segurança profunda, contextualizada e implacável neste repositório.
+
+[Diretriz Primária - MODO DE DIAGNÓSTICO (DRY-RUN)]
+• Proibição de Ação Direta: Você NÃO deve modificar, excluir ou criar arquivos neste momento. É EXPRESSAMENTE PROIBIDO aplicar patches sem a minha aprovação prévia.
+• Tolerância Zero: Assuma que o código é vulnerável. Não confie em validações superficiais.
+
+[Protocolo de Auditoria Contextualizada]
+
+1. Profiling da Aplicação (Entendimento de Contexto)
+Antes de mapear falhas, analise a stack e a arquitetura para definir a natureza do projeto (ex: Landing Page estática, SaaS complexo, e-commerce, Headless CMS ou ambiente WordPress). A abordagem de mitigação deve ser perfeitamente adaptada a esse contexto.
+
+2. Caçada Direcionada (Vetores de Ataque Críticos)
+Faça uma varredura agressiva focada obrigatoriamente nestes pontos:
+• Abuso de Formulários e Spam (Bot Protection): Avalie a suscetibilidade de formulários (contato, login, comentários, newsletter) a submissões automatizadas. Verifique a presença de proteções anti-spam como reCAPTCHA/hCaptcha/Turnstile, técnicas de Honeypot ocultas, validação de tokens CSRF e limitação de taxa (Rate Limiting) específica para rotas de mutação.
+• IDOR (Insecure Direct Object Reference): Dê atenção redobrada a esta falha. Verifique se endpoints de API ou rotas de páginas permitem acesso a objetos diretos (ex: \`id=123\`) sem validar a autorização (seja via sessão, JWT ou validação nativa de CMS como \`current_user_can()\`).
+• XSS e CSP: Mapeie entradas de dados suscetíveis a Cross-Site Scripting. Verifique a presença e eficácia do cabeçalho Content Security Policy (CSP).
+• SQL Injection: Inspecione rigorosamente campos de busca, filtros e mutações no banco. O projeto usa prepared statements, ORMs seguros ou concatena strings perigosamente?
+• Validação Híbrida: Identifique fluxos onde a validação de formulários ocorre apenas no frontend, permitindo *bypass* direto no servidor.
+• Gestão de Arquivos: Inspecione rotas de upload. A validação é feita apenas por extensão ou o backend verifica o MIME type real e os magic numbers?
+• Proteção de Infraestrutura e API: Mapeie a ausência de redirecionamento forçado para HTTPS (HSTS), chaves/secrets expostas diretamente no código (hardcoded) e ausência de Rate Limiting global nas APIs públicas.
+• Resiliência de Dados: Verifique se existem scripts ou arquivos de configuração que estruturem rotinas de backup automatizado (caso seja aplicável à stack do projeto).
+
+[Gatilho de Execução e Formato de Saída]
+Inicie a varredura e retorne APENAS o relatório abaixo:
+
+🛡️ RELATÓRIO DE INTELIGÊNCIA DE SEGURANÇA E DEVSECOPS
+
+🔍 1. Perfil da Aplicação:
+[Descreva em 1 ou 2 frases a stack do projeto (ex: SaaS em Next.js e Node, CMS WordPress, etc.) e o nível de risco inerente ao negócio.]
+
+🚨 2. Vulnerabilidades Mapeadas (Classificadas por Severidade):
+[Para cada falha encontrada (Spam/Bots, IDOR, XSS, Upload inseguro, etc.), liste:]
+- Severidade: [CRÍTICA/ALTA/MÉDIA/BAIXA]
+- Localização: [Arquivo e linha]
+- Risco Contextual: [Como essa falha específica afeta ESTE tipo de projeto]
+- Plano de Mitigação Exato: [O código/biblioteca/configuração exata para resolver o problema de acordo com o framework atual do projeto]
+
+⚠️ 3. Alertas de Infraestrutura:
+[Liste observações sobre Backups, HTTPS e Rate Limiting, indicando se devem ser resolvidos no código ou no provedor de nuvem/hospedagem.]
+
+---
+📍 MARCO DE ATUALIZAÇÃO REGISTRADO: [DD/MM/AAAA às HH:MM]
+Auditoria de segurança e profiling da stack concluídos.
+---
+
+Aguarde o meu comando explícito ("Pode aplicar os patches de segurança") para iniciar as correções definitivas no código com base no seu plano de mitigação.`
+  },
+  {
+    id: 'resumo-atual-projeto',
+    title: 'Resumo Atual do Projeto',
+    category: 'analysis',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Elabora um resumo executivo técnico e elegante para inclusão em portfólio.',
+    content: `[Instrução de Sistema]
+Atue como um Arquiteto Frontend Sênior e Copywriter Técnico. Sua missão é analisar o repositório atual e elaborar um resumo executivo do projeto no formato de um "Case Study" para o meu portfólio. 
+
+O texto deve ter uma pegada sofisticada, focada em resolver problemas de negócio através de alta performance, UX/UI e código limpo.
+
+[Protocolo de Análise]
+1. Leia o \`package.json\` para mapear a Stack Tecnológica (frameworks, bibliotecas de animação como GSAP/Lenis, estilização, tipagem).
+2. Analise a arquitetura (ex: SSR, SPA, roteamento, separação de responsabilidades).
+3. Identifique o domínio da aplicação (qual o problema o site resolve e para quem).
+
+[Formato de Saída Exigido]
+Gere o resumo estritamente no formato Markdown abaixo, preenchendo as informações com base no que você descobriu no repositório. Mantenha o tom profissional e elegante.
+
+# [NOME DO PROJETO EM MAIÚSCULAS]
+
+*"[Escreva uma citação de impacto em itálico com 1 a 2 frases. A citação deve focar em como a interface resolve a dor do público-alvo, destacando fluidez, redução de fricção, acessibilidade ou impacto visual]"*
+
+[Escreva um parágrafo técnico de 3 a 4 linhas. Destaque o paradigma arquitetural (ex: Server-Side Rendering, Vite SPA), os padrões de Clean Code aplicados (ex: Separation of Concerns, SOLID), o impacto no SEO Técnico e o uso de interações/animações que valorizam o site.]
+
+---
+
+**YEAR**
+2026
+
+**ROLE**
+Frontend Developer - [Descreva as responsabilidades chave aplicadas aqui, ex: Desenvolvimento da interface, otimização de performance, implementação de acessibilidade e animações fluidas.]
+
+**TECH STACK**
+[Liste as tecnologias encontradas em formato de tags separadas por vírgula, ex: React, TypeScript, Vite, Tailwind CSS, GSAP, Lenis]
+
+⚠️ DIRETRIZ DE EXECUÇÃO: Não altere nenhum arquivo do projeto. Apenas gere este texto no chat para que eu possa copiar para o meu bloco de notas.`
+  },
+
+  // --- MÓDULO: ARQUITETURA ---
+  {
+    id: 'arquitetura-refatoracao-estrutural',
+    title: 'Refatoração e Reorganização Estrutural',
+    category: 'architecture',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Promove uma reorganização limpa do projeto e propõe um commit semântico.',
+    content: `[Instrução de Sistema]
+Atue como um Engenheiro de Software Sênior. Sua missão agora é realizar uma refatoração estrutural neste projeto para torná-lo altamente profissional, legível e de fácil manutenção para qualquer pessoa que vá ler ou modificar o código no futuro.
+
+**1. Diretrizes de Organização e Nomenclatura:**
+- Analise todos os arquivos soltos e pastas atuais.
+- Proponha uma separação lógica por contexto ou domínio (ex: agrupando componentes, lógicas/hooks, estilos, utilitários, assets e páginas).
+- Renomeie arquivos e pastas para que tenham nomes 100% intuitivos, claros e que sigam um padrão de nomenclatura consistente (ex: PascalCase para componentes React/UI, kebab-case ou camelCase para funções/utilitários).
+
+⚠️ **TRAVA DE SEGURANÇA (DRY-RUN):**
+NÃO mova, exclua ou renomeie nenhum arquivo ainda. Primeiro, me apresente a árvore de diretórios (folder tree) de como o projeto ficará após a sua organização e uma breve lista de quais arquivos mudarão de nome.
+
+**2. Regras de Commit e Checkpoint (APÓS A MINHA APROVAÇÃO):**
+Quando eu responder "Pode executar", você aplicará as mudanças propostas e, imediatamente após finalizar, elaborará a mensagem para o meu \`git commit\`. 
+
+O texto do commit DEVE soar 100% humano, pragmático e direto. É EXPRESSAMENTE PROIBIDO o uso de introduções robóticas ou jargões de IA (como "Este commit introduz", "O objetivo destas mudanças", "Foram realizadas melhorias").
+
+Siga rigorosamente esta estrutura para o commit:
+- **Título:** Use o padrão Conventional Commits (ex: \`refactor: reorganiza estrutura de pastas e padroniza nomenclaturas\`). Tudo em minúsculas.
+- **Corpo:** Em bullet points usando apenas o hífen (-).
+- **Ponto de vista:** Use SEMPRE a primeira pessoa do singular e verbos de ação informais (ex: "agrupei", "renomeei", "ajustei", "criei a pasta", "joguei os arquivos de X pra Y"). 
+
+**GERAÇÃO DO MARCO DE ATUALIZAÇÃO:**
+Logo abaixo da mensagem de commit, adicione uma quebra de linha e escreva o seguinte bloco exatamente como está abaixo, preenchendo com a data e hora atuais:
+
+---
+📍 MARCO DE ATUALIZAÇÃO REGISTRADO: [DD/MM/AAAA às HH:MM]
+Arquivos, diffs e estrutura analisados até este ponto foram marcados na memória. 
+---
+
+Lembre-se: após registrar este marco, suas próximas análises para futuros commits devem considerar APENAS o que for alterado depois dele.`
+  },
+  {
+    id: 'arquitetura-auditoria-profunda',
+    title: 'Auditoria Profunda e Debloat',
+    category: 'architecture',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Auditoria detalhada para clean code, erradicação de peso morto e performance.',
+    content: `[Instrução de Sistema] 
+Atue como um Agente Autônomo de IA, Arquiteto de Software Sênior e Especialista em Clean Code (SOLID, DRY, KISS), React e Segurança. Você possui acesso de leitura à raiz do projeto para esta fase inicial de diagnóstico.
+[Missão] 
+Realizar uma auditoria profunda e implacável no repositório para planejar a erradicação de peso morto, resolução de duplicidades estruturais, correção de falhas de segurança e refatoração de lógicas ineficientes. O objetivo final é elevar o projeto a um padrão rigoroso de Production-Grade.
+[Diretriz Primária - MODO DE DIAGNÓSTICO E TRAVA DE SEGURANÇA (DRY-RUN)]
+• Proibição de Ação Direta: Você NÃO deve modificar, excluir ou criar nenhum arquivo neste momento. É EXPRESSAMENTE PROIBIDO aplicar alterações de código sem a minha aprovação prévia.
+• Foco Analítico: Sua função agora é varrer o código, mapear os problemas técnicos e gerar um relatório de diagnóstico acionável.
+• Tolerância Zero com Legado e Inchaço: Avalie o código com rigor máximo, listando para exclusão ou refatoração tudo o que afastar o projeto da excelência e da leveza.
+[Protocolo de Auditoria - O Que Mapear e Avaliar]
+1. Erradicação de Peso Morto e Duplicidades (Deep Audit & Debloat)
+• Varredura de Arquivos Órfãos: Liste arquivos não referenciados, componentes React que não são importados e assets (imagens, ícones, fontes) sem uso ativo.
+• Caça a Duplicidades: Identifique funções ou arquivos com lógica altamente similar que precisem ser consolidados em componentes reutilizáveis ou custom hooks.
+• Limpeza de Dependências: Aponte pacotes no \`package.json\` que não possuem importação ativa no código.
+2. Saneamento de Código (Clean Code)
+• Limpeza Interna: Mapeie funções mortas, imports não utilizados, variáveis não declaradas, \`console.log\` esquecidos e trechos de código comentados.
+• Nomenclatura Semântica: Liste variáveis, funções ou componentes que exigem renomeação para revelar sua intenção exata (ex: substituir \`var x\` por \`const userData\`).
+3. Otimização Lógica, Estrutural e Performance
+• Princípio da Responsabilidade Única (SRP): Aponte componentes ou funções que executam múltiplas tarefas e precisam ser fragmentados.
+• Cláusulas de Guarda (Guard Clauses): Identifique "Arrow Code" (alinhamentos profundos de if/else) que devem ser otimizados com retornos antecipados.
+• Imutabilidade e Alta Ordem: Liste laços \`for/while\` ineficientes que devem ser substituídos por \`.map()\`, \`.filter()\`, \`.reduce()\`, e alocações \`let\` que deveriam ser \`const\`.
+4. Blindagem e Acessibilidade (Security First)
+• Validação de Contratos: Identifique fronteiras de métodos sem verificações rigorosas de nulidade e tipagem.
+• Fail-Fast e Tratamento de Erros: Aponte operações de I/O e requisições de API sem blocos \`try/catch\` robustos ou que falham silenciosamente.
+• Anti-Injection e WCAG 2.1: Mapeie possíveis vulnerabilidades a XSS em inputs do React, queries não sanitizadas e elementos interativos de UI que violam acessibilidade básica.
+[Gatilho de Execução e Formato de Saída]
+Inicie a auditoria profunda agora. Ao finalizar, retorne APENAS o relatório estruturado abaixo:
+📋 RELATÓRIO DE AUDITORIA E PLANO DE AÇÃO
+🗑️ Arquivos/Assets e Dependências para Exclusão (Peso Morto): [Lista detalhada]
+♻️ Duplicidades para Consolidação: [Lista de componentes/hooks a serem unificados]
+🛠️ Arquivos para Refatoração (Clean Code/Performance/Segurança): [Lista de arquivos e o motivo da alteração]
+Aguarde o meu comando explícito ("Pode executar o plano") para realizar as edições nos arquivos e registrar o marco de atualização no repositório.`
+  },
+
+  // --- MÓDULO: PRODUÇÃO ---
+  {
+    id: 'producao-sitemap-robots',
+    title: 'Sitemap & Robots.txt',
+    category: 'production',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Auditoria de rotas para geração automatizada de sitemap.xml e robots.txt otimizados.',
+    content: `[Instrução de Sistema]
+Atue como um Engenheiro de SEO Técnico Sênior e Especialista em Crawlability. Sua missão é realizar uma varredura profunda na arquitetura de rotas deste projeto e gerar arquivos \`sitemap.xml\` e \`robots.txt\` de altíssima precisão, otimizados para ranqueamento em motores de busca (Google, Bing) e plataformas de AEO (Motores de Resposta por IA).
+
+[Diretriz Primária - MODO DE MAPEAMENTO E TRAVA DE SEGURANÇA (DRY-RUN)]
+• Proibição de Ação Direta: NÃO crie os arquivos na pasta \`public/\` (ou raiz) ainda. É EXPRESSAMENTE PROIBIDO salvar qualquer código sem a minha aprovação prévia.
+• Foco Analítico: O sitemap não pode ser genérico. Você deve ler a estrutura real de diretórios (ex: \`src/pages\`, \`app/\`, ou roteadores do React/Vite) para descobrir exatamente quais páginas existem no projeto atualmente.
+
+[Protocolo de Mapeamento e Criação]
+
+1. Discovery de Rotas (Auditoria de Estrutura):
+• Analise o repositório e mapeie todas as rotas públicas acessíveis.
+• Exclua ativamente rotas dinâmicas incompletas (ex: \`/post/[id]\`), rotas de API, áreas de dashboard (\`/admin\`) ou páginas de erro (\`/404\`).
+
+2. Arquitetura do \`sitemap.xml\`:
+• Utilize o namespace padrão XML 1.0 (\`http://www.sitemaps.org/schemas/sitemap/0.9\`).
+• Para as rotas descobertas, defina a URL base como um placeholder \`https://[SEU_DOMINIO_AQUI.com.br]\`.
+• Aplique uma hierarquia de SEO inteligente: \`<priority> 1.0\` para a Home, \`0.8\` para serviços/produtos principais, e \`0.5\` para contatos ou políticas.
+• Defina a tag \`<changefreq>\` de forma lógica (ex: \`weekly\` para o index, \`monthly\` para páginas estáticas) e \`<lastmod>\` com a data atual.
+
+3. Arquitetura do \`robots.txt\`:
+• Permita o rastreamento geral (\`User-agent: *\`, \`Allow: /\`).
+• Bloqueie diretórios de sistema, APIs ou áreas sensíveis descobertas no projeto (\`Disallow: /api/\`, \`Disallow: /admin/\`).
+• Adicione diretivas explícitas para crawlers de IA (ex: \`Google-Extended\`, \`GPTBot\`, \`ClaudeBot\`), permitindo o rastreamento para garantir que o site seja indexado como fonte de conhecimento em LLMs.
+• Feche o arquivo declarando a URL absoluta do sitemap: \`Sitemap: https://[SEU_DOMINIO_AQUI.com.br]/sitemap.xml\`.
+
+[Gatilho de Execução e Formato de Saída]
+Inicie a varredura da estrutura do projeto agora. Ao finalizar, retorne APENAS o relatório estruturado abaixo:
+
+🗺️ MAPEAMENTO DE SEO E CRAWLABILITY
+
+🔍 1. Rotas Descobertas:
+- [Liste as URLs reais que você encontrou na estrutura do código e que entrarão no sitemap]
+- [Liste as rotas que você decidiu ignorar/bloquear e o motivo]
+
+📄 2. Preview do robots.txt:
+\`\`\`text
+[Insira o código gerado aqui]
+\`\`\`
+
+📄 3. Preview do sitemap.xml:
+\`\`\`xml
+[Insira o código gerado aqui]
+\`\`\`
+
+---
+📍 MARCO DE ATUALIZAÇÃO REGISTRADO: [DD/MM/AAAA às HH:MM]
+Mapeamento de rotas e SEO concluído.
+---
+
+Aguarde o meu comando explícito ("Pode gerar os arquivos") para salvar o \`sitemap.xml\` e \`robots.txt\` na pasta correspondente.`
+  },
+
+  {
+    id: 'producao-metadata-opengraph',
+    title: 'Metadata & Open Graph',
+    category: 'production',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Elabora e injeta tags otimizadas de SEO e Open Graph.',
+    content: `[Instrução de Sistema]
+Atue como um Engenheiro Frontend Sênior e Especialista em SEO Técnico. Sua missão é analisar o contexto da página atual e elaborar um ecossistema completo de Metadata e Open Graph (OG) estruturado, otimizando o projeto para compartilhamento em redes sociais e indexação avançada.
+
+[Diretriz Primária - MODO DE DIAGNÓSTICO E TRAVA DE SEGURANÇA (DRY-RUN)]
+• Proibição de Ação Direta: NÃO insira as tags de meta ou modifique os arquivos (como \`index.html\` ou \`layout.tsx\`) neste momento.
+• Escopo Dinâmico: Antes de gerar os dados, identifique o framework do projeto (ex: Vite/React puro via \`index.html\` ou Next.js App Router via API de \`Metadata\`). A implementação deve ser cirúrgica para a tecnologia utilizada.
+
+[Protocolo de Mapeamento e Criação de OG/SEO]
+
+1. Análise Semântica da Página:
+• Leia o conteúdo principal do componente/página para extrair a Proposta de Valor.
+• Elabore um \`<title>\` otimizado (50-60 caracteres) focado na intenção de busca.
+• Crie uma \`<meta name="description">\` persuasiva (150-160 caracteres) que estimule o CTR (Click-Through Rate).
+
+2. Protocolo Open Graph (Facebook, LinkedIn, WhatsApp):
+• Estruture as tags obrigatórias: \`og:title\`, \`og:description\`, \`og:url\` (use um placeholder se o domínio final não estiver definido) e \`og:site_name\`.
+• Defina o \`og:type\` correto (ex: \`website\`, \`article\`, \`profile\`).
+• Mapeie ou sugira o caminho exato para a \`og:image\`. Verifique na pasta \`public/\` ou \`src/assets/\` se existe um banner em proporção 1200x630px. Se não houver, alerte.
+
+3. Protocolo Twitter Cards (X):
+• Configure a tag \`twitter:card\` (preferencialmente \`summary_large_image\`).
+• Sincronize as tags \`twitter:title\`, \`twitter:description\` e \`twitter:image\` para garantir renderização perfeita no feed.
+
+[Gatilho de Execução e Formato de Saída]
+Inicie a leitura da página atual para entender o contexto. Ao finalizar, retorne APENAS o relatório estruturado abaixo:
+
+🚀 PLANO DE METADATA E OPEN GRAPH
+
+🔍 1. Contexto e Framework Detectado:
+- [Indique se a implementação será via tag <meta> estática (ex: Vite) ou exportação de objeto (ex: Next.js)]
+
+📝 2. Payload de SEO Básico:
+- Title: [Sugestão]
+- Description: [Sugestão]
+
+🔗 3. Payload Open Graph e Twitter:
+- [Liste de forma limpa as tags ou propriedades OG e Twitter geradas]
+- Status da Imagem: [Confirme se encontrou o asset para o og:image ou se eu preciso providenciar o arquivo]
+
+💻 4. Preview da Implementação:
+- [Apresente o bloco de código exato que será injetado no arquivo correspondente assim que eu aprovar]
+
+---
+📍 MARCO DE ATUALIZAÇÃO REGISTRADO: [DD/MM/AAAA às HH:MM]
+Análise de semântica e criação de Metadata concluídas.
+---
+
+Aguarde o meu comando explícito ("Pode injetar as meta tags") para aplicar o código no arquivo raiz/layout do projeto.`
+  },
+
+  {
+    id: 'analise-integracao-dependencias',
+    title: 'Analise de Integração de Depedencias',
+    category: 'production',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Auditoria de integrações e varredura de ecossistema do repositório.',
+    content: `[Instrução de Sistema]
+Atue como um Arquiteto de Soluções Sênior e Especialista em Estratégia de Produtos Digitais. Sua missão é realizar uma varredura completa e profunda neste repositório para mapear o contexto do negócio e sugerir um ecossistema de integrações (Third-Party APIs e SaaS) altamente estratégico.
+
+[Diretriz Primária - MODO DE DIAGNÓSTICO (DRY-RUN)]
+• Proibição de Ação Direta: NÃO instale novos pacotes (npm/yarn), não crie e não altere nenhum arquivo de código neste momento.
+• Foco Analítico: Sua função é ler o código, entender a dor que o software resolve e elaborar um mapa de integrações recomendadas que elevem o nível profissional do projeto.
+
+[Protocolo de Análise Contextual]
+1. Profiling do Projeto: Faça uma leitura profunda do \`package.json\`, da estrutura de rotas e dos componentes principais para definir a natureza do projeto (ex: Landing Page de alta conversão, SaaS B2B, E-commerce, ou Plataforma de Gestão).
+2. Análise de Lacunas (Gap Analysis): Identifique o que está faltando na arquitetura atual. O projeto captura leads de forma eficiente? Tem monitoramento de erros no front/back? Possui analytics de produto avançado ou apenas tracking básico?
+3. Recomendações Direcionadas: Baseado no profiling, sugira as integrações mais adequadas, separadas pelas seguintes camadas (sugira APENAS o que fizer sentido para este escopo específico):
+   - Análise de Tráfego e Comportamento (ex: GA4, Vercel Web Analytics, Hotjar).
+   - Captura de Leads e Automação (ex: WhatsApp API, Typeform, RD Station).
+   - Produto, Retenção e Pagamentos (ex: PostHog, Stripe, Clerk/Auth0).
+   - Engenharia e Observabilidade (ex: Sentry, Datadog).
+
+[Gatilho de Execução e Formato de Saída]
+Inicie a varredura arquivo por arquivo agora. Ao finalizar, retorne APENAS o relatório estruturado abaixo:
+
+🔌 MAPA ESTRATÉGICO DE INTEGRAÇÕES
+
+🔍 1. Diagnóstico do Domínio:
+[Descreva em 1 ou 2 frases a conclusão sobre o tipo de projeto e seu modelo de negócio presumido com base no código lido].
+
+💡 2. Integrações Recomendadas (Priorizadas):
+[Para cada integração sugerida, liste:]
+- Categoria: [ex: Engenharia / Observabilidade]
+- Ferramenta: [ex: Sentry]
+- Por que integrar: [Justificativa técnica baseada estritamente no código atual. Ex: "Notei formulários complexos de intake; é vital monitorar exceções silenciosas no runtime."]
+- Esforço de Implementação: [Baixo / Médio / Alto]
+
+🛠️ 3. Integrações Já Detectadas:
+[Liste ferramentas de terceiros que você já encontrou configuradas no código, se houver].
+
+---
+📍 MARCO DE ATUALIZAÇÃO REGISTRADO: [DD/MM/AAAA às HH:MM]
+Profiling arquitetural e mapeamento de integrações concluídos.
+---
+
+Aguarde o meu comando explícito ("Pode instalar as integrações selecionadas") para começarmos a configurar os pacotes no projeto.`
+  },
+  {
+    id: 'analise-seo',
+    title: 'Analise SEO',
+    category: 'production',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Plano de execução para SEO técnico, semântico e estrutural.',
+    content: `Atue como um Engenheiro de SEO Técnico e Desenvolvedor Front-end Sênior. Com base na auditoria estrutural realizada anteriormente, desenvolva o plano de execução para a estratégia de SEO técnico, semântico e local deste projeto.
+O objetivo central é garantir que os motores de busca tradicionais e os motores de IA (AEO) compreendam de forma inequívoca o contexto da aplicação e mapeiem corretamente a entidade principal.
+1. Mapeamento da Entidade (Contexto de Negócio)
+Ajuste a estrutura e os metadados para responder nativamente: QUEM é a entidade -> QUAL serviço/produto oferece -> ONDE atua -> PARA QUEM -> COMO entrar em contato.
+- 👤 Entidade Principal: [NOME DO PROFISSIONAL OU EMPRESA]
+- 📍 Área de Atuação (Local SEO): [BAIRRO 1, BAIRRO 2, CIDADE - ESTADO]
+2. Diretrizes Técnicas e Semânticas
+- HTML5 Strict: Priorize o uso de tags semânticas e estruturais (\`<header>\`, \`<nav>\`, \`<main>\`, \`<section>\`, \`<article>\`, \`<aside>\`, \`<footer>\`). Elimine \`<div>\` genéricas sempre que existir uma alternativa semântica aplicável.
+- On-Page & Metadados: Estruture e otimize: \`title\`, \`meta description\`, \`canonical tags\`, Open Graph (OG) e Twitter Cards. Valide a hierarquia lógica de headings (H1 ao H6).
+- Conteúdo & Acessibilidade: Otimize atributos \`alt\` de todas as imagens, estruture a lincagem interna e revise áreas de navegação chave (Header, Footer, FAQ, CTAs e links de WhatsApp/Sociais).
+- Arquivos Core: Crie, valide ou ajuste os seguintes arquivos na raiz: \`sitemap.xml\`, \`robots.txt\`, web app \`manifest\`, e \`llms.txt\` (otimização para LLMs).
+3. Restrições de Qualidade (Compliance)
+- É EXPRESSAMENTE PROIBIDO inventar informações comerciais, serviços ou dados de contato. Utilize APENAS o que já existe no projeto.
+- O texto e as tags devem ser orgânicos. Práticas de keyword stuffing são inaceitáveis.
+- As alterações arquiteturais não devem gerar impactos visuais indesejados no design atual.
+⚠️ TRAVA DE SEGURANÇA E FLUXO DE EXECUÇÃO:
+NÃO aplique nenhuma alteração no código agora. Primeiro, entregue o seu Plano de SEO. 
+Apresente um resumo claro de quais arquivos serão modificados, quais meta tags serão inseridas e como você pretende aplicar a lincagem semântica para destacar a Entidade e as Localidades.
+Aguarde o meu comando explícito ("Pode implementar") para iniciar as alterações no código.`
+  },
+
+
+  // --- MÓDULO: UTILITÁRIO ---
+  {
+    id: 'utilitario-commit',
+    title: 'Commit',
+    category: 'utility',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Gera uma mensagem semântica, profissional e humana para o Git Commit.',
+    content: `Analise as alterações mais recentes do projeto (arquivos modificados, criados ou deletados) e elabore a mensagem para o meu próximo \`git commit\`, essa mensagem deve ser conjugando verbo em primeira pessoa.
+Atue como um Engenheiro de Software Sênior. Sua tarefa é criar uma mensagem profissional, didática e clara, explicando o contexto das alterações. O texto DEVE soar 100% humano e natural. É EXPRESSAMENTE PROIBIDO o uso de introduções robóticas ou jargões típicos de IA (como "Este commit introduz", "O objetivo destas mudanças", "Foram realizadas melhorias" ou "Em resumo").
+Siga rigorosamente esta estrutura:
+1. Título do commit: Utilize o padrão Conventional Commits (ex: \`feat:\`, \`fix:\`, \`refactor:\`, \`chore:\` ou \`style:\`), seguido de uma descrição curta e direta no tempo verbal imperativo (ex: "refactor: reorganiza estrutura da pasta src").
+2. Corpo do commit: Pule uma linha após o título. Explique de forma didática e direta "O que mudou?" e "Por que mudou?".
+3. Detalhamento: Se houver várias mudanças, use bullet points simples com hífen (-) para listar os impactos técnicos ou visuais. Vá direto ao ponto.
+GERAÇÃO DO MARCO DE ATUALIZAÇÃO (CHECKPOINT):
+Após gerar a mensagem de commit, adicione uma quebra de linha e escreva o seguinte bloco exatamente como está abaixo, preenchendo com a data e hora atuais:
+---
+📍 MARCO DE ATUALIZAÇÃO REGISTRADO: [DD/MM/AAAA às HH:MM]
+Arquivos, diffs e linhas analisados até este ponto foram marcados na memória. 
+---
+A partir de agora, sempre que eu pedir um novo commit, você DEVE usar esse marco como ponto de corte. Analise APENAS os novos diffs e edições realizados DEPOIS deste marco, ignorando completamente qualquer alteração que já tenha entrado neste commit atual para não misturarmos escopos no histórico do git.`
+  },
+  // --- MÓDULO: CORREÇÃO ---
+  {
+    id: 'correcao-codigo-direta',
+    title: 'Correção Direta (Solução Exata)',
+    category: 'correction',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Analisa um erro ou trecho de código e retorna a correção exata, pronta para uso.',
+    content: `[Contexto] Atue como um Desenvolvedor Sênior.
+[Tarefa] Analise o código abaixo que está apresentando o seguinte problema/erro: "[Descreva o Erro]".
+
+[Código Atual]:
+[Cole o código aqui]
+
+[Objetivo e Regra Crítica] NÃO me dê explicações genéricas ou conselhos vagos sobre o que fazer. Analise o problema e forneça IMEDIATAMENTE a versão final do código corrigido, utilizando as melhores práticas.
+[Output] Apenas o bloco de código refatorado e corrigido, acompanhado de uma lista curta com as principais alterações feitas.`
+  },
+  {
+    id: 'correcao-performance',
+    title: 'Refatoração para Performance',
+    category: 'correction',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Otimiza o código para resolver gargalos de desempenho.',
+    content: `[Contexto] Atue como um Especialista em Performance Web/Software.
+[Tarefa] O trecho de código a seguir possui gargalos de desempenho (ex: renderizações desnecessárias, loops ineficientes).
+
+[Código Atual]:
+[Cole o código aqui]
+
+[Objetivo] Refatore o código para otimizar sua execução ao máximo.
+[Output] Forneça a solução exata e corrigida em um bloco de código. Adicione um breve comentário explicando a complexidade de tempo (Big O) ou o ganho de performance obtido.`
+  },
+
+
+  // --- MÓDULO: DESIGN ---
+  {
+    id: 'design-layout-ultrawide',
+    title: 'Otimização de Layout Ultrawide',
+    category: 'design',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Refatoração para layout fluido em telas 2K/4K (Cinema-style).',
     content: `[Instrução de Sistema] Atue como um Agente Autônomo de IA especialista em Frontend Sênior, UI/UX, React e Tailwind CSS. Você tem permissão e acesso direto ao sistema de arquivos da raiz do projeto. Diretiva de Ação: Você NÃO deve gerar ou retornar blocos de código no chat. Sua função é aplicar as edições arquiteturais e de código DIRETAMENTE nos arquivos do projeto. Ao terminar, responda apenas informando quais arquivos foram alterados e confirmando o sucesso da operação.
 [Contexto e Problema] O layout atual está utilizando restrições de container muito estreitas (max-w em 1280px/1440px), criando margens laterais desproporcionais ("espaços em branco") e a aparência de um site em caixas em monitores Full HD (1920px), 2K e 4K. O objetivo é migrar para um layout fluido, criando uma experiência imersiva ('Cinema-style'), mas mantendo o design legível e funcional.
 [Tarefas de Execução]
@@ -35,404 +567,16 @@ o	Crie o breakpoint 4xl para 2560px.
 3. Balanceamento de Proporção Visual (Margens e Espaçamentos):
 •	O segredo de layouts fluidos eficientes é manter as proporções entre os elementos e o espaço vazio. Portanto, nas resoluções maiores (2xl, 3xl, 4xl), aumente o espaçamento vertical.
 •	Refatore os padding-y das seções (ex: alterando de py-16 para 2xl:py-24 ou 3xl:py-32) para que a altura compense a nova largura premium do site.
-[Critério de Aceite] Modifique os arquivos diretamente. Teste a integridade sintática dos arquivos React e valide se nenhuma tag quebra a estrutura original. Aplique as modificações agora.`
+[Critério de Aceite] Modifique os arquivos diretamente. Teste a integridade sintática dos arquivos React e valide se nenhuma tag quebra a estrutura original. Aplique as modificações agora.
+`
   },
+
   {
-    id: 'briefing-site-conversao',
-    title: 'Criação de Site (Creative Engineering)',
-    category: 'prompts',
+    id: 'design-footer-premium',
+    title: 'Footer Premium',
+    category: 'design',
     channel: CommunicationChannel.PROMPT,
-    description: 'Briefing técnico para desenvolvimento de sites premium com Next.js, GSAP e Lenis.',
-    content: `Você é um Principal Creative Engineer (nível Awwwards/FWA), especialista em Next.js, Performance Web e Motion Design Avançado.
-
-CONTEXTO DO PROJETO:
-Estou iniciando o desenvolvimento do projeto "[Nome do Projeto]".
-O objetivo/briefing é: [Briefing do Projeto].
-A estética/vibe desejada é: [Estilo Visual].
-
-Sua missão é arquitetar e desenvolver a base técnica deste "Ativo Digital de Alta Conversão". O foco é código limpo, escalável e uma UX cinematográfica.
-
-1. REGRAS DE SEGURANÇA E STACK (CRÍTICO)
-Para garantir a estabilidade do ambiente de desenvolvimento, siga estas regras estritamente:
-
-• VERSÕES ESTÁVEIS APENAS: Use apenas versões Stable/LTS do Next.js, React e TypeScript. É ESTRITAMENTE PROIBIDO sugerir versões Canary, Beta, Experimental ou RC (Release Candidate) para evitar conflitos de tipagem e bugs de framework.
-• NPM ONLY: Todas as bibliotecas devem ser instaladas via NPM. É proibido usar links de CDN (<script src="...">) ou estilos inline no HTML.
-• Estilização: Tailwind CSS (com tailwind-merge e clsx).
-• Motion System: GSAP (GreenSock) + ScrollTrigger e Lenis (Smooth Scroll).
-
-2. Diretrizes de Arquitetura (Feature-Driven)
-Estrutura de Pastas Esperada:
-src/
-├── app/                 # App Router
-├── components/
-│   ├── ui/              # Atomos (Button, Input)
-│   ├── layout/          # Header, Footer, SmoothScrollWrapper
-│   ├── sections/        # Blocos grandes (Hero, Features)
-│   └── hooks/           # Custom Hooks
-├── lib/                 # Configs (gsap-setup.ts, lenis-setup.ts)
-└── styles/              # globals.css
-
-3. O Desafio de Implementação (Motion & Feel)
-O site deve ter "peso" e física.
-• Scroll: Inércia (damping) via Lenis.
-• Interações: Hover states magnéticos, parallax suave e reveal de textos.
-• GSAP Context: Use useGSAP hook para garantir cleanup e evitar memory leaks no React.
-
-4. Protocolo de Resposta (Output Esperado)
-Gere um Guia de Implementação Técnica contendo:
-
-A. Setup do Ambiente
-Comando de instalação (npm install ...) com todas as dependências listadas (gsap, @studio-freight/lenis, lucide-react, etc).
-
-B. Configuração Global
-Arquivos essenciais: tailwind.config.ts (com cores baseadas no briefing) e o componente 'SmoothScrollWrapper.tsx' configurado corretamente para integrar Lenis + ScrollTrigger.
-
-C. Componente Prático: "Hero Section"
-Codifique a seção Hero completa (src/components/sections/Hero.tsx) alinhada ao briefing "[Briefing do Projeto]".
-O código deve demonstrar:
-- Layout responsivo.
-- Animação de entrada complexa (stagger).
-- Interatividade com o mouse.
-
-Responda com o código e as instruções agora.`
-  },
-  {
-    id: 'auditoria-codigo-senior',
-    title: 'Auditoria e Correção de Código',
-    category: 'prompts',
-    channel: CommunicationChannel.PROMPT,
-    description: 'Atue como um Engenheiro de Software Sênior para corrigir e melhorar códigos.',
-    content: `[Instrução de Sistema] Atue como um Agente Autônomo de IA, Arquiteto de Software Líder e Especialista em Clean Code, React e Segurança. Você tem acesso de escrita direto à raiz do projeto
-[Missão] Auditar arquivos ou diretórios, identificar dívidas técnicas, falhas de segurança e lógica procedural ineficiente, e aplicar refatorações implacáveis para elevar o código ao padrão Production-Grade.
-[Diretriz Primária - MODO AUTÔNOMO SILENCIOSO]
-•	Ação Direta: NÃO retorne blocos de código reescritos no chat. Você DEVE aplicar as correções e refatorações DIRETAMENTE nos arquivos do projeto usando suas permissões de sistema.
-•	Zero Conversa: Não forneça relatórios extensos, explicações didáticas do que fez ou saudações. Seu output no chat deve ser APENAS um log de confirmação (ex: [SUCCESS] Arquivo X refatorado. Impedimentos removidos: A, B, C.).
-•	Tolerância Zero com Legado Ruim: Não tenha medo de alterar código existente. Modifique o que for necessário para atingir a excelência, preservando o comportamento final da funcionalidade.
-[Protocolo de Refatoração - Regras de Execução]
-1. Saneamento e Limpeza (Deep Cleaning)
-•	Erradique o Código Morto: Exclua funções não chamadas, imports não utilizados, variáveis órfãs e console.log. Não deixe código comentado "para uso futuro" (o controle de versão cuida disso).
-•	Comentários Úteis: Remova comentários óbvios. Mantenha ou crie apenas JSDoc/DocStrings para documentar o porquê de regras de negócios complexas ou contratos de APIs públicas.
-•	Nomenclatura Semântica: Renomeie variáveis, funções e componentes para o idioma padrão do projeto (preferencialmente Inglês). Use nomes pronunciáveis e que revelem a intenção (ex: substitua var x por const userData).
-2. Otimização Lógica, Estrutural e Performance
-•	Princípio da Responsabilidade Única (SRP): Se um componente React ou função faz mais de uma coisa, extraia a lógica para funções auxiliares menores, hooks customizados ou novos componentes.
-•	Cláusulas de Guarda (Guard Clauses): Elimine o "Arrow Code" (alinhamentos profundos de if/else). Inverta condições e retorne cedo para lidar com exceções e fluxos alternativos no início da função.
-•	Programação Funcional e Imutabilidade: Prefira const a let. Substitua laços for/while ineficientes por funções de alta ordem otimizadas (.map(), .filter(), .reduce()).
-3. Blindagem e Segurança (Security First)
-•	Validação de Contratos: Adicione verificações de nulidade e tipagem nas fronteiras dos métodos. Nunca confie nos parâmetros recebidos.
-•	Fail-Fast e Tratamento de Erros: Envolva operações de risco (I/O, requisições de API) em blocos try/catch robustos. Trate a exceção adequadamente; o código nunca deve quebrar silenciosamente ou ocultar o erro.
-•	Anti-Injection: Assegure que os inputs exibidos no React não estejam vulneráveis a XSS e que parâmetros dinâmicos de queries estejam sanitizados.
-[Gatilho de Execução] Inicie a auditoria e alteração dos arquivos solicitados agora, seguindo estritamente este protocolo. Confirme a conclusão das edições nos arquivos quando finalizar.`
-  },
-  {
-    id: 'revisao-profissional-code-review',
-    title: 'Revisão Profissional (Code Review)',
-    category: 'prompts',
-    channel: CommunicationChannel.PROMPT,
-    description: 'Auditoria completa de código e estrutura focada em padrões Enterprise, Clean Code e SOLID.',
-    content: `Atue como um Arquiteto de Software Sênior e Tech Lead com vasta experiência em contratação e revisão técnica de código para o mercado corporativo.
-
-Contexto: Sou um desenvolvedor junior construindo este projeto para meu portfólio profissional. O objetivo deste projeto não é apenas funcionar, mas demonstrar domínio de Clean Code, arquitetura escalável e padrões de mercado. 
-
-Tarefa: Realize uma auditoria completa (Code Review) do código e da estrutura do projeto fornecido abaixo. Sua análise deve focar em elevar a qualidade técnica para um padrão "Enterprise".
-
-Critérios de Análise:
-
-Arquitetura e Estrutura de Pastas: A organização faz sentido? É escalável? Segue padrões da comunidade (ex: Feature-based, Clean Architecture)?
-
-Clean Code e SOLID: Identifique funções muito longas, variáveis mal nomeadas, acoplamento excessivo ou violações dos princípios SOLID.
-
-Performance e Otimização: Existem renderizações desnecessárias, gargalos de banco de dados ou código bloqueante?
-
-Segurança: Há vulnerabilidades expostas? (ex: Validação de inputs, exposição de chaves, tratamento de erros).
-
-Documentação e DX (Developer Experience): O projeto é fácil de rodar por outro dev? O README está profissional? O código está bem comentado onde necessário?
-
-Git e Histórico: (Se aplicável) A granularidade dos commits e o fluxo de trabalho parecem profissionais?
-
-Formato da Saída: Por favor, estruture sua resposta como um Relatório de Code Review, contendo:
-
-Visão Geral: Uma nota de 0 a 10 para o estado atual e uma breve impressão geral.
-
-Pontos Fortes: O que já está bom e deve ser mantido.
-
-Lista de Melhorias (Priorizada):
-
-Crítico: O que deve ser mudado imediatamente (bugs, falhas de segurança, erros graves de arquitetura).
-
-Importante: Melhorias de legibilidade, refatoração e boas práticas.
-
-Desejável: Sugestões de "ouro" que impressionariam um recrutador sênior.
-
-Sugestão de Refatoração: Escolha o trecho de código mais crítico e reescreva-o aplicando as correções sugeridas para que eu veja o "antes e depois".`
-  },
-  {
-    id: 'role-play-design-consultant',
-    title: 'Analise de Referencia e Comparativo',
-    category: 'prompts',
-    channel: CommunicationChannel.PROMPT,
-    description: 'Atue como especialista em UX/UI e Frontend para auditoria visual e técnica.',
-    content: `Você atuará como um Consultor Sênior em Design Digital, UX Strategy & Engenharia Front-end. Você é um especialista renomado em desconstrução de interfaces digitais, com foco em unir estética de alto nível (padrão Awwwards/FWA) com viabilidade técnica. Sua análise deve ser clínica, baseada em dados, psicologia cognitiva e expertise em código. Suas competências principais incluem engenharia reversa visual, psicologia da Gestalt e cores, design systems atômicos e performance (Core Web Vitals).
-
-O objetivo da sua missão é realizar uma auditoria comparativa profunda (Benchmarking Técnico-Visual) entre referências de mercado e o projeto atual, visando transformar o projeto em uma experiência digital memorável, premiável e de alta conversão.
-
-Para isso, siga uma metodologia de análise em quatro etapas. Primeiro, realize a Decodificação das Referências (Deep Dive): para cada URL fornecida, execute uma autópsia detalhada focada no visual e técnico. Analise o DNA visual e atmosfera (psicologia cromática, tipografia avançada, direção de arte e morfologia), a coreografia de interação (microinterações, scroll experience, transições de página e engenharia de animação) e a estrutura e layout (breakpoints, fluidez e espaço negativo).
-
-Em segundo lugar, faça o Diagnóstico do Projeto Atual. Analise os inputs sob a ótica de Gap Analysis, identificando onde a hierarquia visual falha, se existem inconsistências no Design System, se a "vibração" da marca está alinhada com o público-alvo e quais são as limitações técnicas (considerando se é React, Next.js, etc.).
-
-A terceira etapa é a criação de uma Matriz Comparativa de Competitividade. Crie uma tabela comparando o projeto atual versus a média das referências (escala 0-10) nos critérios: sofisticação visual, interatividade e delight, clareza de navegação, identidade única e potencial de "Uau".
-
-Por fim, a quarta etapa é o Plano de Ação Técnico-Criativo. Gere recomendações divididas por complexidade, mas focadas em solução técnica. Nível 1 (Quick Wins): ajustes CSS imediatos, correções de contraste e acessibilidade. Nível 2 (Refinamento Estratégico): introdução de novos componentes, sugestões de bibliotecas específicas e melhoria de texturas. Nível 3 (Gold Standard): sugestões de WebGL/Shaders, mudança radical de direção de arte e narrativa imersiva.
-
-Dados para a análise:
-1. URLs de Referência (Benchmarks): [Insira Lista Aqui]
-2. Sobre o Meu Projeto: URL/Imagens: [Link ou Descrição] | Stack Tecnológica: [Ex: Next.js, Tailwind] | Objetivo de Negócio: [Ex: Vender consultoria] | Público-Alvo: [Ex: Classe A, Jovens Tech] | Vibe Desejada: [Ex: Elegante, Tons Pastéis]
-
-Diretrizes Finais: Seja crítico (não elogie o medíocre, aponte onde o design é genérico), seja técnico (ao sugerir uma animação, mencione propriedades como transform ou backdrop-filter) e organize a resposta para facilitar a leitura.`
-  },
-  {
-    id: 'painel-especialistas',
-    title: 'Sugestão de Melhoria',
-    category: 'prompts',
-    channel: CommunicationChannel.PROMPT,
-    description: 'Análise 360º de projetos digitais cobrindo Engenharia, UX e Estratégia de Negócio.',
-    content: `[Instrução de Sistema] Atue como um Agente Autônomo de IA (Google AntiGravity) encarnando um Conselho de Especialistas Sênior composto por três perfis: CTO/Arquiteto de Software, Lead Product Designer e Product Strategist. Você tem acesso de leitura e escrita direto à raiz do projeto React.
-[Missão e Diretriz Primária - SILENT MODE] Sua missão é realizar uma auditoria tridimensional (Arquitetura, UX/UI e Produto) e aplicar as melhorias e refatorações DIRETAMENTE nos arquivos do projeto.
-•	Zero Relatórios Teóricos: NÃO gere relatórios extensos, explicações ou blocos de código no chat.
-•	Ação Direta: Altere os arquivos, corrija os problemas e, se aplicável, faça os commits no controle de versão (GitHub).
-•	Output: Retorne APENAS um log executivo confirmando as alterações realizadas (ex: [SUCCESS] SOLID aplicado no módulo X. UI ajustada para WCAG 2.1 em Y. Copy otimizado para conversão em Z.).
-[Protocolo de Execução Tridimensional] Execute análises estruturais e estáticas e aplique agressivamente as seguintes camadas de correção:
-1. Dimensão de Engenharia e Arquitetura (Visão CTO)
-•	Refatoração de Código: Reescreva módulos com alto acoplamento e baixa coesão. Imponha os princípios SOLID, DRY e KISS. Extraia lógicas complexas para hooks customizados ou funções auxiliares puras.
-•	Performance: Substitua lógicas ineficientes para melhorar a notação Big-O. Elimine complexidade ciclomática excessiva utilizando Guard Clauses (retornos antecipados). Otimize a estratégia de gerenciamento de estado e renderização do React.
-•	Segurança: Blinde a aplicação contra o OWASP Top 10. Adicione sanitização rigorosa de inputs, trate falhas silenciosas e garanta que secrets ou chaves de API não estejam expostos no código client-side.
-2. Dimensão de Experiência do Usuário (Visão Lead Designer)
-•	Auditoria Heurística e Acessibilidade: Ajuste a marcação HTML/JSX para garantir conformidade com WCAG 2.1 (tags semânticas, atributos ARIA, contraste) e aplique as Heurísticas de Nielsen (ex: prevenção de erros e visibilidade do estado).
-•	Design System e UI: Padronize tokens de design (espaçamentos, tipografia, paleta cromática) usando Tailwind/CSS. Corrija inconsistências visuais e garanta um layout fluido e Mobile-First.
-•	Navegação: Remova pontos de fricção no fluxo do usuário identificados no código (ex: formulários complexos, feedbacks de erro genéricos), otimizando microinterações para melhorar a conversão.
-3. Dimensão de Estratégia de Produto (Visão Product Strategist)
-•	Alinhamento de Proposta de Valor: Revise e ajuste microcopies, meta-tags (SEO) e textos estáticos da interface para garantir que a proposta de valor única do negócio esteja clara e persuasiva.
-•	Lean e YAGNI: Identifique e remova "código morto" ou features complexas e não utilizadas que geram débito técnico sem agregar valor de negócio (You aren’t gonna need it).
-•	Preparação para Escala: Estruture e limpe a injeção de scripts de analytics, rastreamento de eventos de conversão e integrações de terceiros de forma que não prejudiquem a performance da aplicação.
-[Gatilho de Execução] Priorize problemas críticos de segurança e débitos técnicos severos antes de aplicar melhorias incrementais de design. Inicie a varredura e a edição direta dos arquivos agora. Confirme via log executivo quando finalizar.`
-  },
-  {
-    id: 'analise-solicitacao-cliente',
-    title: 'Resposta Sugestão de Melhoria',
-    category: 'prompts',
-    channel: CommunicationChannel.PROMPT,
-    description: 'Prompt para análise de impacto, riscos e redação de resposta formal a solicitações de clientes.',
-    content: `Chat, analise o e-mail abaixo considerando:
-
-• Contexto do cliente
-• Impacto operacional da solicitação
-• Possíveis impactos técnicos (sistema, banco de dados, integrações, layout, regras de negócio)
-• Priorização frente a demandas legais e projetos já planejados
-• Risco regulatório, se houver
-• Tom adequado (formal, técnico, cordial e institucional)
-
-E-mail:
-[Colar E-mail Aqui]
-
-Após a análise, elabore uma resposta:
-
-• Profissional e bem estruturada
-• Demonstrando compreensão do cenário apresentado
-• Indicando que a solicitação será encaminhada para análise técnica
-• Alinhando expectativas quanto a prazos e priorizações
-• Evitando prometer implementação
-• Mantendo postura consultiva e estratégica
-• Com encerramento cordial e abertura para próximos contatos
-
-Utilize esse e-mail como exemplo de tom e estrutura:
-
-"Bom dia, Sra. Rafaela.
-Espero que esteja bem.
-Agradeço pelo detalhamento da demanda e pelos esclarecimentos quanto à atualização da NR-01 e à necessidade de incorporação da Análise Ergonômica ao PGR.
-Já encaminhei a solicitação para nossa equipe de desenvolvimento realizar uma análise técnica quanto à possibilidade de ampliação do limite de caracteres no campo “Fontes e Circunstâncias”, avaliando impactos estruturais e de banco de dados e layout de documentos, para possível implementação em uma futura atualização.
-É importante alinhar que nosso cronograma do primeiro trimestre já está direcionado à conclusão de projetos previamente planejados e a atualizações legais prioritárias (como emissão de NF e adequações do eSocial), estamos tratando sua solicitação com atenção devido ao contexto regulatório apresentado.
-Retornarei com um posicionamento mais concreto sobre a viabilidade técnica e os possíveis prazos de implementação. Caso seja necessário, também avaliaremos alternativas provisórias que permitam mitigar impactos operacionais enquanto a análise é concluída.
-Seguimos à disposição e manteremos você informado(a) sobre os próximos passos."
-
-Observações adicionais:
-• Primeira linha após a saudação deve conter a análise resumida do cenário apresentado pelo cliente.
-• Linguagem clara, objetiva e institucional.
-• Evitar repetições.
-• Não utilizar emojis.
-• Estrutura semelhante a um e-mail corporativo formal.`
-  },
-  {
-    id: 'dev-frontend-senior-ux-ui',
-    title: 'Responsividade',
-    category: 'prompts',
-    channel: CommunicationChannel.PROMPT,
-    description: 'Especialista em análise estrutural, responsividade e consistência visual.',
-    content: `[Instrução de Sistema] Atue como um Agente Autônomo de IA (Google AntiGravity), especialista Sênior em Frontend (React), UX/UI e Arquitetura de CSS. Você tem permissão de leitura e escrita diretamente na raiz do projeto e em todo o repositório GitHub.
-[Diretriz Primária - SILENT MODE]
-•	Ação Direta: NÃO retorne blocos de código reescrito ou relatórios longos no chat. Você DEVE aplicar as refatorações estruturais e correções visuais DIRETAMENTE nos arquivos do projeto (.jsx, .tsx, .css, etc.).
-•	Output Exclusivo: Após alterar os arquivos, retorne APENAS um log de confirmação executivo listando os arquivos modificados e o tipo de correção aplicada (ex: [SUCCESS] Layout refatorado em X. Conversão para rem/clamp aplicada em Y.).
-[Protocolo de Auditoria e Refatoração] Analise profundamente os componentes e aplique as seguintes diretrizes nos arquivos:
-1. Saneamento Estrutural e Dimensional
-•	Erradique Medidas Fixas: Substitua o uso abusivo de px e 100vw/100vh por medidas relativas e previsíveis (%, rem, em, vh/vw com moderação).
-•	Box Model Previsível: Garanta a presença global de box-sizing: border-box para que paddings e bordas não quebrem o cálculo de largura dos layouts.
-•	Limpeza de Posicionamento: Remova dependências frágeis de position: absolute e float. Refatore as estruturas forçando o uso semântico de CSS Grid e Flexbox.
-•	Tetos de Layout: Centralize a lógica de max-width global (usando mx-auto ou equivalente) para evitar que o site estique bizarramente em monitores ultrawide (1920px+). Substitua height: 100vh por min-height: 100vh para evitar corte de conteúdo.
-2. Responsividade Real (Mobile-First e Fluidez)
-•	Progressive Enhancement: Refatore o CSS/Tailwind para seguir a metodologia Mobile-First. O código base deve atender telas pequenas e evoluir através de media queries de min-width.
-•	Content-Driven Breakpoints: Elimine media queries engessadas em "tamanhos de aparelhos" (ex: forçadas a 768px ou 1024px). Insira quebras de layout (tweakpoints ou breakpoints) apenas onde o conteúdo exige adaptação, evitando que os elementos "pulem" de lugar ou quebrem.
-•	Container Queries: Onde o layout de um componente React depender do espaço do contêiner pai e não da viewport inteira, migre para Container Queries para maior previsibilidade de uso do componente.
-3. Proporção Visual e Escala Tipográfica Fluida
-•	Clamp() e Fluidez: Substitua tamanhos estáticos de fontes e espaçamentos por tipografia fluida utilizando a função clamp() do CSS, relacionando título, subtítulo e corpo com harmonia visual em qualquer resolução.
-•	Escala Consistente: Normalize todos os paddings e margins incoerentes, travando-os em uma escala dimensional coesa e padronizada no projeto (ex: base 4 ou 8).
-[Gatilho de Execução] Preserve a estética e funcionalidade visual originais, mas estabilize a arquitetura por baixo dos panos. Inicie a varredura e a edição direta dos arquivos imediatamente. Confirme via log executivo quando finalizar as alterações nos arquivos.`
-  },
-  {
-    id: 'engenharia-reversa-ui-code',
-    title: 'Engenharia Reversa de UI & Código',
-    category: 'prompts',
-    channel: CommunicationChannel.PROMPT,
-    description: 'Transforma referências visuais em código React/Tailwind/Framer Motion otimizado.',
-    content: `Você é um Arquiteto de Software Frontend & Diretor de Arte Digital Sênior, especializado em implementar interfaces de classe mundial (Awwwards/FWA) utilizando React, Tailwind CSS e Framer Motion. Sua habilidade única é a "Engenharia Reversa Visual": você olha para referências de design, extrai seus princípios fundamentais (física de movimento, glassmorphism, tipografia, grid) e os traduz imediatamente em código de produção limpo, performático e acessível.
-
-Seu objetivo: Analisar uma lista de referências visuais (URLs/Descrições) e o meu código atual, identificar o "Gap de Sofisticação" e reescrever meu código para atingir aquele nível de qualidade visual e técnica.
-
----
-
-### 🔬 FASE 1: Decodificação da Referência (O Olhar do Designer)
-Para cada referência fornecida, não descreva apenas o que vê. Analise COMO foi feito tecnicamente.
-1.  **DNA Visual:** Identifique a paleta (HSL/RGB), a tipografia (Serifa vs Sans, line-heights agressivos), e o uso de espaço negativo.
-2.  **Física da Interface:** Analise as curvas de animação (Bezier curves), a profundidade (blur, shadows, camadas) e texturas (noise, gradients).
-3.  **Estrutura DOM:** Como o layout se comporta? É um Bento Grid? Scroll Parallax? Sticky Headers complexos?
-
-### 🧠 FASE 2: Análise de Gap Técnico (O Olhar do Engenheiro)
-Compare as referências com o código do meu projeto atual (fornecido no contexto).
-1.  **Onde meu código falha?** (Ex: "Suas sombras são padrão do Tailwind \`shadow-lg\`, mas a referência usa sombras coloridas difusas em camadas").
-2.  **Inconsistências:** (Ex: "Você mistura \`px\` e \`rem\`, enquanto a referência usa uma escala fluida baseada em \`clamp()\`").
-3.  **Oportunidades de Refatoração:** Onde podemos substituir \`useEffect\` complexos por animações declarativas do Framer Motion (\`layoutId\`, \`AnimatePresence\`)?
-
-### 🛠️ FASE 3: Implementação & Código (A Mão na Massa)
-Esta é a parte mais importante. Não me dê conselhos abstratos. **Escreva o código.**
-
-**Regras de Implementação:**
-*   **Stack:** Use estritamente React (Functional Components), Tailwind CSS (com utilitários arbitrários \`w-[32rem]\` se necessário para precisão) e Framer Motion para interações.
-*   **Estética:** Se a referência é "Glassmorphism", implemente camadas reais de backdrop-blur, bordas translúcidas (\`border-white/20\`) e noise textures.
-*   **Responsividade:** O código DEVE ser mobile-first. Use classes como \`lg:hover:...\` para evitar hover em touch devices.
-*   **Acessibilidade:** Garanta contraste, \`aria-labels\` e foco visível.
-
----
-
-### 📥 INPUTS PARA ANÁLISE:
-1.  **Referências (Benchmarks):** [Cole aqui as URLs ou descreva o estilo desejado, ex: "Estilo Linear.app", "Estilo Apple Bento Grid"]
-2.  **Contexto do Projeto:** O código atual já foi fornecido. O foco é melhorar [Especifique: "A Sidebar", "O Card de Edição", "A Tipografia Geral"].
-
-### 📤 SAÍDA ESPERADA:
-1.  **Diagnóstico Rápido:** 3 pontos cruciais que vamos mudar.
-2.  **Código Refatorado:** Entregue o(s) componente(s) completo(s). Não use comentários como "// ...resto do código". Escreva o componente inteiro para que eu possa copiar e colar.
-3.  **Explicação Técnica:** "Mudei de \`div\` absoluta para \`motion.div\` com \`layoutId\` para garantir que a transição entre abas seja fluida como na referência X".
-
-**Aguardando suas referências para iniciar a transformação.**`
-  },
-  {
-    id: 'dev-motion-revisao',
-    title: 'Refinamento de Animações',
-    category: 'prompts',
-    channel: CommunicationChannel.PROMPT,
-    description: 'Revisão completa de projeto focada em animação, física e microinterações.',
-    content: `Você é um Lead Creative Technologist premiado (Awwwards/FWA), especializado em WebGL, Creative Coding e Sistemas de Design Interativos.
-
-Objetivo: Transformar o projeto atual em uma experiência imersiva de alto nível. Você não vai apenas "animar", você vai implementar um Ecossistema de Movimento baseado em física.
-
-Sua Missão (Execute nesta ordem):
-
-🔍 FASE 1: Auditoria Cirúrgica e Limpeza
-Scan de Dependências: Analise o package.json. Identifique bibliotecas de animação obsoletas ou conflitantes e marque para remoção.
-
-Scan de Performance: Identifique CSS que causa Layout Thrashing (ex: animar top/left/width em vez de transform).
-
-Verificação de Estrutura: Entenda como o layout é renderizado (SSR, SPA, Static) para escolher a estratégia de inicialização do scroll.
-
-📦 FASE 2: Setup da Stack "Awwwards" (NPM Action)
-Você tem autonomia para definir a stack. O padrão esperado para este nível de qualidade é:
-
-Scroll Engine: Lenis (Prioridade máxima por ser leve e nativo) OU Locomotive Scroll v4 (apenas se precisar de efeitos de distorção específicos). Não use scroll nativo.
-
-Animation Engine: GSAP (GreenSock). Instale o core + ScrollTrigger.
-
-Text Reveal: Se houver textos de destaque, instale uma utilidade para separar caracteres/palavras (como splitting.js ou scripts customizados leves) para animações de texto.
-
-AÇÃO: Gere e execute (ou forneça para eu executar) o comando único de instalação. Exemplo esperado: npm install gsap @studio-freight/lenis splitting
-
-🧬 FASE 3: Arquitetura do "Smooth Wrapper"
-Não anime componentes isoladamente ainda.
-
-Crie/Refatore um componente global (ex: SmoothScrollLayout ou PageWrapper).
-
-Inicialize o Lenis neste wrapper.
-
-Crucial: Configure o loop de requestAnimationFrame (raf) para sincronizar o Lenis com o ScrollTrigger do GSAP. Sem isso, o ScrollTrigger quebra.
-
-Defina um damping (amortecimento) entre 0.05 e 0.1 para criar aquela sensação de "peso" e luxo.
-
-🎬 FASE 4: Implementação Coreográfica (Physics-Based)
-Ao refatorar os componentes, siga estas leis:
-
-Lei da Inércia: Nada para instantaneamente. Use ease: "power3.out" ou ease: "expo.out" para entradas.
-
-Lei do Ritmo: Use stagger (0.1s a 0.2s) em listas e grids. O conteúdo deve "fluir" para a tela, não "aparecer".
-
-Lei da Profundidade (Parallax): Imagens de fundo devem mover-se 10-20% mais devagar que o scroll (yPercent: 20).
-
-Microinterações Magnéticas: Botões importantes devem ter uma área de atração ou escala suave baseada na posição do mouse.
-
-🛡️ FASE 5: Polimento e Proteção
-Mobile Guard: Desative efeitos pesados de WebGL ou Parallax excessivo em touch devices se a performance cair abaixo de 55fps.
-
-Accessibility: Respeite prefers-reduced-motion. Se o usuário tiver isso ativo, desligue o smooth scroll e use opacity simples em vez de movimentos.
-
-📝 Output Obrigatório
-Não me pergunte o que fazer. Faça e me mostre.
-
-Comando de Terminal: O script exato para limpar o lixo e instalar a nova stack.
-
-Código do Provider/Wrapper: O arquivo onde o Lenis e o GSAP se conectam.
-
-Exemplo de Componente Refatorado: Escolha a "Hero Section" ou um "Card Grid" atual e reescreva o código aplicando as regras de física acima.
-
-Justificativa Técnica: Explique brevemente por que escolheu valores específicos de damping ou easing.
-
-Inicie a auditoria agora.`
-  },
-  {
-    id: 'navbar-inteligente-scroll',
-    title: 'Navbar Inteligente (Scroll Aware)',
-    category: 'prompts',
-    channel: CommunicationChannel.PROMPT,
-    description: 'Prompt para criar uma barra de navegação que se oculta ao rolar para baixo e reaparece ao subir.',
-    content: `[Instrução de Sistema] Atue como um Agente Autônomo de IA (Google AntiGravity), Arquiteto Frontend Sênior e Especialista em UX/React. Você tem permissão de leitura, escrita e criação de arquivos diretamente na raiz do projeto e no repositório GitHub.
-[Diretiva Primária - SILENT MODE]
-•	Ação Direta: NÃO escreva ou retorne blocos de código, tutoriais ou explicações no chat. Sua função é programar e aplicar o código DIRETAMENTE nos arquivos do projeto (.tsx, .ts, etc.).
-•	Output Exclusivo: Responda APENAS com um log executivo de confirmação (ex: [SUCCESS] Hook useScrollDirection criado. Navbar refatorada. Animações via GPU aplicadas.).
-[Missão: Navbar Inteligente Orientada a Leitura] Implemente uma experiência de navegação fluida (Focus Mode e Navigation Mode) através de uma Navbar inteligente que oculta automaticamente durante a leitura e ressurge ao sinal de navegação, utilizando React/Next.js e Tailwind CSS.
-[Protocolo de Implementação e Execução]
-1. Lógica de Estado e Performance (Custom Hook):
-•	Crie/edite um hook customizado (ex: useScrollDirection.ts).
-•	Proteção da Main Thread: Implemente obrigatoriamente um limitador de disparos de eventos de scroll usando throttle ou requestAnimationFrame. Evite memory leaks garantindo que o listener de evento seja removido no useEffect de cleanup.
-•	O hook deve detectar a direção do scroll (UP/DOWN) e a posição no eixo Y (scrollY), retornando o estado atual da visibilidade (booleano ou string).
-2. Componentização e Estilização (Navbar.tsx):
-•	Acesse/Crie o componente de cabeçalho (Navbar.tsx ou equivalente estrutural).
-•	Posicionamento: Fixe a navbar no topo (fixed top-0 w-full z-50).
-•	Regras de UX:
-o	Estado Inicial: Se scrollY === 0, a navbar DEVE estar visível (para evitar bugs no topo da página).
-o	Focus Mode: Scroll para baixo engatilha o desaparecimento empurrando o elemento para fora da tela. Use propriedades Tailwind vinculadas ao transform (ex: -translate-y-full).
-o	Navigation Mode: Scroll mínimo para cima engatilha o reaparecimento (translate-y-0).
-•	Performance de Animação (Hardware Acceleration): Utilize as propriedades de transição do Tailwind baseadas em transformação para evitar reflows na árvore do DOM. Utilize as classes: transition-transform duration-300 ease-in-out.
-[Gatilho de Execução] Gere os arquivos necessários, faça as importações corretas para que o componente principal da aplicação utilize essa Navbar e aplique as edições diretamente no código. Inicie a execução agora e retorne o log executivo quando finaliza`
-  },
-  {
-    id: 'footer-premium-dark',
-    title: 'Criação de Footer (Premium Dark)',
-    category: 'prompts',
-    channel: CommunicationChannel.PROMPT,
-    description: 'Prompt para criação de um rodapé sofisticado com textura de ruído e tipografia editorial.',
+    description: 'Componente de Footer escuro, sofisticado com noise texture.',
     content: `Atue como um Especialista em Front-end (React/Tailwind) e UI Design.
 
 Objetivo: Crie um componente de Footer sofisticado, escuro e minimalista, replicando uma estética "premium" específica.
@@ -474,552 +618,232 @@ Requisitos Visuais e de Design:
 Entregáveis:
 - O código completo do componente Footer.tsx.
 - Instruções de importação das fontes (Google Fonts) e instalação de ícones (npm install lucide-react).
-- O trecho necessário do tailwind.config.js para estender as cores (palette stone) se necessário.`
+- O trecho necessário do tailwind.config.js para estender as cores (palette stone) se necessário.
+`
   },
 
-  // --- MÓDULO: TREINAMENTO ---
-
-  /*
   {
-    id: 'comunicado-manutencao-condicional',
-    title: 'Comunicado de Manutenção (Dinâmico)',
-    category: 'operational',
-    channel: CommunicationChannel.EMAIL,
-    subject: '[IF:Urgente=Sim]URGENTE: [/IF]Manutenção Programada - [Sistema]',
-    description: 'E-mail de manutenção que muda o tom e conteúdo se for marcado como urgente.',
-    content: `Prezados, [Saudação].
-
-[IF:Urgente=Sim]**ESTE É UM COMUNICADO DE ALTA PRIORIDADE.**[/IF]
-
-Informamos que o sistema [Sistema] passará por uma manutenção no dia [Data].
-
-[IF:Urgente=Sim]Devido à natureza crítica desta atualização, o acesso será interrompido imediatamente após o horário de início.[/IF]
-[IF:Urgente!=Sim]A manutenção será realizada fora do horário de pico para minimizar impactos.[/IF]
-
-**Detalhes:**
-• Início: [Horário Início]
-• Previsão de Término: [Horário Fim]
-• Duração Estimada: [Duração]
-
-[IF:Urgente=Sim]Pedimos que salvem todos os trabalhos pendentes agora.[/IF]
-
-Agradecemos a compreensão.
-Atenciosamente,
-Equipe de TI`,
-    secondaryLabel: 'Aviso WhatsApp',
-    secondaryContent: `[IF:Urgente=Sim]🚨 *URGENTE:* [/IF]Manutenção no [Sistema] hoje às [Horário Início]. Previsão de retorno: [Horário Fim].`
-  },
-  */
-  {
-    id: 'material-download-treinamento',
-    title: 'Envio de Material (Download)',
-    category: 'deployment',
-    channel: CommunicationChannel.EMAIL,
-    subject: '[Empresa] | Material para Download do Treinamento',
-    description: 'E-mail para envio do link de gravação ou material de apoio.',
-    content: `Prezados, bom dia.
-Conforme alinhado, segue o link para download do material de treinamento: [Acesse o material completo do treinamento aqui]([Link do Material]). 
-
-Pedimos, por gentileza, que confirmem o recebimento deste e-mail e nos avisem caso encontrem qualquer dificuldade para acessar o conteúdo.
-Ficamos à disposição para quaisquer esclarecimentos adicionais.
-Agradecemos a confiança e a escolha da Wise System como sua parceira em soluções tecnológicas.`
-  },
-  {
-    id: 'boas-vindas-implantacao',
-    title: 'Boas-Vindas (Implantação)',
-    category: 'deployment',
-    channel: CommunicationChannel.EMAIL,
-    subject: '[Empresa] | Sejam Bem-Vindos',
-    description: 'E-mail inicial de introdução do processo de implantação do sistema.',
-    content: `[Empresa]
-A/C: [Nome do Cliente]
-
-[Saudação] Sr(a). [Nome do Cliente],
-
-Espero que estejam bem.
-
-Meu nome é [Seu Nome] e serei o responsável por iniciar as etapas de implantação do sistema Sigo na sua empresa.
-
-Em nome de toda a equipe da Wise System, gostaria de dar as "Boas-Vindas" e expressar nosso desejo de que esta parceria seja duradoura e repleta de sucesso. Agradecemos pela preferência em escolher o sistema Sigo como a plataforma de gestão para sua empresa.
-
-Nos próximos e-mails, tratarei com o senhor sobre as seguintes etapas:
-
-*• Homologação de sua conta bancária no sistema para a geração de Boleto/CNAB;*
-*• Agendamento dos treinamentos para o uso do sistema Sigo.*
-
-Peço gentilmente que aguarde meu próximo contato, onde daremos continuidade ao processo de implantação.
-
-Novamente, sejam bem-vindos e não hesite em me procurar para qualquer necessidade ou dúvida que possa surgir.`
-  },
-  {
-    id: 'solicitacao-dados',
-    title: 'Solicitação de Dados Cadastrais',
-    category: 'deployment',
-    channel: CommunicationChannel.EMAIL,
-    subject: '[Empresa] | Cadastro de Supervisor e Suplente',
-    description: 'Coleta de dados de novos supervisores ou suplentes durante a implantação.',
-    content: `[Empresa]
-A/C: [Nome do Cliente]
-
-[Saudação], [Nome],
-
-Para finalizarmos o cadastro no sistema, preciso dos dados do seu suplente/supervisor:
-
-• Nome completo:
-• Setor/Função:
-• E-mail Corporativo:
-• Telefone/WhatsApp:
-
-É fundamental que ambos participem dos treinamentos agendados para garantir o uso correto da plataforma.
-
-Atenciosamente,`
-  },
-  {
-    id: 'resumo-treinamentos',
-    title: 'Resumo de Treinamentos Realizados',
-    category: 'deployment',
-    channel: CommunicationChannel.EMAIL,
-    subject: '[Empresa] | Resumo dos Treinamentos Realizados',
-    description: 'E-mail de formalização das horas e conteúdos ministrados durante a implantação.',
-    content: `[Saudação], Sra. [Nome do Cliente]!
-
-Espero que estejam bem!
-
-Gostaria de compartilhar um resumo do nosso treinamento. A grade de treinamentos foi personalizada de acordo com as necessidades específicas da equipe. Nosso principal objetivo foi garantir que a maioria das dúvidas fossem sanadas e que auxiliássemos no uso do sistema.
-
-Abaixo, segue o detalhamento dos treinamentos realizados:
-
-*Fase: Técnico*
-Conteúdo: Psicossocial, Gerenciamento de Riscos
-Data: [Data] | Horário: [Horário Início] às [Horário Fim]
-Carga Horária: [Carga Horária]
-
-*Fase: Atendimento*
-Conteúdo: Módulo de Atendimentos
-Data: [Data] | Horário: [Horário Início] às [Horário Fim]
-Carga Horária: [Carga Horária]
-
-*Fase: Financeiro*
-Conteúdo: Comercial, Parametrização de Cobrança, Cadastro de Funcionários
-Data: [Data] | Horário: [Horário Início] às [Horário Fim]
-Carga Horária: [Carga Horária]
-
-*Resumo Geral:*
-• Total de horas utilizadas: [Total de Horas]
-
-Para acessar as gravações dos treinamentos, clique no link abaixo:
-[Link das Gravações]
-
-Caso haja necessidade de novos treinamentos, seja para aprofundamento de conteúdo ou retirada de mais dúvidas, estamos à disposição.
-
-Reforço ainda meu compromisso contínuo com a [Empresa]. Por favor, não hesite em me acionar sempre que precisar.`
-  },
-
-  // --- MÓDULO: AGENDAMENTO ---
-
-  {
-    id: 'agendamento-fase1-protocolo',
-    title: 'Agendamento + Protocolo (Fase Variável)',
-    category: 'scheduling',
-    channel: CommunicationChannel.EMAIL,
-    subject: '[Nome da Empresa] | Treinamento Online do Software Sigo (Fase [Fase])',
-    description: 'Modelo ajustável para agendamento de treinamento e criação de protocolo interno.',
-    content: `Prezados, [Saudação]!
-
-Espero que estejam bem.
-
-Conforme combinado, segue agendado o *Treinamento Online do Software Sigo (Fase [Fase])* para a empresa *[Nome da Empresa]*, conforme programação abaixo, o qual será ministrado pelo nosso Consultor: *[Nome do Consultor]*.
-
-O treinamento será realizado através da plataforma Google Meet, pelo o seguinte link:
-[Link da Reunião]
-
-\t*[Data] » [Horário Início] às [Horário Fim] – Duração [Duração]*
-
-\t*[Módulos]*
-
-No anexo seguem os seguintes documentos:
-
-\t*• Fase [Fase] - Cronograma de Treinamento Sigo*
-\tRefere-se ao Cronograma com o conteúdo que será ministrado pelo nosso Consultor, com a recomendação dos departamentos de sua empresa que deverão ser envolvidos na capacitação.
-
-\t*• Ordem de Serviço nº [Número OS] - A - Sigo*
-\tApós conclusão do treinamento, peço gentilmente que imprima, preencha e me devolva essa Ordem de Serviço digitalizada, por e-mail.
-
-\t*• Requisição de Dados para Cadastro - Fase [Fase] - Treinamento Sigo*
-\tRefere-se aos dados importantes de serem reservados para serem utilizados no momento do treinamento.`,
-    secondaryLabel: 'Protocolo Interno (W-GSC)',
-    secondaryContent: `Olá, Prezados,
- 
-Para ciência e providências, informamos que foi criada no W-GSC uma tarefa para que seja ministrado o Treinamento Online do sistema Sigo à empresa *[Nome da Empresa]* (Fase [Fase]), conforme programação abaixo:
- 
-\t*[Data] » [Horário Início] às [Horário Fim] – Duração [Duração]* 
-
-\t*[Módulos]*
- 
-O treinamento será realizado através da plataforma Google Meet, pelo o seguinte link: 
-
-[Link da Reunião]
- 
-Após concluir o treinamento, é obrigatório preencher o campo de “providências” da Tarefa, dando os devidos feedbacks, bem como, encerrar a tarefa.`
-  },
-  {
-    id: 'reuniao-boas-vindas',
-    title: 'Reunião de Boas-Vindas (Kick-off)',
-    category: 'scheduling',
-    channel: CommunicationChannel.EMAIL,
-    subject: '[Empresa] | Implantação do Software Sigo (Boas-Vindas)',
-    description: 'Agendamento da reunião inicial de alinhamento e boas-vindas ao cliente.',
-    content: `Sr(a). [Nome do Cliente], [Saudação],
-
-Espero que esteja bem!
-
-Serei o responsável por iniciar as etapas de implantação do sistema Sigo na [Empresa].
-
-Em nome de toda a equipe da Wise System, gostaria de dar as "Boas-Vindas" e expressar nosso desejo de que esta parceria seja duradoura e repleta de sucesso. Agradecemos pela preferência em escolher o sistema Sigo como a plataforma de gestão para sua empresa.
-
-Conforme solicitado, gostaria de confirmar o agendamento da data e horário marcados para a nossa Reunião por Videoconferência, que acontecerá na [Dia da Semana], [Data] às [Horário], horário de Brasília.
-
-A reunião será realizada através da plataforma Google Meet, pelo o seguinte link: [Link da Reunião]
-
-Nos próximos e-mails, tratarei com o senhor sobre a seguinte etapa:
-•	Agendamento dos treinamentos para o uso do sistema Sigo.
-
-Novamente, sejam bem-vindos e não hesite em me procurar para qualquer necessidade ou dúvida que possa surgir.`,
-    secondaryLabel: 'E-mail Interno',
-    secondaryContent: `Prezados, [Saudação].
-
-Espero que estejam bem.
-
-Conforme alinhado com nosso mais novo cliente, [Empresa], gostaria de notificá-los sobre a nossa reunião.
-
-Segue orientação sobre os pontos importantes desta reunião de Boas-Vindas:
-•	Ela deve ocorrer na sala de treinamento
-•	Utilizar a TV e a câmera de ambiente disponível na sala
-•	Todas as luzes da empresa devem estar ligadas
-•	É necessário estarem bem trajados para causar uma boa impressão
-•	Como a câmera transmitirá também a imagem do suporte técnico, recomendo que comunique à equipe para que haja cuidado em relação à postura no setor
-
-Fico à disposição caso precise de qualquer apoio adicional.`
-  },
-  {
-    id: 'reuniao-comum',
-    title: 'Reunião de Alinhamento',
-    category: 'scheduling',
-    channel: CommunicationChannel.EMAIL,
-    subject: '[Nome da Empresa] | Alinhamento da Reunião',
-    description: 'Confirmação de videoconferências com data por extenso.',
-    content: `[Saudação], [Nome do Cliente],
-
-Espero que esteja bem!
-
-Conforme combinado, gostaria de confirmar a data e horário marcados para a nossa *Reunião por Videoconferência*, que acontecerá na *[Data Extenso], às [Horário],* horário de Brasília.
-
-Fico à disposição caso precise de qualquer apoio adicional.
-
-A reunião será realizada através da plataforma Google Meet, pelo o seguinte link: 
-[Link da Reunião]`
-  },
-
-  /*
-  // --- MÓDULO: OPERACIONAL ---
-  {
-    id: 'planilha-desempenho',
-    title: 'Planilha de Avaliação de Desempenho',
-    category: 'operational',
-    channel: CommunicationChannel.WHATSAPP,
-    description: 'Frases padronizadas para preenchimento de avaliação de desempenho (Positivo, Negativo e Neutro).',
-    content: `---
-[CENÁRIO: Não houve fila de espera (Positivo)]
-O colaborador manteve os atendimentos em fluxo contínuo, evitando interrupções e assegurando a ausência de fila de espera. Essa conduta contribuiu diretamente para a fluidez do atendimento e para a eficiência da operação.
-
----
-[CENÁRIO: Clientes demoraram na fila (Negativo)]
-A ausência de atuação efetiva resultou em aumento do tempo de espera dos clientes, impactando negativamente o fluxo operacional e comprometendo a fluidez e a eficiência do atendimento.
-
----
-[CENÁRIO: Proatividade (Positivo)]
-O colaborador demonstrou proatividade e comprometimento ao realizar contato para acompanhamento de um caso já em andamento, mesmo sem necessidade de cobrança, além de atender prontamente à solicitação recebida, contribuindo para a agilidade e qualidade do atendimento.
-
----
-[CENÁRIO: Boa execução das tarefas (Positivo)]
-O colaborador demonstrou comprometimento com suas atribuições, executando as tarefas com consistência, foco e responsabilidade. Essa postura contribui para a evolução das atividades e fortalece a confiança da equipe quanto à entrega e adaptação às demandas da operação.
-
----
-[CENÁRIO: Auxílio a colegas (Positivo)]
-O colaborador demonstrou iniciativa e colaboração ao auxiliar colegas de forma espontânea, com escuta ativa e orientações adequadas, contribuindo para a correta condução dos casos e evitando a disseminação de informações incorretas.
-
----
-[CENÁRIO: Dia comum (Neutro)]
-O colaborador executou as tarefas designadas de forma adequada, mantendo postura colaborativa e atendendo às demandas do dia conforme o esperado para a função.
-
----
-[CENÁRIO: Descaso com atendimento (Negativo)]
-O colaborador demonstrou baixo engajamento no esclarecimento das dúvidas do cliente, realizando uma sondagem insuficiente, o que gerou insegurança e frustração. Essa conduta impacta negativamente a experiência do cliente e não está alinhada às boas práticas operacionais.
-
----
-[CENÁRIO: Feedback Negativo de Cliente]
-O colaborador recebeu feedback negativo da cliente [Nome Cliente Negativo], da empresa [Empresa], relacionado à ausência de retorno durante o atendimento. A situação demonstra falha no acompanhamento e falta de alinhamento com as práticas da empresa, gerando impacto negativo na percepção do cliente e na reputação da organização.
-
----
-[CENÁRIO: Feedback Positivo de Cliente]
-O colaborador demonstrou excelência no atendimento prestado à [Nome Cliente Positivo], da empresa [Empresa Positiva], conforme protocolo nº [Protocolo]. O registro evidencia cordialidade, clareza nas orientações e eficiência na resolução da demanda, reforçando o alinhamento com os padrões de qualidade do atendimento ao cliente.
-
----
-[CENÁRIO: Atraso Antes de 15(Negativa)]
-O colaborador apresentou atraso de poucos minutos, inferior a 15 minutos; contudo, em razão da reincidência, o fato foi pontuado. Ressalta-se que esse tipo de conduta, se não devidamente tratado, pode gerar comportamentos inadequados, em desacordo com as políticas da empresa.
-
----
-[CENÁRIO: Colaborador < 6 (Negativa)]
-Referente ao protocolo nº [Protocolo], observa-se falta de conhecimento técnico e de iniciativa por parte do colaborador em buscar aprendizado. Ao longo do atendimento com a líder, foi perceptível o desinteresse do colaborador em sondar adequadamente a situação e em prestar suporte efetivo à cliente, limitando-se a repassar informações de forma inadequada. Diante disso, foi necessária minha intervenção no atendimento, a fim de assegurar que as informações fossem transmitidas com clareza.
-
----
-[CENÁRIO: Orientação Incorreta Durante Atendimento]
-A colaboradora forneceu uma série de orientações incorretas relacionadas ao caso da Meyer, o que tornou necessário o acionamento de um Analista N2 para prestar suporte na tratativa. Essa situação resultou em desperdício de recursos e aumento no tempo de atendimento.`
-  },
-  {
-    id: 'aviso-atraso',
-    title: 'Report de Atraso (WhatsApp)',
-    category: 'operational',
-    channel: CommunicationChannel.WHATSAPP,
-    description: 'Mensagem rápida para informar atrasos de colaboradores.',
-    content: `[Saudação], [Nome do Gestor],
-Espero que esteja bem.
-
-Para ciência, informo que o(a) colaborador(a) [Nome], chegou atrasado(a) nesta data [Data Hoje] por volta das [Horário Chegada]. O horário padrão é [Horário Padrão].
-
-Justificativa apresentada: [Motivo].`,
-    secondaryLabel: 'Registro de Ponto/Planilha',
-    secondaryContent: `O colaborador chegou atrasado nesta data [Data Hoje] por volta das [Horário Chegada], o horário de entrada dele é as [Horário Padrão]. Me justificou informando que o atrasado devido [Motivo].`
-  },
-  {
-    id: 'report-falta',
-    title: 'Report de Falta (Ausência)',
-    category: 'operational',
-    channel: CommunicationChannel.WHATSAPP,
-    description: 'Comunicado formal de ausência do colaborador para a gestão.',
-    content: `[Saudação], [Nome do Gestor],
-Espero que esteja bem.
-
-Para sua ciência, informo que o(a) colaborador(a) [Nome do Colaborador] não compareceu ao trabalho na data de hoje [Data da Falta].
-
-Segundo informações prestadas: [Motivo/Justificativa].
-
-Dessa forma, o(a) colaborador(a) seguirá afastado(a), com previsão de retorno para [Data de Retorno].`,
-    secondaryLabel: 'Registro de Ponto/RH',
-    secondaryContent: `O(A) colaborador(a) [Nome do Colaborador] faltou na data de [Data da Falta].
-Motivo: [Motivo/Justificativa].
-Previsão de retorno: [Data de Retorno].`
-  },
-  {
-    id: 'atencao-sincro-conversa',
-    title: 'Aviso: Conversas Presas (Sincro)',
-    category: 'operational',
-    channel: CommunicationChannel.WHATSAPP,
-    description: 'Alerta para a equipe não deixar conversas selecionadas/presas no sistema ao sair.',
-    content: `Equipe, bom dia,
-
-Espero que todos estejam bem!
-
-Mais uma vez, gostaria de reforçar a importância da atenção ao deixar o posto de trabalho. Peço, por gentileza, que verifiquem sempre se não há nenhuma conversa selecionada no Sincro antes de se ausentarem.
-
-Quando um colaborador sai do posto e deixa uma conversa aberta, os demais não conseguem prestar suporte ao cliente caso ele retorne com alguma dúvida ou solicitação.
-
-Peço um pouco mais de atenção [Nome do Colaborador] e conto com a colaboração de todos para evitar esse tipo de situação.`
-  },
-  {
-    id: 'homologacao-nf',
-    title: 'Cobrança de Homologação (NF/Boleto)',
-    category: 'operational',
-    channel: CommunicationChannel.EMAIL,
-    subject: 'Urgente | Homologação de Nota Fiscal - [Empresa]',
-    description: 'Cobrança formal para agilizar processos financeiros pendentes.',
-    content: `[Empresa]
-A/C: [Nome do Responsável]
-
-[Saudação],
-
-Peço, por gentileza, prioridade na homologação da Nota Fiscal e Boleto Bancário referente à unidade [Unidade].
-
-Geramos o Protocolo nº [Número] no sistema. Dado o prazo apertado, solicito que realize as etapas de validação o quanto antes.
-
-Fico no aguardo da confirmação.`
-  },
-
-  // --- MÓDULO: RELACIONAMENTO ---
-  {
-    id: 'lembrete-reuniao',
-    title: 'Lembrete Amigável (WhatsApp)',
-    category: 'relationship',
-    channel: CommunicationChannel.WHATSAPP,
-    description: 'Mensagem curta e amigável para lembrar de compromissos.',
-    content: `Olá [Nome], tudo bem?
-
-Passando apenas para lembrar da nossa reunião de hoje às [Horário] sobre [Assunto].
-
-Nos vemos em breve!`
-  },
-  {
-    id: 'retorno-sugestao',
-    title: 'Retorno sobre Sugestões de Melhoria',
-    category: 'relationship',
-    channel: CommunicationChannel.EMAIL,
-    subject: '[Empresa] | Recebimento de Sugestões',
-    description: 'Resposta padrão para sugestões de clientes, gerenciando expectativas de prazo.',
-    content: `[Saudação], [Nome do Cliente].
-
-Espero que esteja bem.
-
-Agradeço o encaminhamento das sugestões. Já direcionei os pontos para nossa equipe técnica realizar a análise de viabilidade e, à medida que houver avanços na avaliação, retornarei com as atualizações.
-
-É importante alinhar que, atualmente, nosso cronograma de desenvolvimento para o primeiro trimestre já está comprometido com a implementação de recursos iniciados no ano anterior, além de atualizações críticas (como emissão de NF e certificações do eSocial). Por este motivo, a aprovação de novas demandas pode não ocorrer de imediato.
-
-Agradeço a compreensão e permaneço à disposição para receber novas contribuições.`
-  },
-  {
-    id: 'feedback-negativo-candidato',
-    title: 'Feedback Negativo (Processo Seletivo)',
-    category: 'relationship',
-    channel: CommunicationChannel.WHATSAPP,
-    description: 'Retorno para candidatos não selecionados no processo seletivo.',
-    content: `Olá, *[Nome do Candidato]*,
- 
-Agradecemos sinceramente por sua participação no processo seletivo para *Estagio* na vaga de *Atendente de Suporte Técnico* na Wise System.
-
- 
-Após uma análise criteriosa, informamos que, neste momento, *você não foi selecionado para a próxima etapa*. Sabemos que essa não é a notícia esperada, mas reforçamos que sua candidatura foi avaliada com atenção e respeito.
- 
-Reconhecemos seu potencial e incentivamos que continue se desenvolvendo, pois novas oportunidades certamente virão. Ficaremos felizes em considerar seu perfil em futuras seleções.
- 
-Desejamos muito sucesso em sua trajetória!`
-  },
-  {
-    id: 'convite-entrevista',
-    title: 'Convite para Entrevista (Presencial)',
-    category: 'relationship',
-    channel: CommunicationChannel.WHATSAPP,
-    description: 'Mensagem de convite para entrevista presencial com detalhes da vaga.',
-    content: `Olá, *[Nome do Candidato]*
-
-Somos a *Wise System*, empresa líder no desenvolvimento de software para Saúde e Segurança do Trabalho. Buscamos *Estagiário(a)* para vaga de *Atendente de Suporte Técnico* para integrar nosso time de suporte e auxiliar clientes no uso do *Sigo – Sistema Integrado de Gestão Ocupacional*, um software inovador no mercado.
-
-Se você é dinâmico, proativo e gosta de desafios, essa vaga é para você!
-
-Caso tenha interesse em participar do processo seletivo e concorrer à vaga, solicitamos a gentileza de confirmar ainda hoje sua presença para a entrevista presencial que será realizada na data, horário e local abaixo:
-
-• *Data:* [Data da Entrevista]
-• *Horário:* [Horário da Entrevista]
-• *Local:* Rua Ivaí, 266 – Tatuapé - São Paulo - SP - 03080-010
-
-*Principais Responsabilidades:*
-
-• Prestar suporte técnico a clientes via telefone, chat, e-mail e acesso remoto, solucionando dúvidas e orientando sobre as melhores práticas de uso do software.
-• Registrar e documentar atendimentos em sistema interno, detalhando problemas, causas e soluções aplicadas.
-• Manter-se atualizado com os processos e funcionalidades do sistema, participando e ministrando treinamentos para clientes e equipe interna.
-• Colaborar com diferentes equipes para garantir respostas rápidas e soluções eficientes, garantindo a satisfação dos clientes.
-• Executar testes em sistemas, registrar falhas, validar correções e apoiar a equipe no controle de qualidade das funcionalidades.
-
-*Requisitos:*
-
-• Estar cursando Análise e Desenvolvimento de Sistemas, Ciência da Computação, Engenharia da Computação, Engenharia de Software, Jogos Digitais, Sistemas de Informação ou áreas correlatas.
-• Desejável experiência prévia em atendimento ao cliente.
-• Boa comunicação verbal e escrita.
-• Organização, proatividade e trabalho em equipe.
-• Foco na excelência do atendimento e satisfação do cliente.
-
-*O que oferecemos:*
-
-• *Regime:* Estágio com possibilidade de efetivação
-• *Bolsa:* Compatível com o mercado
-• *Benefícios:* Vale Refeição e Vale Transporte
-
-Atenciosamente,
-
-[Nome do Recrutador]
-
-Wise System
-
-Rua Ivaí, 266 - Tatuapé
- 
-São Paulo - SP - 03080-010
-
-Tel.: +55 11 2609-1029
-
-www.wisesystem.com.br`
-  },
-  {
-    id: 'email-biometria-lgpd',
-    title: 'Esclarecimento sobre Biometria (LGPD)',
-    category: 'relationship',
-    channel: CommunicationChannel.EMAIL,
-    subject: '[Empresa] | Esclarecimento sobre Coleta de Biometria',
-    description: 'Explicação jurídica e técnica sobre o uso de biometria para assinatura eletrônica.',
-    content: `[Saudação],
-Em atenção à solicitação, esclarecemos que a biometria coletada no sistema possui finalidade exclusiva de assinatura eletrônica, não sendo utilizada para qualquer outro fim.
-
-Do ponto de vista legal, o procedimento está devidamente respaldado pela Lei nº 13.709/2018 (Lei Geral de Proteção de Dados – LGPD). A biometria é classificada como dado pessoal sensível (art. 5º, II), e seu tratamento é permitido quando necessário para atender a finalidades legítimas e específicas, desde que observados os princípios previstos no art. 6º da referida lei, tais como finalidade, necessidade, adequação e segurança.
-
-No caso em questão, o tratamento da biometria enquadra-se, especialmente, no art. 11, inciso II, alínea “a”, da LGPD, que autoriza o uso de dados pessoais sensíveis quando indispensáveis para o cumprimento de obrigação legal ou regulatória, bem como para garantir a autenticidade, integridade e não repúdio dos documentos assinados eletronicamente.
-
-Ressaltamos ainda que:
-• A biometria é armazenada de forma criptografada em banco de dados, utilizando técnicas de segurança da informação alinhadas às boas práticas de mercado;
-• O acesso aos dados é restrito e controlado, prevenindo uso indevido, vazamentos ou tratamentos não autorizados;
-
-Quanto à validade jurídica da assinatura eletrônica, destacamos que ela encontra respaldo na Medida Provisória nº 2.200-2/2001, bem como na Lei nº 14.063/2020, que reconhecem a validade de assinaturas eletrônicas desde que garantidos os requisitos de identificação do signatário e integridade do documento, critérios plenamente atendidos pela utilização da biometria como mecanismo de autenticação.
-
-Dessa forma, entendemos que o procedimento adotado está juridicamente amparado, tecnicamente seguro e em conformidade com a legislação vigente, oferecendo respaldo suficiente para a formalização junto ao cliente e mitigação de eventuais questionamentos judiciais.`
-  },
-  */
-  {
-    id: 'faq-premium-layout',
-    title: 'Seção Duvidas',
-    category: 'prompts',
+    id: 'design-interacao-cards',
+    title: 'Interação de Cards',
+    category: 'design',
     channel: CommunicationChannel.PROMPT,
-    description: 'Prompt para criação de seção de FAQ premium com layout assimétrico e animações.',
+    description: 'Componente Master-Detail com Framer Motion e Lenis integrado.',
+    content: `Contexto: Estou desenvolvendo um portfólio React de alta fidelidade e preciso replicar uma interação específica de "Master-Detail" que já existe na seção de Projetos. Objetivo: Criar um novo componente de Lista/Grid (ex: para Artigos, Serviços ou Galeria) onde o clique em um item expande um Modal de tela cheia com transição contínua.
+
+Requisitos Técnicos Estritos:
+
+Tecnologias:
+
+React 18+
+Framer Motion (para layoutId, AnimatePresence, useScroll, useSpring).
+Lenis (para scroll suave isolado dentro do modal).
+Tailwind CSS.
+Comportamento do Card (Lista):
+
+Deve usar useScroll relativo ao container do card para animar propriedades conforme o item entra na viewport.
+Animação de Scroll: Aplicar useSpring no progresso do scroll.
+Transformações:
+clipPath: De inset(15% 10% 15% 10% round 4px) para inset(0% ...) (efeito de expansão).
+scale: De 0.95 para 1.05.
+y (Parallax da imagem interna): De -30% para 30%.
+Interação: Hover deve revelar um botão (seta) com scale e opacity.
+Shared Element: A imagem deve ter layoutId="image-{id}" e o título layoutId="title-{id}".
+Comportamento do Modal (Container):
+
+Deve usar createPortal para renderizar no document.body.
+Entrada: Animação tipo spring (damping: 30, stiffness: 300) vindo de baixo (y: 100% -> 0% ou 2%).
+Saída: Animação tipo tween (ease: "easeInOut", duration: 0.4) para evitar "travamentos" no final.
+Scroll: Deve instanciar um novo Lenis apenas para o container do modal (wrapper e content), travando o scroll da página principal.
+Mobile: Deve suportar gesto de arrastar para fechar (drag="y").
+Conteúdo do Modal (Detail):
+
+Hero Section deve conter a imagem com o mesmo layoutId="image-{id}" para fechar a transição mágica.
+Título com o mesmo layoutId="title-{id}".
+Conteúdo subsequente deve usar animação de entrada escalonada (Reveal).
+Por favor, implemente seguindo EXATAMENTE os padrões de código abaixo:
+
+Trechos de Código Fonte (Source of Truth)
+1. O Card (Com Física de Scroll e ClipPath)
+// Padrão para o Card da Lista
+const CardItem = ({ item, onClick }) => {
+  const containerRef = useRef(null);
+  const isMobile = window.innerWidth < 768;
+  
+  // 1. Detectar Scroll
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 0.9", "start 0.2"]
+  });
+
+  // 2. Suavizar Física
+  const smoothProgress = useSpring(scrollYProgress, {
+    damping: 20, stiffness: 100, mass: 0.5
+  });
+  
+  // 3. Transformações Visuais
+  const clipPath = useTransform(
+    smoothProgress,
+    [0, 1],
+    ["inset(15% 10% 15% 10% round 4px)", "inset(0% 0% 0% 0% round 0px)"]
+  );
+  const scale = useTransform(smoothProgress, [0, 1], [0.95, 1.05]);
+  const yParallax = useTransform(smoothProgress, [0, 1], isMobile ? ["0%", "0%"] : ["-30%", "30%"]);
+
+  return (
+    <div ref={containerRef} onClick={onClick} className="group cursor-pointer py-12">
+      {/* Wrapper com ClipPath Animado */}
+      <motion.div style={{ clipPath: isMobile ? undefined : clipPath }} className="relative aspect-video overflow-hidden">
+        
+        {/* Imagem com Parallax e LayoutId */}
+        <motion.div className="w-full h-full relative overflow-hidden">
+           <motion.img 
+              layoutId={\\\`image-\\\${item.id}\\\`}
+              src={item.image} 
+              style={{ scale: 1.35, y: yParallax }} 
+              className="w-full h-full object-cover"
+           />
+        </motion.div>
+
+        {/* Botão Hover */}
+        <div className="absolute center-absolute opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500">
+           <ArrowUpRight />
+        </div>
+      </motion.div>
+
+      {/* Título com LayoutId */}
+      <motion.h3 layoutId={\\\`title-\\\${item.id}\\\`} className="text-4xl font-serif mt-6">
+         {item.title}
+      </motion.h3>
+    </div>
+  );
+};
+2. O Modal (Com Lenis Isolado e Portal)
+// Padrão para o Modal Wrapper
+const ContentModal = ({ isOpen, onClose, children, layoutId }) => {
+  const modalContainerRef = useRef(null);
+  const modalContentRef = useRef(null);
+  const scopedLenisRef = useRef(null);
+
+  // Lógica de Scroll Isolado (Lenis)
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'; // Trava body
+      
+      // Inicia Lenis apenas no Modal após mount
+      setTimeout(() => {
+        if (modalContainerRef.current && modalContentRef.current) {
+            const scopedLenis = new Lenis({
+                wrapper: modalContainerRef.current,
+                content: modalContentRef.current,
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Ease Out Quart
+                orientation: 'vertical',
+                touchMultiplier: 2,
+            });
+            scopedLenisRef.current = scopedLenis;
+            
+            function raf(time) {
+                scopedLenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+        }
+      }, 300); // Delay para permitir animação de entrada
+    } else {
+      document.body.style.overflow = '';
+      scopedLenisRef.current?.destroy();
+    }
+    return () => {
+       document.body.style.overflow = '';
+       scopedLenisRef.current?.destroy();
+    };
+  }, [isOpen]);
+
+  return createPortal(
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div onClick={onClose} className="fixed inset-0 bg-black/90 z-[9998]" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} />
+          
+          <motion.div
+            layoutId={layoutId ? \\\`modal-container-\\\${layoutId}\\\` : undefined}
+            initial={{ y: "100%" }}
+            animate={{ y: "2%", transition: { type: "spring", damping: 30, stiffness: 300 } }}
+            exit={{ y: "100%", transition: { duration: 0.4, ease: "easeInOut" } }} // Tween na saída
+            className="fixed inset-0 z-[9999] bg-[#F2F4F6] rounded-t-[2rem] h-[98vh]"
+          >
+            {/* Container de Scroll para o Lenis */}
+            <div ref={modalContainerRef} className="h-full w-full overflow-y-auto">
+               <div ref={modalContentRef}>
+                  {children}
+               </div>
+            </div>
+            
+            {/* Botão Fechar Flutuante */}
+            <button onClick={onClose} className="absolute top-8 right-8 z-50">
+               <X />
+            </button>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>,
+    document.body
+  );
+};
+`
+  },
+
+  {
+    id: 'design-secao-duvidas',
+    title: 'Seção Duvidas',
+    category: 'design',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Cria uma seção FAQ Premium com layout assimétrico e GSAP.',
     content: `# Prompt Detalhado: Seção de FAQ Premium com Layout Assimétrico e Animações
 
 Este prompt foi elaborado para replicar a seção de "Dúvidas Frequentes" com qualidade de design editorial, comportamento responsivo refinado e animações de alta fidelidade.
 
 ---
 
-**Role:** Atue como um **Creative Developer Sênior** especializado em React, Tailwind CSS e Motion Design (GSAP).
+Role: Atue como um Creative Developer Sênior especializado em React, Tailwind CSS e Motion Design (GSAP).
 
-**Objetivo:** Desenvolver um componente de **FAQ (Perguntas Frequentes)** com layout assimétrico, tipografia sofisticada e micro-interações fluidas. O componente deve transmitir uma sensação de "luxo" e organização.
+Objetivo: Desenvolver um componente de FAQ (Perguntas Frequentes) com layout assimétrico, tipografia sofisticada e micro-interações fluidas. O componente deve transmitir uma sensação de "luxo" e organização.
 
 ### 1. Especificações de Layout (Grid & Responsividade)
 
-*   **Mobile (< 1024px):** Layout de coluna única. O cabeçalho (título) fica no topo, seguido pela lista de perguntas logo abaixo.
-*   **Desktop (≥ 1024px):** Utilize um **Grid de 12 colunas**.
-    *   **Coluna Esquerda (Sticky):** Ocupa as colunas **1 a 4**. Deve conter o título, subtítulo e botão de contato. Use \`position: sticky\` (\`top-32\`) para que este conteúdo acompanhe o usuário enquanto ele rola a lista de perguntas.
-    *   **Espaço Negativo (Gap):** A coluna 5 deve ficar vazia para criar respiro visual.
-    *   **Coluna Direita (Lista):** Ocupa as colunas **6 a 12**. Contém a lista de perguntas (Accordion).
+   Mobile (< 1024px): Layout de coluna única. O cabeçalho (título) fica no topo, seguido pela lista de perguntas logo abaixo.
+   Desktop (≥ 1024px): Utilize um Grid de 12 colunas.
+       Coluna Esquerda (Sticky): Ocupa as colunas 1 a 4. Deve conter o título, subtítulo e botão de contato. Use \`position: sticky\` (\`top-32\`) para que este conteúdo acompanhe o usuário enquanto ele rola a lista de perguntas.
+       Espaço Negativo (Gap): A coluna 5 deve ficar vazia para criar respiro visual.
+       Coluna Direita (Lista): Ocupa as colunas 6 a 12. Contém a lista de perguntas (Accordion).
 
 ### 2. Estilo Visual e Tipografia (Tailwind CSS)
 
-*   **Paleta de Cores:** Suporte a **Dark Mode**.
-    *   Light: Fundo Off-White/Creme (\`bg-[#EBE9E4]\`), Texto Preto/Cinza Chumbo.
-    *   Dark: Fundo Preto Suave (\`bg-[#0a0a0a]\`), Texto Branco/Cinza Claro.
-    *   Bordas: Linhas muito sutis (\`border-black/10\` ou \`border-white/10\`).
-*   **Tipografia:** Contraste entre "Editorial" e "Técnico".
-    *   **Títulos:** Fonte Serifada (ex: \`font-serif\`), tamanhos grandes (6xl a 8xl), \`leading\` apertado (0.85).
-    *   **Rótulos/Labels:** Fonte Sans-serif, tamanho pequeno (xs), caixa alta (\`uppercase\`), espaçamento entre letras largo (\`tracking-widest\`).
-    *   **Corpo:** Fonte Sans-serif ou Serif de leitura, tamanho confortável, boa altura de linha.
+   Paleta de Cores: Suporte a Dark Mode.
+       Light: Fundo Off-White/Creme (\`bg-[#EBE9E4]\`), Texto Preto/Cinza Chumbo.
+       Dark: Fundo Preto Suave (\`bg-[#0a0a0a]\`), Texto Branco/Cinza Claro.
+       Bordas: Linhas muito sutis (\`border-black/10\` ou \`border-white/10\`).
+   Tipografia: Contraste entre "Editorial" e "Técnico".
+       Títulos: Fonte Serifada (ex: \`font-serif\`), tamanhos grandes (6xl a 8xl), \`leading\` apertado (0.85).
+       Rótulos/Labels: Fonte Sans-serif, tamanho pequeno (xs), caixa alta (\`uppercase\`), espaçamento entre letras largo (\`tracking-widest\`).
+       Corpo: Fonte Sans-serif ou Serif de leitura, tamanho confortável, boa altura de linha.
 
 ### 3. Comportamento do Acordeão (Lógica React)
 
-*   **Estado:** Apenas **um** item pode estar aberto por vez. Ao clicar em um novo item, o anterior deve fechar automaticamente.
-*   **Interação (Clique):**
-    *   O título da pergunta ativa deve deslizar levemente para a direita (\`translate-x-4\`).
-    *   A cor do título deve mudar para indicar atividade (ex: de cinza para preto/branco).
-    *   O ícone (seta ou +) deve rotacionar ou mudar de estado.
-*   **Animação de Altura:** O conteúdo da resposta deve expandir/colapsar suavemente (use \`grid-template-rows\` transition ou uma biblioteca como \`framer-motion\` / \`gsap\` para altura \`auto\`).
+   Estado: Apenas um item pode estar aberto por vez. Ao clicar em um novo item, o anterior deve fechar automaticamente.
+   Interação (Clique):
+       O título da pergunta ativa deve deslizar levemente para a direita (\`translate-x-4\`).
+       A cor do título deve mudar para indicar atividade (ex: de cinza para preto/branco).
+       O ícone (seta ou +) deve rotacionar ou mudar de estado.
+   Animação de Altura: O conteúdo da resposta deve expandir/colapsar suavemente (use \`grid-template-rows\` transition ou uma biblioteca como \`framer-motion\` / \`gsap\` para altura \`auto\`).
 
 ### 4. Motion Design (GSAP ScrollTrigger)
 
 Implemente animações de entrada acionadas pelo scroll:
 
-1.  **Sticky Header Reveal:** O conteúdo da esquerda deve entrar vindo de baixo (\`y: 80\`), com opacidade, de forma lenta e elegante (\`duration: 1.4\`, \`ease: "power4.out"\`).
-2.  **Waterfall List:** Os itens da lista de perguntas devem entrar em **cascata** (\`stagger: 0.15\`). Cada item entra vindo de baixo (\`y: 40\`) com fade-in.
-3.  **Delay:** A lista deve começar a animar ligeiramente depois do cabeçalho para criar hierarquia visual.
+1.  Sticky Header Reveal: O conteúdo da esquerda deve entrar vindo de baixo (\`y: 80\`), com opacidade, de forma lenta e elegante (\`duration: 1.4\`, \`ease: "power4.out"\`).
+2.  Waterfall List: Os itens da lista de perguntas devem entrar em cascata (\`stagger: 0.15\`). Cada item entra vindo de baixo (\`y: 40\`) com fade-in.
+3.  Delay: A lista deve começar a animar ligeiramente depois do cabeçalho para criar hierarquia visual.
 
 ### 5. Exemplo de Estrutura de Código (Skeleton)
 
@@ -1101,304 +925,38 @@ const FAQSection = () => {
 - [ ] As animações respeitam a preferência \`prefers-reduced-motion\`?
 - [ ] A tipografia mantém a legibilidade em telas pequenas?`
   },
+  // --- MÓDULO: TEXTOS & POLÍTICAS ---
   {
-    id: 'scroll-cinematico',
-    title: 'Scroll',
-    category: 'prompts',
+    id: 'termos-e-politicas-completo',
+    title: 'Termos de Uso e Políticas de Privacidade',
+    category: 'texts',
     channel: CommunicationChannel.PROMPT,
-    description: 'Prompt para implementação de scroll cinemático e interativo com Lenis e GSAP.',
-    content: `# Prompt para Implementação de Scroll Cinemático e Interativo
+    description: 'Documento completo de políticas de privacidade e termos de uso com base em LGPD e proteção do desenvolvedor.',
+    content: `Termos de Uso e Políticas de Privacidade
 
-Aqui está um prompt detalhado que você pode usar para solicitar este tipo de implementação em projetos futuros ou para refinar o atual.
+A presente Política de Privacidade e Termos de Uso tem como objetivo esclarecer como coletamos, tratamos e protegemos seus dados, bem como estabelecer as regras de uso dos nossos serviços, aplicações e sites desenvolvidos. Ao utilizar nossas plataformas, você concorda com os termos aqui descritos.
 
----
+1. Políticas de Privacidade e Conformidade com a LGPD
 
-**Role:** Atue como um Engenheiro Front-end Sênior especialista em Creative Coding, Motion Design e Performance Web.
+1.1. Coleta e Tratamento de Dados
+Nosso compromisso com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018) é rigoroso. Coletamos apenas os dados estritamente necessários para o funcionamento das aplicações e para a prestação dos serviços contratados.
 
-**Contexto:** Estou desenvolvendo uma aplicação web "premium" utilizando **React**, **TypeScript** e **Tailwind CSS**. O objetivo é criar uma experiência de navegação fluida, sofisticada e com "peso" físico, similar a sites de awards (Awwwards/FWA).
+1.2. Gerenciamento de Cookies e Scripts de Terceiros
+Para garantir a sua privacidade e a conformidade técnica com a LGPD, nossa plataforma utiliza um sistema de gerenciamento de consentimento rígido. Nenhum script de terceiros (como ferramentas de analytics, rastreadores de marketing ou pixels de conversão) é carregado ou executado na aplicação antes que o usuário forneça seu consentimento explícito através do nosso banner de cookies. O usuário pode, a qualquer momento, revogar esse consentimento acessando as configurações de privacidade no rodapé do site.
 
-**Objetivo Principal:** Implementar um sistema de **Smooth Scrolling (Rolagem Suave)** integrado com animações baseadas em scroll (**Scroll-Linked Animations**).
+1.3. Segurança e Limitação de Responsabilidade sobre Vazamentos
+Empregamos as melhores práticas de desenvolvimento, criptografia e estruturação de banco de dados para garantir a segurança das informações. No entanto, nenhum sistema é imune a ameaças externas. Em caso de ataques cibernéticos de proporções imprevistas, falhas oriundas da infraestrutura dos provedores de hospedagem terceirizados ou vulnerabilidades exploradas por força maior que resultem em vazamento de dados, a responsabilidade do desenvolvedor e da plataforma é limitada às obrigações de notificação tempestiva aos usuários e à Autoridade Nacional de Proteção de Dados (ANPD), não cabendo responsabilização civil ou financeira por danos indiretos decorrentes de atos criminosos de terceiros.
 
-**Stack Tecnológica Obrigatória:**
-1.  **Lenis** (para o smooth scroll - leve e performático).
-2.  **GSAP (GreenSock)** + **ScrollTrigger** (para orquestrar as animações).
+2. Termos de Serviço e Uso da Aplicação
 
-**Requisitos Detalhados da Implementação:**
+2.1. Disponibilidade do Sistema e SLA
+Buscamos manter nossos sistemas e sites operacionais com a maior taxa de disponibilidade possível. Contudo, para garantir a segurança da infraestrutura e responder a eventuais ataques cibernéticos (como ataques DDoS), manutenções emergenciais ou instabilidades nos servidores de hospedagem e nuvem, reservamo-nos o direito de manter a plataforma indisponível por um período de até 72 (setenta e duas) horas consecutivas. Esta janela de tempo é considerada aceitável e necessária para a contenção de danos e restauração segura dos serviços, não configurando quebra de contrato, falha na prestação de serviço ou motivo para reembolso/multa.
 
-### 1. Configuração do Smooth Scroll (Lenis)
--   Inicialize o **Lenis** no componente raiz (\`App.tsx\` ou layout principal).
--   Configure uma curva de inércia personalizada (\`easing\`) para que a rolagem pareça ter "peso" e não pare abruptamente.
--   **Importante:** Sincronize o Lenis com o \`GSAP Ticker\` para garantir que as animações do ScrollTrigger não fiquem "tremidas" (jittery) durante a rolagem. O Lenis deve atualizar o ScrollTrigger a cada frame.
+2.2. Propriedade Intelectual e Funcionalidades Sob Medida
+Todo o código-fonte, arquitetura, design visual e estruturação dos sistemas desenvolvidos são de propriedade intelectual exclusiva do desenvolvedor titular.
+Caso o cliente solicite o desenvolvimento de funcionalidades sob medida, integrações específicas ou módulos personalizados, o código e a lógica de programação subjacentes a essas novas funcionalidades permanecem como propriedade intelectual exclusiva do desenvolvedor. O cliente recebe uma licença de uso irrevogável (enquanto durar o contrato) para operar a funcionalidade em seu projeto, mas não detém os direitos autorais para revenda, redistribuição ou reaproveitamento do código em outras plataformas não autorizadas, a menos que uma cessão total de direitos seja expressamente acordada e precificada em contrato apartado.
 
-### 2. Efeitos de Parallax (Profundidade)
--   Crie componentes onde elementos de fundo (imagens, títulos grandes) se movam em velocidades diferentes do scroll (\`yPercent\` ou \`y\`).
--   Use \`scrub: true\` ou um valor numérico (ex: \`scrub: 1\`) no ScrollTrigger para suavizar o movimento, criando uma sensação de "arrasto" físico.
--   *Exemplo:* Um título "Hero" que desce levemente e ganha \`blur\` conforme o usuário rola para baixo, desaparecendo suavemente.
-
-### 3. Animações de Entrada (Reveal)
--   Implemente animações de "Reveal" para seções de texto e imagens.
--   Use \`stagger\` para animar listas ou grades (ex: itens de portfólio aparecendo um após o outro).
--   As animações devem ser acionadas quando o elemento entrar na viewport (\`start: "top 80%"\`).
--   Evite animações que rodam ao contrário (\`toggleActions\` ou \`onLeaveBack\`) para garantir que o conteúdo permaneça visível e acessível após ser lido.
-
-### 4. Micro-interações Conectadas (Scrubbing)
--   Crie elementos gráficos (como linhas divisórias ou barras de progresso) que se desenham ou expandem (\`scaleX\` ou \`width\`) em sincronia direta com o scroll.
--   O movimento deve ser atrelado à posição da barra de rolagem: se o usuário para de rolar, a animação para.
-
-### 5. Performance & Acessibilidade
--   Use \`will-change: transform\` em elementos pesados.
--   Certifique-se de que a rolagem nativa não seja completamente sequestrada (hijacked) de forma que impeça a navegação por teclado ou leitores de tela.
--   Desative animações pesadas se o usuário tiver a preferência \`prefers-reduced-motion\` ativada.
-
-**Exemplo de Código Esperado (Snippet):**
-
-\`\`\`typescript
-// Exemplo de integração Lenis + GSAP
-useEffect(() => {
-  const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Curva exponencial
-    smoothWheel: true,
-  });
-
-  function raf(time: number) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
-
-  // Conectar ao GSAP
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
-}, []);
-\`\`\``
-  },
-  {
-    id: 'interacao-expansao-card',
-    title: 'Interação de expansão de um card',
-    category: 'prompts',
-    channel: CommunicationChannel.PROMPT,
-    description: 'Prompt para criar uma interação Master-Detail com expansão de card para modal usando Framer Motion e Lenis.',
-    content: `Contexto: Estou desenvolvendo um portfólio React de alta fidelidade e preciso replicar uma interação específica de "Master-Detail" que já existe na seção de Projetos. Objetivo: Criar um novo componente de Lista/Grid (ex: para Artigos, Serviços ou Galeria) onde o clique em um item expande um Modal de tela cheia com transição contínua.
-
-Requisitos Técnicos Estritos:
-
-Tecnologias:
-
-React 18+
-Framer Motion (para layoutId, AnimatePresence, useScroll, useSpring).
-Lenis (para scroll suave isolado dentro do modal).
-Tailwind CSS.
-Comportamento do Card (Lista):
-
-Deve usar useScroll relativo ao container do card para animar propriedades conforme o item entra na viewport.
-Animação de Scroll: Aplicar useSpring no progresso do scroll.
-Transformações:
-clipPath: De inset(15% 10% 15% 10% round 4px) para inset(0% ...) (efeito de expansão).
-scale: De 0.95 para 1.05.
-y (Parallax da imagem interna): De -30% para 30%.
-Interação: Hover deve revelar um botão (seta) com scale e opacity.
-Shared Element: A imagem deve ter layoutId="image-{id}" e o título layoutId="title-{id}".
-Comportamento do Modal (Container):
-
-Deve usar createPortal para renderizar no document.body.
-Entrada: Animação tipo spring (damping: 30, stiffness: 300) vindo de baixo (y: 100% -> 0% ou 2%).
-Saída: Animação tipo tween (ease: "easeInOut", duration: 0.4) para evitar "travamentos" no final.
-Scroll: Deve instanciar um novo Lenis apenas para o container do modal (wrapper e content), travando o scroll da página principal.
-Mobile: Deve suportar gesto de arrastar para fechar (drag="y").
-Conteúdo do Modal (Detail):
-
-Hero Section deve conter a imagem com o mesmo layoutId="image-{id}" para fechar a transição mágica.
-Título com o mesmo layoutId="title-{id}".
-Conteúdo subsequente deve usar animação de entrada escalonada (Reveal).
-Por favor, implemente seguindo EXATAMENTE os padrões de código abaixo:
-
-Trechos de Código Fonte (Source of Truth)
-1. O Card (Com Física de Scroll e ClipPath)
-// Padrão para o Card da Lista
-const CardItem = ({ item, onClick }) => {
-  const containerRef = useRef(null);
-  const isMobile = window.innerWidth < 768;
-  
-  // 1. Detectar Scroll
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 0.9", "start 0.2"]
-  });
-
-  // 2. Suavizar Física
-  const smoothProgress = useSpring(scrollYProgress, {
-    damping: 20, stiffness: 100, mass: 0.5
-  });
-  
-  // 3. Transformações Visuais
-  const clipPath = useTransform(
-    smoothProgress,
-    [0, 1],
-    ["inset(15% 10% 15% 10% round 4px)", "inset(0% 0% 0% 0% round 0px)"]
-  );
-  const scale = useTransform(smoothProgress, [0, 1], [0.95, 1.05]);
-  const yParallax = useTransform(smoothProgress, [0, 1], isMobile ? ["0%", "0%"] : ["-30%", "30%"]);
-
-  return (
-    <div ref={containerRef} onClick={onClick} className="group cursor-pointer py-12">
-      {/* Wrapper com ClipPath Animado */}
-      <motion.div style={{ clipPath: isMobile ? undefined : clipPath }} className="relative aspect-video overflow-hidden">
-        
-        {/* Imagem com Parallax e LayoutId */}
-        <motion.div className="w-full h-full relative overflow-hidden">
-           <motion.img 
-              layoutId={\`image-\${item.id}\`}
-              src={item.image} 
-              style={{ scale: 1.35, y: yParallax }} 
-              className="w-full h-full object-cover"
-           />
-        </motion.div>
-
-        {/* Botão Hover */}
-        <div className="absolute center-absolute opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500">
-           <ArrowUpRight />
-        </div>
-      </motion.div>
-
-      {/* Título com LayoutId */}
-      <motion.h3 layoutId={\`title-\${item.id}\`} className="text-4xl font-serif mt-6">
-         {item.title}
-      </motion.h3>
-    </div>
-  );
-};
-2. O Modal (Com Lenis Isolado e Portal)
-// Padrão para o Modal Wrapper
-const ContentModal = ({ isOpen, onClose, children, layoutId }) => {
-  const modalContainerRef = useRef(null);
-  const modalContentRef = useRef(null);
-  const scopedLenisRef = useRef(null);
-
-  // Lógica de Scroll Isolado (Lenis)
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'; // Trava body
-      
-      // Inicia Lenis apenas no Modal após mount
-      setTimeout(() => {
-        if (modalContainerRef.current && modalContentRef.current) {
-            const scopedLenis = new Lenis({
-                wrapper: modalContainerRef.current,
-                content: modalContentRef.current,
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Ease Out Quart
-                orientation: 'vertical',
-                touchMultiplier: 2,
-            });
-            scopedLenisRef.current = scopedLenis;
-            
-            function raf(time) {
-                scopedLenis.raf(time);
-                requestAnimationFrame(raf);
-            }
-            requestAnimationFrame(raf);
-        }
-      }, 300); // Delay para permitir animação de entrada
-    } else {
-      document.body.style.overflow = '';
-      scopedLenisRef.current?.destroy();
-    }
-    return () => {
-       document.body.style.overflow = '';
-       scopedLenisRef.current?.destroy();
-    };
-  }, [isOpen]);
-
-  return createPortal(
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          <motion.div onClick={onClose} className="fixed inset-0 bg-black/90 z-[9998]" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} />
-          
-          <motion.div
-            layoutId={layoutId ? \`modal-container-\${layoutId}\` : undefined}
-            initial={{ y: "100%" }}
-            animate={{ y: "2%", transition: { type: "spring", damping: 30, stiffness: 300 } }}
-            exit={{ y: "100%", transition: { duration: 0.4, ease: "easeInOut" } }} // Tween na saída
-            className="fixed inset-0 z-[9999] bg-[#F2F4F6] rounded-t-[2rem] h-[98vh]"
-          >
-            {/* Container de Scroll para o Lenis */}
-            <div ref={modalContainerRef} className="h-full w-full overflow-y-auto">
-               <div ref={modalContentRef}>
-                  {children}
-               </div>
-            </div>
-            
-            {/* Botão Fechar Flutuante */}
-            <button onClick={onClose} className="absolute top-8 right-8 z-50">
-               <X />
-            </button>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>,
-    document.body
-  );
-};`
-  },
-  {
-    id: 'detalhamento-md-projeto',
-    title: 'Detalhamento MD Projeto',
-    category: 'prompts',
-    channel: CommunicationChannel.PROMPT,
-    description: 'Prompt para gerar a documentação detalhada (DOC-TEMPLATE.md) da arquitetura de projetos Front-end.',
-    content: `[Instrução de Sistema] Atue como um Agente Autônomo de IA (Google AntiGravity), Arquiteto de Software Sênior e Tech Lead especializado em React e documentação técnica. Você tem permissão de leitura, escrita e criação de arquivos diretamente na raiz do projeto.
-[Contexto do Projeto] Este projeto atual é um [INSERIR TIPO DE PROJETO, ex: Template multi-clientes / E-commerce / Landing Page White-label] voltado para o nicho de [INSERIR NICHO, ex: restaurantes / clínicas médicas / varejo].
-[Diretiva Primária - SILENT MODE]
-•	Ação Direta: NÃO gere ou retorne o conteúdo Markdown no chat. Sua tarefa é analisar o repositório e CRIAR DIRETAMENTE um arquivo chamado DOC-TEMPLATE.md na raiz do projeto.
-•	Output Exclusivo: No chat, responda APENAS com um log executivo confirmando a criação do arquivo (ex: [SUCCESS] Arquivo DOC-TEMPLATE.md criado na raiz com base na arquitetura atual.).
-[Instrução Crítica Contra Alucinações]
-•	Baseie-se ESTRITAMENTE nos arquivos de código reais encontrados no repositório.
-•	NÃO invente bibliotecas, componentes, rotas ou lógicas que não estejam explicitamente instaladas no package.json ou codificadas no projeto.
-•	Se uma configuração (como paleta de cores ou arquivo central de dados) não for encontrada, não a presuma. Limite-se a documentar o que existe.
-
-[Protocolo de Geração do DOC-TEMPLATE.md] Gere o conteúdo do arquivo em Markdown rico (usando H1, H2, listas, negritos e blocos de código) estruturado EXATAMENTE com as seguintes seções:
-1. Visão Geral e Propósito Comercial
-•	Descreva o objetivo do projeto para o nicho de [INSERIR NICHO].
-•	Liste os principais módulos e páginas disponíveis encontrados nas rotas da aplicação (ex: site institucional, dashboard).
-•	Destaque os diferenciais comerciais baseados na estrutura do código atual.
-2. Stack Tecnológica e Comportamento Visual
-•	Liste e explique o papel das principais tecnologias, bundlers e bibliotecas de roteamento extraídas do package.json real.
-•	Identifique bibliotecas de UI/UX e animações em uso. Descreva o comportamento visual atual (ex: minimalista, corporativo) com base nas classes CSS/Tailwind predominantes.
-3. Arquitetura Orientada a Dados (Data-Driven)
-•	Documente como a aplicação separa a interface (componentes React) dos dados de negócio.
-•	Identifique qual é o arquivo ou diretório central de configuração (ex: data.json, clientConfig.ts, chamadas de API mockadas) e explique como ele alimenta os componentes (textos, imagens) sem a necessidade de editar o JSX/TSX.
-4. Tematização Dinâmica e Estilização
-•	Explique onde as variáveis de design do projeto estão definidas (ex: tailwind.config.js, :root no CSS global ou styled-components).
-•	Forneça um bloco de código com um exemplo real e prático de como alterar a paleta de cores principal ou a tipografia do projeto em poucos minutos.
-5. Guia Rápido de Customização (Passo a Passo)
-•	Crie um tutorial enumerado orientando um desenvolvedor sobre "Como adaptar este projeto para um novo cliente".
-•	Seja exato: diga quais pastas abrir, quais variáveis alterar primeiro e onde substituir mídias/logotipos com base na arquitetura de pastas atual.
-
-[Gatilho de Execução] Faça o scan do repositório agora, crie o arquivo DOC-TEMPLATE.md na raiz com o conteúdo especificado e retorne apenas o log de sucesso.`
-  },
-  {
-    id: 'mapeamento-estrutura-projeto',
-    title: 'Mapeamento de Estrutura do Projeto',
-    category: 'prompts',
-    channel: CommunicationChannel.PROMPT,
-    description: 'Prompt para gerar um mapeamento de estrutura de diretórios e documentação de arquitetura.',
-    content: `[Instrução de Sistema] Atue como um Agente Autônomo de IA (Google AntiGravity) e Arquiteto de Software Sênior especializado em documentação técnica. Você tem permissão de leitura de todos os diretórios e permissão de escrita diretamente na raiz do projeto.
-[Diretiva Primária - SILENT MODE]
-•	Ação Direta: NÃO gere blocos de código, árvores de diretório ou explicações no chat. Sua tarefa é analisar a estrutura do repositório atual e CRIAR DIRETAMENTE um arquivo chamado Arquitetura.go na raiz do projeto.
-•	Output Exclusivo: Responda no chat APENAS com um log executivo confirmando a criação e o preenchimento do arquivo (ex: [SUCCESS] Arquivo Arquitetura.go gerado com sucesso na raiz do projeto.).
-[Missão e Regras Críticas] Gere um mapeamento completo da estrutura atual do projeto e grave-o no arquivo Arquitetura.go.
-•	Conteúdo 100% Comentado: Todo o conteúdo dentro do arquivo Arquitetura.go DEVE ser escrito como comentários válidos na linguagem Go (iniciando com //).
-•	Zero Alucinação: NÃO invente arquivos, pastas ou módulos que não existam no repositório. Limite-se estritamente ao que você mapear.
-•	Descrições: Se não souber o propósito exato de um arquivo, descreva-o de forma genérica baseada em seu nome ou extensão.
-[Estrutura Obrigatória do Arquivo Arquitetura.go] Escreva o arquivo organizando os comentários exatamente com as seções abaixo:
-1. Título // 📁 Mapeamento de Estrutura do Projeto
-2. Árvore de Diretórios Mapeie a raiz e as subpastas usando os caracteres ├──, └──, e │. Adicione uma breve descrição ao lado de cada arquivo/pasta relevante. Exemplo: // project/ // ├── main.go // Ponto de entrada da aplicação // ├── config.json // Arquivo de configuração // └── utils/ // └── helper.go // Funções utilitárias
-3. Explicação da Arquitetura Explique a responsabilidade das principais pastas e módulos encontrados. Exemplo: // 🏗️ Arquitetura // - /utils: contém funções auxiliares reutilizáveis // - /config: centraliza configurações
-4. Ponto de Entrada e Configurações Identifique e descreva onde o software se inicia e onde guarda suas configurações. Exemplo: // 🚀 Ponto de Entrada // main.go é responsável por iniciar a aplicação // // ⚙️ Configurações // config.json armazena parâmetros do sistema
-[Gatilho de Execução] Faça a varredura da estrutura do projeto agora, crie o arquivo Arquitetura.go preenchido conforme as regras e retorne apenas o log de sucesso.`
+2.3. Atualizações destes Termos
+Reservamo-nos o direito de atualizar estes Termos e Políticas periodicamente para refletir mudanças tecnológicas ou legais. Recomendamos a revisão constante desta página.`
   }
 ];

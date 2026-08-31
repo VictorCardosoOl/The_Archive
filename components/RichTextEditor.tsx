@@ -65,13 +65,13 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChang
       },
     },
     onUpdate: ({ editor }) => {
-        onChange(editor.getHTML());
+        onChange(DOMPurify.sanitize(editor.getHTML()));
     },
   });
 
   useEffect(() => {
     if (editor && content !== editor.getHTML()) {
-        editor.commands.setContent(content);
+        editor.commands.setContent(DOMPurify.sanitize(content));
     }
   }, [content, editor]);
 

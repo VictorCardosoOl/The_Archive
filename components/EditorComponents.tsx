@@ -2,7 +2,6 @@
 import React, { memo } from 'react';
 import { Template, CommunicationChannel } from '../types';
 import { SlidersHorizontal, RefreshCw, Sparkles, Calendar, Clock, AlignLeft, Quote, Copy, Check, ChevronLeft } from 'lucide-react';
-import { getInputType } from '../utils/textUtils';
 import { useTemplateCopier } from '../hooks/useTemplateCopier';
 import { RichTextEditor } from './RichTextEditor';
 
@@ -13,11 +12,10 @@ interface EditorHeaderProps {
   showVariables: boolean;
   onToggleVariables: () => void;
   onReset: () => void;
-  hasVariables: boolean;
 }
 
 export const EditorHeader = memo<EditorHeaderProps>(({ 
-  template, onClose, showVariables, onToggleVariables, onReset, hasVariables 
+  template, onClose, showVariables, onToggleVariables, onReset
 }) => {
   return (
     <div className="editor-header">

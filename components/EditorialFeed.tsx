@@ -52,6 +52,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({
   
   const gapY = cols >= 3 ? 80 : 64; // Reduced from 112/96
   
+  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: rowCount,
     getScrollElement: () => scrollRef?.current || null,

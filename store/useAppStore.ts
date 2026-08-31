@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { Template } from '../types';
-import { INITIAL_TEMPLATES } from '../constants';
 
 interface AppState {
   // UI State
@@ -16,16 +15,17 @@ interface AppState {
   // Data State
   templates: Template[];
   setTemplates: (templates: Template[]) => void;
+  loadDefaults: () => Promise<void>;
 }
 
 const getInitialTemplates = (): Template[] => {
-  if (typeof window === 'undefined') return INITIAL_TEMPLATES;
+  if (typeof window === 'undefined') return [];
   try {
     const saved = localStorage.getItem('quickcomms-templates');
-    return saved ? JSON.parse(saved) : INITIAL_TEMPLATES;
+    return saved ? JSON.parse(saved) : [];
   } catch (e) {
     console.error("Failed to load templates", e);
-    return INITIAL_TEMPLATES;
+    return [];
   }
 };
 
@@ -45,10 +45,35 @@ export const useAppStore = create<AppState>((set) => ({
 
   // Data State
   templates: getInitialTemplates(),
+  loadDefaults: async () => {
+    try {
+      const { INITIAL_TEMPLATES } = await import('../constants');
+      set((state) => {
+        if (state.templates.length === 0) {
+          const newTemplates = INITIAL_TEMPLATES;
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('quickcomms-templates', JSON.stringify(newTemplates));
+          }
+          return { templates: newTemplates };
+        }
+        return state;
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  },
   setTemplates: (templates) => {
     set({ templates });
     if (typeof window !== 'undefined') {
-      localStorage.setItem('quickcomms-templates', JSON.stringify(templates));
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => {
+          localStorage.setItem('quickcomms-templates', JSON.stringify(templates));
+        }, { timeout: 2000 });
+      } else {
+        setTimeout(() => {
+          localStorage.setItem('quickcomms-templates', JSON.stringify(templates));
+        }, 100);
+      }
     }
   },
 }));

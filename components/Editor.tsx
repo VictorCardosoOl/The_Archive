@@ -47,7 +47,7 @@ const fabVariants: Variants = {
 
 export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
   const [isMobile, setIsMobile] = React.useState(false);
-  const [focusedVariable, setFocusedVariable] = React.useState<string | null>(null);
+  const [focusedVariable] = React.useState<string | null>(null);
   
   // Refs for Scroll & Animation
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -57,9 +57,7 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
     subject, setSubject,
     content, setContent,
     secondaryContent, setSecondaryContent,
-    variableValues,
     showVariables, setShowVariables,
-    handleVariableChange,
     handleReset,
     placeholders,
     scenarios,
