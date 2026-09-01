@@ -1,287 +1,105 @@
-
-import React, { useRef, useLayoutEffect } from 'react';
+import React from 'react';
 import { Template } from '../types';
-import { motion, AnimatePresence, Variants } from 'framer-motion';
-import { useEditorLogic } from '../hooks/useEditorLogic';
-import { EditorHeader, VariablePanel, ContentArea } from './EditorComponents';
-import { Copy, Check, Layers, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Copy, Check, X } from 'lucide-react';
 import { useTemplateCopier } from '../hooks/useTemplateCopier';
-import gsap from 'gsap';
-import { useFocusTrap } from '../hooks/useFocusTrap';
 
 interface EditorProps {
   template: Template;
   onClose: () => void;
 }
 
-// Container slide-up animation (Page Transition)
-const containerVariants: Variants = {
+const containerVariants = {
   hidden: { opacity: 0, y: "100%" },
   visible: {
     opacity: 1,
     y: "0%",
-    transition: {
-      duration: 0.6,
-      ease: [0.16, 1, 0.3, 1] // Power3.out
-    }
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
   },
   exit: {
     opacity: 0,
     y: "100%",
-    transition: {
-      duration: 0.4,
-      ease: [0.16, 1, 0.3, 1]
-    }
-  }
-};
-
-const fabVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.8, y: 20 },
-  visible: { 
-    opacity: 1, 
-    scale: 1, 
-    y: 0,
-    transition: { duration: 0.4, ease: "backOut", delay: 0.6 }
+    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] }
   }
 };
 
 export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
-  const [isMobile, setIsMobile] = React.useState(false);
-  const [focusedVariable] = React.useState<string | null>(null);
-  
-  // Refs for Scroll & Animation
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-
-  const {
-    subject, setSubject,
-    content, setContent,
-    secondaryContent, setSecondaryContent,
-    showVariables, setShowVariables,
-    handleReset,
-    placeholders,
-    scenarios,
-    isScenarioMode,
-    scrollAnim
-  } = useEditorLogic(template, scrollContainerRef);
-
   const { copyToClipboard, isCopied } = useTemplateCopier();
-  const hasVariables = placeholders.length > 0;
-
-  React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // --- GSAP ENTRANCE CHOREOGRAPHY ---
-  // Store timeline reference to allow reversing on exit
-  const tlRef = useRef<gsap.core.Timeline | null>(null);
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-        // Wait for page transition to finish (approx 0.5s)
-        const timeline = gsap.timeline({ delay: 0.5 });
-        tlRef.current = timeline;
-
-        // Header falls in smoothly
-        timeline.from(headerRef.current, {
-            y: -20,
-            opacity: 0,
-            duration: 0.8,
-            ease: "power3.out"
-        });
-
-        // Content elements stagger up - Sophisticated
-        timeline.fromTo(".editor-element", 
-          { y: 40, opacity: 0, scale: 0.98 }, 
-          {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.8,
-            stagger: 0.1, // More pronounced stagger
-            ease: "power4.out",
-            clearProps: "transform,scale" // Clean up to avoid layout shifts later
-        }, "-=0.6");
-
-        // Sidebar slides in
-        if (hasVariables && !isMobile) {
-            timeline.fromTo(".variable-panel",
-              { x: 50, opacity: 0 },
-              {
-                x: 0,
-                opacity: 1,
-                duration: 0.8,
-                ease: "power3.out"
-            }, "-=0.6");
-        }
-    });
-
-    return () => ctx.revert();
-  }, [hasVariables, isMobile]);
-
-  // Handle Close with Exit Animation
-  const handleClose = () => {
-    if (tlRef.current) {
-        tlRef.current.timeScale(2).reverse().then(() => {
-            onClose();
-        });
-    } else {
-        onClose();
-    }
-  };
 
   const handleCopyAll = () => {
-    const fullText = subject ? `<b>Assunto:</b> ${subject}<br><br>${content}` : content;
+    const fullText = template.subject 
+      ? `Assunto: ${template.subject}\n\n${template.content}` 
+      : template.content;
     copyToClipboard(fullText, 'copy-all', true);
   };
 
-  const focusTrapRef = useFocusTrap(true);
-
   return (
     <motion.div 
-      ref={focusTrapRef}
-      className="h-full flex flex-col relative overflow-hidden bg-editorial-bg"
+      className="h-full flex flex-col relative overflow-hidden bg-white"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
       exit="exit"
-      tabIndex={-1}
     >
-      {/* Header - Fixed */}
-      <div ref={headerRef} className="z-20 shrink-0 relative bg-editorial-bg border-b border-[#e0e0e0]">
-        <EditorHeader 
-          template={template} 
-          onClose={handleClose} 
-          showVariables={showVariables}
-          onToggleVariables={() => setShowVariables(!showVariables)}
-          onReset={handleReset}
-          hasVariables={hasVariables}
-        />
+      {/* Header */}
+      <div className="z-20 shrink-0 relative bg-editorial-bg border-b border-[#e0e0e0] flex items-center justify-between px-8 py-6">
+        <div>
+          <h2 className="text-2xl font-serif text-editorial-black">{template.title}</h2>
+          {template.description && (
+             <p className="text-sm text-editorial-gray mt-1">{template.description}</p>
+          )}
+        </div>
+        <button 
+          onClick={onClose}
+          className="p-3 hover:bg-black/5 rounded-full transition-colors text-editorial-black"
+        >
+          <X size={24} />
+        </button>
       </div>
 
-      {/* Main Layout */}
-      <div className="flex-1 flex flex-row overflow-hidden relative min-h-0 bg-white">
-        
-        {/* Content Area (Native Scroll Container) */}
-        <div ref={scrollContainerRef} className="flex-1 h-full overflow-y-auto custom-scrollbar relative pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-0"> 
-             <ContentArea 
-               template={template}
-               subject={subject} setSubject={setSubject}
-               content={content} setContent={setContent}
-               secondaryContent={secondaryContent} setSecondaryContent={setSecondaryContent}
-               isScenarioMode={isScenarioMode}
-               scenarios={scenarios}
-               focusedVariable={focusedVariable}
-               scrollAnim={scrollAnim}
-             />
-        </div>
-
-          {hasVariables && !isMobile && (
-           <motion.div 
-             initial={false}
-             animate={{ 
-                width: showVariables ? "clamp(380px, 30vw, 480px)" : 0,
-                opacity: showVariables ? 1 : 0
-             }}
-             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-             className="hidden lg:block h-full border-l border-[#e0e0e0] relative overflow-hidden shrink-0 bg-editorial-bg variable-panel"
-           >
-             <div className="absolute inset-0 w-[400px] xl:w-[480px] h-full overflow-y-auto custom-scrollbar">
-                <VariablePanel 
-                  placeholders={placeholders} 
-                  variableValues={variableValues} 
-                  onVariableChange={handleVariableChange} 
-                  isVisible={true} 
-                  onFocusVariable={setFocusedVariable}
-                />
-             </div>
-           </motion.div>
-        )}
-
-        {/* Mobile Variables Modal */}
-        <AnimatePresence>
-          {isMobile && hasVariables && showVariables && (
-            <>
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-editorial-black/20 backdrop-blur-sm z-40 lg:hidden"
-                onClick={() => setShowVariables(false)}
-              />
-              <motion.div 
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                exit={{ y: "100%" }}
-                transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className="fixed inset-x-0 bottom-0 z-50 bg-editorial-bg border-t border-editorial-black shadow-2xl h-[75vh] flex flex-col overflow-hidden lg:hidden"
-              >
-                <div className="flex items-center justify-between px-6 py-5 border-b border-editorial-black shrink-0">
-                  <h3 className="text-sm font-bold text-editorial-black uppercase tracking-wider">Personalização</h3>
-                  <button onClick={() => setShowVariables(false)} className="p-2 hover:bg-editorial-black/5 text-editorial-black transition-colors">
-                    <X size={18} />
-                  </button>
-                </div>
-                <div className="flex-1 overflow-y-auto custom-scrollbar pb-[env(safe-area-inset-bottom)]">
-                   <VariablePanel 
-                      placeholders={placeholders} 
-                      variableValues={variableValues} 
-                      onVariableChange={handleVariableChange} 
-                      isVisible={true}
-                      className="p-6 pb-24"
-                      onFocusVariable={setFocusedVariable}
-                   />
-                </div>
-              </motion.div>
-            </>
+      {/* Main Content Area */}
+      <div className="flex-1 overflow-y-auto custom-scrollbar p-8 pb-32">
+        <div className="max-w-3xl mx-auto space-y-8">
+          {template.subject && (
+            <div className="bg-editorial-bg p-6 rounded-xl border border-editorial-black/10">
+              <span className="text-xs font-bold uppercase tracking-widest text-editorial-gray block mb-2">Assunto</span>
+              <p className="text-lg font-medium text-editorial-black">{template.subject}</p>
+            </div>
           )}
-        </AnimatePresence>
 
-        {/* FABs */}
-        {!isScenarioMode && (
-          <div className="absolute bottom-[calc(2rem+env(safe-area-inset-bottom))] right-6 md:bottom-8 md:right-8 z-30 flex flex-col items-end gap-4 pointer-events-none">
-            {secondaryContent && (
-              <motion.button 
-                variants={fabVariants}
-                initial="hidden"
-                animate="visible"
-                onClick={() => copyToClipboard(secondaryContent, 'sec-float', true)} 
-                className={`
-                  pointer-events-auto flex items-center gap-3 px-6 py-4 border rounded-full shadow-sm transition-all duration-200 active:scale-95
-                  ${isCopied('sec-float') 
-                    ? 'bg-editorial-black text-white border-editorial-black' 
-                    : 'bg-editorial-bg text-editorial-black border-editorial-black/20 hover:border-editorial-black hover:bg-editorial-black/5'}
-                `}
-              >
-                {isCopied('sec-float') ? <Check size={18} /> : <Layers size={18} />}
-                <span className="text-xs font-bold uppercase tracking-wider">
-                  {isCopied('sec-float') ? 'Copiado' : (template.secondaryLabel || 'Protocolo')}
-                </span>
-              </motion.button>
-            )}
-
-            <motion.button 
-              variants={fabVariants}
-              initial="hidden"
-              animate="visible"
-              onClick={handleCopyAll} 
-              className={`
-                pointer-events-auto flex items-center gap-3 px-8 py-4 border rounded-full shadow-sm transition-all duration-200 active:scale-95
-                ${isCopied('copy-all') 
-                  ? 'bg-editorial-black text-white border-editorial-black' 
-                  : 'bg-editorial-black text-white border-editorial-black hover:bg-editorial-black/90'}
-              `}
-            >
-              {isCopied('copy-all') ? <Check size={20} /> : <Copy size={20} />}
-              <span className="text-sm font-bold uppercase tracking-widest">
-                {isCopied('copy-all') ? 'Copiado' : 'Copiar Tudo'}
-              </span>
-            </motion.button>
+          <div className="prose prose-lg max-w-none prose-p:leading-relaxed text-editorial-black whitespace-pre-wrap font-serif">
+            {template.content}
           </div>
-        )}
+
+          {template.secondaryContent && (
+             <div className="mt-12 pt-8 border-t border-editorial-black/10">
+                <span className="text-xs font-bold uppercase tracking-widest text-editorial-gray block mb-4">
+                  {template.secondaryLabel || 'Conteúdo Adicional'}
+                </span>
+                <div className="prose prose-lg max-w-none prose-p:leading-relaxed text-editorial-black whitespace-pre-wrap font-serif">
+                  {template.secondaryContent}
+                </div>
+             </div>
+          )}
+        </div>
+      </div>
+
+      {/* Floating Action Button */}
+      <div className="absolute bottom-8 right-8 z-30 pointer-events-none">
+        <button 
+          onClick={handleCopyAll} 
+          className={`
+            pointer-events-auto flex items-center gap-3 px-8 py-4 border rounded-full shadow-lg transition-all duration-200 active:scale-95
+            ${isCopied('copy-all') 
+              ? 'bg-editorial-black text-white border-editorial-black' 
+              : 'bg-editorial-black text-white border-editorial-black hover:bg-black/90'}
+          `}
+        >
+          {isCopied('copy-all') ? <Check size={20} /> : <Copy size={20} />}
+          <span className="text-sm font-bold uppercase tracking-widest">
+            {isCopied('copy-all') ? 'Copiado' : 'Copiar Tudo'}
+          </span>
+        </button>
       </div>
     </motion.div>
   );
