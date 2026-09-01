@@ -13,11 +13,13 @@
     <meta name="keywords" content="AntiGravity, IA, Inteligência Artificial, Prompts, Engenharia de Software, Framework" />
     
     <!-- Open Graph / AEO / SEO -->
+    <meta property="og:site_name" content="AntiGravity Studio" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://antigravity-studio.vercel.app/" />
     <meta property="og:title" content="AntiGravity. | Framework de Comunicação" />
     <meta property="og:description" content="Um acervo meticulosamente curado de prompts e lógicas de IA para otimização de comunicação e engenharia de software criativa." />
     <meta property="og:image" content="https://antigravity-studio.vercel.app/og-image.jpg" />
+    <meta name="robots" content="index, follow" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -26,23 +28,34 @@
     <meta property="twitter:description" content="Um acervo meticulosamente curado de prompts e lógicas de IA para otimização de comunicação e engenharia de software criativa." />
     <meta property="twitter:image" content="https://antigravity-studio.vercel.app/og-image.jpg" />
 
-    <!-- Premium App Icon (Command Symbol in Dark Squircle) -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgcng9IjUiIGZpbGw9IiMxQzFDMUUiLz48cGF0aCBkPSJNMTUgNnYxMmEzIDMgMCAxIDAgMy0zSDZhMyAzIDAgMSAwIDMgM1Y2YTMgMyAwIDEgMC0zIDNoMTJhMyAzIDAgMSAwLTMtMyIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==" />
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgcng9IjUiIGZpbGw9IiMxQzFDMUUiLz48cGF0aCBkPSJNMTUgNnYxMmEzIDMgMCAxIDAgMy0zSDZhMyAzIDAgMSAwIDMgM1Y2YTMgMyAwIDEgMC0zIDNoMTJhMyAzIDAgMSAwLTMtMyIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==" />
+    <!-- Premium App Icon (Replaced Base64 SVG with standard static path for PWA support on iOS) -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="./manifest.json" />
+    <link rel="manifest" href="/manifest.json" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <script>
-      // Service Worker removed for development stability
+    <!-- Structured Data for AEO/SEO (Generative AI optimization) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "AntiGravity. | Framework de Comunicação",
+      "description": "Um acervo meticulosamente curado de prompts e lógicas de IA para otimização de comunicação e engenharia de software criativa.",
+      "url": "https://antigravity-studio.vercel.app/",
+      "provider": {
+        "@type": "Organization",
+        "name": "AntiGravity Studio"
+      }
+    }
     </script>
 </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./index.tsx"></script>
+    <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>
