@@ -14,8 +14,8 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({
   secondaryLabel 
 }) => {
   return (
-    <div className="flex-1 overflow-y-auto custom-scrollbar p-8 pb-32">
-      <div className="max-w-3xl mx-auto space-y-8">
+    <div className="flex-1 overflow-y-auto custom-scrollbar p-6 md:p-8 2xl:p-12 3xl:p-16 pb-32 3xl:pb-48">
+      <div className="max-w-3xl 3xl:max-w-4xl mx-auto space-y-8 2xl:space-y-12">
         {subject && (
           <div className="bg-editorial-bg p-6 rounded-xl border border-editorial-black/10">
             <span className="text-xs font-bold uppercase tracking-widest text-editorial-gray block mb-2">Assunto</span>
@@ -23,7 +23,7 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({
           </div>
         )}
 
-        <div className="prose prose-lg max-w-none prose-p:leading-relaxed text-editorial-black whitespace-pre-wrap font-serif">
+        <div className="text-[1.15rem] leading-[1.8] max-w-none text-editorial-black whitespace-pre-wrap font-serif font-medium">
           {content}
         </div>
 
@@ -32,7 +32,7 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({
               <span className="text-xs font-bold uppercase tracking-widest text-editorial-gray block mb-4">
                 {secondaryLabel || 'Conteúdo Adicional'}
               </span>
-              <div className="prose prose-lg max-w-none prose-p:leading-relaxed text-editorial-black whitespace-pre-wrap font-serif">
+              <div className="text-[1.15rem] leading-[1.8] max-w-none text-editorial-black whitespace-pre-wrap font-serif font-medium">
                 {secondaryContent}
               </div>
            </div>

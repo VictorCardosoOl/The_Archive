@@ -46,46 +46,52 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
   const arrowRef = useRef<SVGSVGElement>(null);
   
   const handleMouseEnter = () => {
+    const ease = [0.16, 1, 0.3, 1]; // Expo out for snappy 120hz feel
+    const duration = 0.3;
+
     if (cardRef.current) {
-      animate(cardRef.current, { scale: 1.015, boxShadow: "0 30px 60px -12px rgba(0,0,0,0.08)" }, { duration: 0.4, ease: "easeOut" });
+      animate(cardRef.current, { scale: 1.015, boxShadow: "0 30px 60px -12px rgba(0,0,0,0.08)" }, { duration: 0.4, ease });
     }
 
     if (buttonsRef.current) {
-      animate(buttonsRef.current, { opacity: 1, x: 0 }, { duration: 0.3, ease: "easeOut" });
+      animate(buttonsRef.current, { opacity: 1, x: 0 }, { duration, ease });
     }
 
     if (exploreTextRef.current) {
-      animate(exploreTextRef.current, { opacity: 1, x: 0 }, { duration: 0.3, ease: "easeOut" });
+      animate(exploreTextRef.current, { opacity: 1, x: 0 }, { duration, ease });
     }
 
     if (exploreIconRef.current) {
-      animate(exploreIconRef.current, { backgroundColor: "#111111", borderColor: "#111111" }, { duration: 0.3, ease: "easeOut" });
+      animate(exploreIconRef.current, { backgroundColor: "#111111", borderColor: "#111111" }, { duration, ease });
     }
 
     if (arrowRef.current) {
-      animate(arrowRef.current, { rotate: 0, color: "#ffffff" }, { duration: 0.3, ease: "easeOut" });
+      animate(arrowRef.current, { rotate: 0, color: "#ffffff" }, { duration, ease });
     }
   };
 
   const handleMouseLeave = () => {
+    const ease = [0.16, 1, 0.3, 1];
+    const duration = 0.25;
+
     if (cardRef.current) {
-      animate(cardRef.current, { scale: 1, boxShadow: "0 0px 0px 0px rgba(0,0,0,0)" }, { duration: 0.25, ease: "easeOut" });
+      animate(cardRef.current, { scale: 1, boxShadow: "0 0px 0px 0px rgba(0,0,0,0)" }, { duration, ease });
     }
 
     if (buttonsRef.current) {
-      animate(buttonsRef.current, { opacity: 0, x: -16 }, { duration: 0.25, ease: "easeOut" });
+      animate(buttonsRef.current, { opacity: 0, x: -16 }, { duration, ease });
     }
 
     if (exploreTextRef.current) {
-      animate(exploreTextRef.current, { opacity: 0, x: 48 }, { duration: 0.25, ease: "easeOut" });
+      animate(exploreTextRef.current, { opacity: 0, x: 48 }, { duration, ease });
     }
 
     if (exploreIconRef.current) {
-      animate(exploreIconRef.current, { backgroundColor: "transparent", borderColor: "rgba(74, 74, 74, 0.3)" }, { duration: 0.25, ease: "easeOut" });
+      animate(exploreIconRef.current, { backgroundColor: "transparent", borderColor: "rgba(74, 74, 74, 0.3)" }, { duration, ease });
     }
 
     if (arrowRef.current) {
-      animate(arrowRef.current, { rotate: -45, color: "#111111" }, { duration: 0.25, ease: "easeOut" });
+      animate(arrowRef.current, { rotate: -45, color: "#111111" }, { duration, ease });
     }
   };
 
@@ -94,8 +100,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
       <motion.article 
         ref={cardRef as React.Ref<HTMLElement>}
         initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-10%" }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         onClick={onClick}
         onKeyDown={handleKeyDown}
@@ -107,34 +112,36 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
         tabIndex={0}
         aria-label={`Visualizar modelo em destaque: ${template.title}`}
         className="group relative flex flex-col w-full h-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-editorial-black"
+        style={{ willChange: "transform, opacity" }}
       >
-        <div aria-hidden="true" className="absolute -inset-10 bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none rounded-[100px]"></div>
+        <div aria-hidden="true" className="absolute -inset-10 bg-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-[100px] shadow-[0_0_80px_rgba(255,255,255,0.4)]"></div>
         
         <div className="editorial-card-hero">
-          <div className="flex items-center justify-between mb-12">
-            <div className="flex items-center gap-4">
-               <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] bg-editorial-black text-white px-4 py-2 rounded-full">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+               <span className="font-sans text-xs font-semibold uppercase tracking-[0.2em] bg-editorial-black text-white px-4 py-1.5 rounded-full">
                  Destaque Principal
                </span>
                {isPinned && <Pin size={16} className="fill-editorial-black text-editorial-black" aria-label="Fixado" />}
             </div>
-            <time dateTime={new Date().toISOString()} className="font-serif italic text-[var(--text-lg)] text-editorial-gray">
+            <time dateTime={new Date().toISOString()} className="font-serif italic text-base md:text-lg text-editorial-black/60">
               {new Date().toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}
             </time>
           </div>
 
-          <h2 className="font-sans font-black text-[var(--text-6xl)] leading-[0.9] tracking-tighter mb-12 max-w-4xl text-editorial-black group-hover:text-editorial-gray transition-colors duration-700">
+          <h2 className="font-serif font-semibold text-3xl md:text-5xl lg:text-6xl leading-[1.1] mb-6 max-w-4xl text-editorial-black group-hover:text-editorial-gray transition-colors duration-700">
             {template.title}
           </h2>
           
-          <div className="flex flex-col md:flex-row gap-12 md:gap-20 items-end mt-auto">
-             <p className="font-serif text-[var(--text-xl)] leading-relaxed text-editorial-gray opacity-80 flex-1 max-w-2xl line-clamp-4">
+          <div className="flex flex-col md:flex-row gap-6 md:gap-14 items-end mt-auto">
+             <p className="font-serif font-normal text-lg md:text-2xl leading-[1.55] text-editorial-black/85 flex-1 max-w-2xl line-clamp-3">
                {template.description || template.content.substring(0, 500) + "..."}
              </p>
              
              <div 
                ref={buttonsRef}
                className="flex items-center gap-3 shrink-0 opacity-100 lg:opacity-0 lg:-translate-x-4"
+               style={{ willChange: "transform, opacity" }}
              >
                 <button 
                   onClick={handlePin}
@@ -155,7 +162,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
                 </button>
                 <span 
                   aria-hidden="true"
-                  className="flex items-center gap-3 font-sans text-xs font-bold uppercase tracking-[0.1em] bg-editorial-black text-white px-8 py-4 rounded-full hover:bg-editorial-gray transition-colors duration-500"
+                  className="flex items-center gap-3 font-sans text-xs font-bold uppercase tracking-[0.1em] bg-editorial-black text-white px-7 py-3.5 rounded-full hover:bg-editorial-gray transition-colors duration-500"
                 >
                   Editar <ArrowRight size={16} />
                 </span>
@@ -167,12 +174,8 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
   }
 
   return (
-    <motion.article 
+    <article 
       ref={cardRef as React.Ref<HTMLElement>}
-      initial={{ opacity: 0, scale: 0.95, y: 30 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: true, margin: "-5%" }}
-      transition={{ duration: 0.4, delay: index * 0.03, ease: [0.16, 1, 0.3, 1] }}
       onClick={onClick}
       onKeyDown={handleKeyDown}
       onMouseEnter={handleMouseEnter}
@@ -182,40 +185,44 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
       role="button"
       tabIndex={0}
       aria-label={`Visualizar modelo: ${template.title}`}
-      className="group editorial-card"
+      className="group editorial-card justify-between"
+      style={{ willChange: "transform, box-shadow" }}
     >
       <div aria-hidden="true" className="absolute inset-0 bg-editorial-black transform scale-y-0 origin-bottom group-hover:scale-y-[0.02] transition-transform duration-[400ms] ease-out pointer-events-none"></div>
 
-      <div className="flex items-baseline justify-between mb-8 relative z-10 w-full">
-        <span aria-hidden="true" className="font-serif italic text-[var(--text-4xl)] text-editorial-gray/20 group-hover:text-editorial-black transition-colors duration-700 font-light">
-          {(index + 1).toString().padStart(2, '0')}
-        </span>
-        <div className="flex items-center gap-3">
-           {isPinned && <Pin size={14} className="fill-editorial-black text-editorial-black" aria-label="Fixado" />}
-           <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.15em] text-editorial-gray border border-editorial-gray/20 px-3 py-1.5 rounded-full">
-             {template.category}
-           </span>
+      <div>
+        <div className="flex items-center justify-between mb-2.5 relative z-10 w-full">
+          <span aria-hidden="true" className="font-serif italic text-2xl md:text-3xl text-editorial-black/30 group-hover:text-editorial-black transition-colors duration-500 font-light">
+            {(index + 1).toString().padStart(2, '0')}
+          </span>
+          <div className="flex items-center gap-2.5">
+             {isPinned && <Pin size={14} className="fill-editorial-black text-editorial-black" aria-label="Fixado" />}
+             <span className="font-sans text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.15em] text-editorial-black bg-editorial-black/5 border border-editorial-black/10 px-2.5 py-0.5 rounded-full">
+               {template.category}
+             </span>
+          </div>
         </div>
+        
+        <h3 className="font-serif font-semibold text-lg md:text-[1.35rem] leading-[1.2] mb-1.5 group-hover:text-editorial-gray transition-colors duration-500 relative z-10 w-full break-words text-editorial-black line-clamp-2">
+          {template.title}
+        </h3>
+        
+        <p className="font-serif font-normal text-sm md:text-[0.95rem] leading-[1.45] text-editorial-black/75 line-clamp-2 mb-2 relative z-10 w-full">
+          {template.description || template.content.substring(0, 300) + "..."}
+        </p>
       </div>
-      
-      <h3 className="font-sans font-black text-[var(--text-2xl)] leading-[1.1] mb-6 group-hover:text-editorial-gray transition-colors duration-500 relative z-10 w-full break-words">
-        {template.title}
-      </h3>
-      
-      <p className="font-serif text-[var(--text-base)] text-editorial-gray opacity-70 line-clamp-4 mb-8 flex-1 relative z-10 w-full">
-        {template.description || template.content.substring(0, 300) + "..."}
-      </p>
 
-      <div className="mt-auto flex items-center justify-between pt-6 relative z-10">
+      <div className="mt-auto flex items-center justify-between pt-3 relative z-10 border-t border-black/[0.06]">
         <div 
           ref={buttonsRef}
           className="flex items-center gap-2 opacity-100 lg:opacity-0 lg:-translate-x-4"
+          style={{ willChange: "transform, opacity" }}
         >
            <button 
              onClick={handlePin}
              aria-pressed={isPinned}
              aria-label={isPinned ? "Desafixar modelo" : "Fixar modelo"}
-             className="p-3 bg-editorial-bg hover:bg-editorial-gray/10 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-editorial-black"
+             className="p-2.5 bg-editorial-bg hover:bg-editorial-gray/10 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-editorial-black"
              title={isPinned ? "Desafixar" : "Fixar"}
            >
              <Pin size={16} className={isPinned ? "fill-editorial-black" : ""} />
@@ -223,7 +230,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
            <button 
              onClick={handleCopy}
              aria-label="Copiar conteúdo do modelo"
-             className="p-3 bg-editorial-bg hover:bg-editorial-gray/10 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-editorial-black"
+             className="p-2.5 bg-editorial-bg hover:bg-editorial-gray/10 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-editorial-black"
              title="Copiar"
            >
              {isCopied(template.id) ? <Check size={16} /> : <Copy size={16} />}
@@ -234,21 +241,24 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
            <span 
              ref={exploreTextRef}
              className="hidden lg:inline-block font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-editorial-black transform lg:translate-x-12 opacity-0"
+             style={{ willChange: "transform, opacity" }}
            >
              Explorar
            </span>
            <div 
              ref={exploreIconRef}
-             className="w-10 h-10 rounded-full border border-editorial-gray/30 flex items-center justify-center transition-colors duration-500"
+             className="w-9 h-9 rounded-full border border-editorial-gray/30 flex items-center justify-center transition-colors duration-500"
+             style={{ willChange: "background-color, border-color" }}
            >
                <ArrowRight 
                  ref={arrowRef as React.Ref<SVGSVGElement>}
-                 size={16} 
+                 size={15} 
                  className="text-editorial-black -rotate-45" 
+                 style={{ willChange: "transform, color" }}
                />
            </div>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 };

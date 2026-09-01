@@ -15,23 +15,23 @@ const pageVariants = {
   listAnimate: { 
     opacity: 1, 
     scale: 1, 
-    transition: { duration: 0.5, ease: TRANSITION_EASE } 
+    transition: { duration: 0.35, ease: TRANSITION_EASE } 
   },
   listExit: { 
     opacity: 0, 
     scale: 0.98,
-    transition: { duration: 0.3, ease: "easeIn" } 
+    transition: { duration: 0.25, ease: "easeIn" } 
   },
   editorInitial: { opacity: 0, y: "20px" },
   editorAnimate: { 
     opacity: 1, 
     y: 0, 
-    transition: { duration: 0.5, ease: TRANSITION_EASE } 
+    transition: { duration: 0.35, ease: TRANSITION_EASE } 
   },
   editorExit: { 
     opacity: 0,
     y: "20px", 
-    transition: { duration: 0.3, ease: "easeIn" } 
+    transition: { duration: 0.25, ease: "easeIn" } 
   }
 };
 

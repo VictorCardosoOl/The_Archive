@@ -1,0 +1,79 @@
+name: QA Pipeline & Quality Gates
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  unit-and-integration:
+    name: 🛡️ Unit & Integration Tests (Vitest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Vitest with Coverage
+        # Configurado para falhar o PR se quebrar
+        run: npm run test:unit -- --run --coverage
+
+  e2e-playwright:
+    name: 🎭 E2E Tests (Playwright)
+    runs-on: ubuntu-latest
+    needs: unit-and-integration # Só roda se a base da pirâmide passar
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Build App for Testing
+        run: npm run build
+
+      - name: Run Playwright Tests
+        run: npm run test:e2e
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  performance-k6:
+    name: 🚀 Load Tests (K6)
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' # Só roda no Trunk (ou em cron noturno)
+    needs: e2e-playwright
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup K6
+        uses: grafana/setup-k6-action@v1
+
+      - name: Run Load Test
+        run: k6 run tests/performance/load-test.js
+        env:
+          TARGET_URL: "https://seu-ambiente-de-homologacao.com"

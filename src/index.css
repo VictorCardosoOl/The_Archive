@@ -3,10 +3,29 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Bonny';
+  src: url('/fonts/Bonny-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2');
+  font-weight: 200 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Panchang';
+  src: url('/fonts/Panchang-Variable.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+}
+
 :root {
   /* Fonts - Sophisticated Awwwards Style */
-  --font-serif: 'Cormorant Garamond', serif;
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Bonny', serif;
+  --font-sans: 'Clash Display', sans-serif;
 
   /* Theme Colors - Sophisticated Monochromatic */
   --color-bg-body: #f7f7f7; /* Very subtle off-white */
@@ -167,7 +186,7 @@ input::placeholder, textarea::placeholder {
 @layer components {
   /* Editor Components */
   .editor-header {
-    @apply flex-none flex items-center justify-between px-4 py-3 pt-[max(1rem,env(safe-area-inset-top))] md:px-12 md:py-4 bg-transparent text-editorial-black border-b border-white/5;
+    @apply flex-none flex items-center justify-between px-4 py-3 pt-[max(1rem,env(safe-area-inset-top))] md:px-12 2xl:px-20 3xl:px-28 md:py-4 2xl:py-6 bg-transparent text-editorial-black border-b border-white/5;
   }
   
   .editor-btn-back {
@@ -179,12 +198,12 @@ input::placeholder, textarea::placeholder {
   }
 
   .editor-workspace {
-    @apply w-full max-w-4xl 3xl:max-w-5xl mx-auto p-4 md:p-6 3xl:p-10 pb-20 flex flex-col gap-5;
+    @apply w-full max-w-4xl 2xl:max-w-5xl 3xl:max-w-6xl 4xl:max-w-7xl mx-auto p-4 md:p-6 2xl:p-10 3xl:p-14 pb-20 2xl:pb-32 flex flex-col gap-6 2xl:gap-8;
   }
 
   /* App Header & Search */
   .app-header-container {
-    @apply flex flex-col xl:flex-row xl:items-end justify-between gap-8 md:gap-12 mb-8 md:mb-16 pt-8 md:pt-16 px-4 md:px-2;
+    @apply flex flex-col xl:flex-row xl:items-end justify-between gap-8 md:gap-12 3xl:gap-16 mb-8 md:mb-14 2xl:mb-20 3xl:mb-24 pt-8 md:pt-14 2xl:pt-20 3xl:pt-24 px-4 md:px-2;
   }
   
   .search-input {
@@ -197,11 +216,11 @@ input::placeholder, textarea::placeholder {
 
   /* Cards */
   .editorial-card {
-    @apply flex flex-col cursor-pointer border border-[#e0e0e0] bg-white/40 hover:bg-white p-5 md:p-6 xl:p-8 h-full overflow-hidden relative focus-visible:outline-none focus-visible:border-editorial-black transition-smooth;
+    @apply flex flex-col cursor-pointer border border-[#e0e0e0] bg-white hover:bg-white p-5 md:p-6 h-full overflow-hidden relative focus-visible:outline-none focus-visible:border-editorial-black transition-smooth;
   }
   
   .editorial-card-hero {
-    @apply relative z-10 flex flex-col h-full border border-editorial-gray/20 bg-white/50 backdrop-blur-md p-6 md:p-8 xl:p-12 hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.05)] transition-shadow duration-500;
+    @apply relative z-10 flex flex-col h-full border border-editorial-gray/20 bg-white/70 backdrop-blur-md p-6 md:p-8 xl:p-10 hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.05)] transition-shadow duration-500;
   }
 
   .pin-btn {

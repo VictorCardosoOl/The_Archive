@@ -33,28 +33,20 @@ export const StaggeredMenu = forwardRef<{ toggle: () => void; open: () => void; 
 
     // Panel Animation Variants
     const panelVariants = {
-      hidden: { x: position === 'left' ? '-100%' : '100%', opacity: 0 },
+      hidden: { x: position === 'left' ? '-100%' : '100%', opacity: 1 },
       visible: { 
         x: '0%', 
         opacity: 1,
         transition: { 
-          duration: 0.6, 
-          ease: [0.16, 1, 0.3, 1], // easeOutQuint
-          when: "beforeChildren",
-          staggerChildren: 0.05 
+          duration: 0.5, 
+          ease: [0.16, 1, 0.3, 1]
         } 
       },
       exit: { 
         x: position === 'left' ? '-100%' : '100%', 
-        opacity: 0,
+        opacity: 1,
         transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } 
       }
-    };
-
-    const itemVariants = {
-      hidden: { y: 20, opacity: 0 },
-      visible: { y: 0, opacity: 1, transition: { duration: 0.4, ease: 'easeOut' } },
-      exit: { opacity: 0, transition: { duration: 0.2 } }
     };
 
     // Close on escape
@@ -103,42 +95,49 @@ export const StaggeredMenu = forwardRef<{ toggle: () => void; open: () => void; 
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className={`fixed top-0 bottom-0 ${position === 'left' ? 'left-0 border-r' : 'right-0 border-l'} w-full max-w-sm bg-white z-50 flex flex-col border-[#e0e0e0] shadow-2xl p-10 pt-32 overflow-y-auto`}
+                className={`fixed top-0 bottom-0 ${position === 'left' ? 'left-0 border-r' : 'right-0 border-l'} w-full max-w-md bg-white z-50 flex flex-col border-[#e0e0e0] shadow-2xl p-10 pt-36 overflow-y-auto`}
               >
                 <div className="flex-1 flex flex-col">
                   {/* Item List */}
-                  <div className="flex flex-col gap-2">
-                    {items.filter(it => it.id !== 'all').map((it, idx) => (
-                      <motion.button
-                        key={it.id}
-                        variants={itemVariants}
-                        onClick={() => {
-                          onSelectItem?.(it.id);
-                          setIsOpen(false);
-                        }}
-                        className={`text-left text-3xl font-serif italic py-3 transition-colors duration-300 ${activeId === it.id ? 'text-editorial-black' : 'text-editorial-gray hover:text-editorial-black'}`}
-                      >
-                        {it.label}
-                      </motion.button>
-                    ))}
+                  <div className="flex flex-col gap-4">
+                    {items.filter(it => it.id !== 'all').map((it, idx) => {
+                      const isActive = activeId === it.id;
+                      return (
+                        <button
+                          key={it.id}
+                          onClick={() => {
+                            onSelectItem?.(it.id);
+                            setIsOpen(false);
+                          }}
+                          className="group w-full flex items-center gap-6 py-3 outline-none focus-visible:bg-gray-50"
+                        >
+                          <span className={`font-sans text-[11px] font-medium tracking-[0.2em] transition-colors duration-500 ${isActive ? 'text-editorial-black' : 'text-editorial-gray/30 group-hover:text-editorial-black'}`}>
+                            {(idx + 1).toString().padStart(2, '0')}
+                          </span>
+                          <span className={`font-serif italic text-3xl md:text-4xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? 'text-editorial-black' : 'text-editorial-gray/60 group-hover:text-editorial-black group-hover:translate-x-3'}`}>
+                            {it.label}
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
 
                   {/* Footer (Home) */}
-                  <motion.div variants={itemVariants} className="mt-auto pt-12 border-t border-[#e0e0e0]">
+                  <div className="mt-auto pt-16 border-t border-[#e0e0e0]">
                     <button 
                       onClick={() => {
                         onGoHome?.();
                         setIsOpen(false);
                       }} 
-                      className="flex items-center gap-4 text-editorial-black group w-full p-4 rounded-xl hover:bg-black/5 transition-colors"
+                      className="flex items-center gap-4 text-editorial-black group w-full py-4 rounded-xl hover:bg-black/5 transition-colors px-4 -ml-4"
                     >
-                      <div className="bg-editorial-bg p-3 rounded-full border border-black/10">
-                        <Home size={20} strokeWidth={1.5} />
+                      <div className="bg-editorial-bg p-3 rounded-full border border-black/10 group-hover:bg-white transition-colors">
+                        <Home size={18} strokeWidth={1.5} />
                       </div>
-                      <span className="font-sans font-medium text-sm">Início / Dashboard</span>
-                      <ArrowRight size={16} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ml-auto" />
+                      <span className="font-sans font-semibold tracking-wide text-sm">Início / Dashboard</span>
+                      <ArrowRight size={16} className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out ml-auto" />
                     </button>
-                  </motion.div>
+                  </div>
                 </div>
               </motion.aside>
             </>

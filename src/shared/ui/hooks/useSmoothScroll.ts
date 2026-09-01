@@ -1,5 +1,6 @@
 import { useLayoutEffect, useEffect, useRef } from 'react';
 import Lenis from '@studio-freight/lenis';
+import gsap from 'gsap';
 import { Template } from '@/core/domain/types';
 
 interface UseSmoothScrollProps {
@@ -20,7 +21,7 @@ export const useSmoothScroll = ({
   pinnedIds
 }: UseSmoothScrollProps) => {
   const lenisRef = useRef<Lenis | null>(null);
-  const rafIdRef = useRef<number | null>(null);
+  const updateRef = useRef<((time: number) => void) | null>(null);
 
   useLayoutEffect(() => {
     if (selectedTemplate) return; 
@@ -39,16 +40,20 @@ export const useSmoothScroll = ({
 
     lenisRef.current = lenis;
 
-    const raf = (time: number) => {
-      lenis.raf(time);
-      rafIdRef.current = requestAnimationFrame(raf);
+    // Use GSAP's ticker for 120hz lag-smoothed rendering
+    const update = (time: number) => {
+      lenis.raf(time * 1000);
     };
+    updateRef.current = update;
     
-    rafIdRef.current = requestAnimationFrame(raf);
+    gsap.ticker.add(update);
+
+    // Keep gsap ticker running smoothly
+    gsap.ticker.lagSmoothing(1000, 16);
 
     return () => {
-      if (rafIdRef.current !== null) {
-        cancelAnimationFrame(rafIdRef.current);
+      if (updateRef.current) {
+        gsap.ticker.remove(updateRef.current);
       }
       lenis.destroy();
       lenisRef.current = null;

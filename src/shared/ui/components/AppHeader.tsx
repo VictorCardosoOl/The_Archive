@@ -16,6 +16,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   searchInputRef
 }) => {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+  const [localSearch, setLocalSearch] = useState(searchQuery);
 
   useEffect(() => {
     if (isSearchExpanded && searchInputRef.current) {
@@ -23,8 +24,24 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     }
   }, [isSearchExpanded, searchInputRef]);
 
+  // Sync external search changes (e.g. cleared via another button)
+  useEffect(() => {
+    setLocalSearch(searchQuery);
+  }, [searchQuery]);
+
+  // Debounce the push to global store to avoid layout thrashing while typing
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      if (searchQuery !== localSearch) {
+        setSearchQuery(localSearch);
+      }
+    }, 250);
+    return () => clearTimeout(handler);
+  }, [localSearch, setSearchQuery, searchQuery]);
+
   const handleToggleSearch = () => {
     if (isSearchExpanded) {
+      setLocalSearch('');
       setSearchQuery('');
       setIsSearchExpanded(false);
     } else {
@@ -34,7 +51,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 
   return (
     <div className="app-header-container">
-      <div className="max-w-5xl relative">
+      <div className="max-w-5xl 3xl:max-w-7xl relative">
         {/* Decorative Line */}
         <motion.div 
             initial={{ width: 0 }}
@@ -82,8 +99,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
                 ref={searchInputRef}
                 type="text"
                 placeholder="Filtrar modelos..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={localSearch}
+                onChange={(e) => setLocalSearch(e.target.value)}
                 className="search-input"
               />
               <button 

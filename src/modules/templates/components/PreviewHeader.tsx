@@ -11,9 +11,9 @@ export const PreviewHeader: React.FC<PreviewHeaderProps> = ({ title, description
   return (
     <div className="z-20 shrink-0 relative bg-editorial-bg border-b border-[#e0e0e0] flex items-center justify-between px-8 py-6">
       <div>
-        <h2 className="text-2xl font-serif text-editorial-black">{title}</h2>
+        <h2 className="text-3xl md:text-4xl font-serif italic text-editorial-black">{title}</h2>
         {description && (
-          <p className="text-sm text-editorial-gray mt-1">{description}</p>
+          <p className="text-base font-serif font-medium text-editorial-gray mt-2">{description}</p>
         )}
       </div>
       <button 

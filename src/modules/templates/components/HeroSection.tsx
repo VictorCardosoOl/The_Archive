@@ -20,10 +20,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   if (heroTemplates.length === 0) return null;
 
   return (
-    <div className="mb-10 pb-10 border-b border-[#e0e0e0] mt-0">
-      <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] gap-8 lg:gap-12 xl:gap-20 items-start">
+    <div className="mb-10 2xl:mb-16 3xl:mb-20 pb-10 2xl:pb-16 3xl:pb-20 border-b border-[#e0e0e0] mt-0">
+      <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] 3xl:grid-cols-[3fr_1.2fr] gap-8 lg:gap-12 xl:gap-16 3xl:gap-24 items-start">
         {/* Hero Column */}
-        <div className="flex flex-col gap-8 lg:gap-12 group relative">
+        <div className="flex flex-col gap-8 lg:gap-12 3xl:gap-16 group relative">
           {heroTemplates.map((template, hIdx) => (
             <EditorialCard 
               key={template.id} 
@@ -38,16 +38,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         </div>
 
         {/* Secondary Column (Desktop Only) - Featured Articles */}
-        <div className="hidden lg:flex flex-col gap-10 border-l border-[#e0e0e0] pl-10 xl:pl-16">
-           <div className="font-serif italic text-4xl mb-4 font-light text-editorial-black">Selecionados</div>
+        <div className="hidden lg:flex flex-col gap-8 xl:gap-10 3xl:gap-14 border-l border-[#e0e0e0] pl-8 xl:pl-12 3xl:pl-16">
+           <div className="font-serif italic text-3xl 2xl:text-4xl 3xl:text-5xl mb-2 2xl:mb-4 font-light text-editorial-black">Selecionados</div>
            {listTemplates.slice(0, 3).map((template, idx) => (
-              <div key={template.id} onClick={() => setSelectedTemplate(template)} className="group cursor-pointer border-b border-[#e0e0e0] pb-8 last:border-none">
-                 <div className="flex items-center gap-4 mb-3">
-                     <div className="font-sans font-medium text-sm text-editorial-gray">No. {(idx + 1).toString().padStart(2, '0')}</div>
+              <div key={template.id} onClick={() => setSelectedTemplate(template)} className="group cursor-pointer border-b border-[#e0e0e0] pb-6 2xl:pb-8 last:border-none">
+                 <div className="flex items-center gap-4 mb-2.5">
+                     <div className="font-sans font-medium text-xs 2xl:text-sm text-editorial-gray">No. {(idx + 1).toString().padStart(2, '0')}</div>
                      <div className="flex-1 h-[1px] bg-[#e0e0e0] group-hover:bg-editorial-black transition-colors duration-500"></div>
                  </div>
-                 <h3 className="font-sans font-bold text-xl xl:text-2xl leading-tight mb-3 group-hover:text-editorial-gray transition-colors duration-500">{template.title}</h3>
-                 <p className="font-serif text-lg text-editorial-gray opacity-80 line-clamp-2">{template.description}</p>
+                 <h3 className="font-serif font-semibold text-lg xl:text-xl 3xl:text-2xl leading-tight mb-2 group-hover:text-editorial-gray transition-colors duration-500 text-editorial-black">{template.title}</h3>
+                 <p className="font-serif font-normal text-sm xl:text-base 3xl:text-lg text-editorial-black/80 line-clamp-2">{template.description}</p>
               </div>
            ))}
            <button className="mt-auto flex items-center justify-between gap-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] group hover:text-editorial-gray transition-colors self-start border border-editorial-black px-6 py-3 rounded-full overflow-hidden relative">

@@ -2,8 +2,6 @@ import React, { useMemo } from 'react';
 import { Template } from '@/core/domain/types';
 import { EditorialCard } from '@/modules/templates/components/EditorialCard';
 import { CATEGORIES } from '@/core/domain/constants';
-import { useVirtualizer } from '@tanstack/react-virtual';
-import { useWindowColumns } from '@/shared/utils/useWindowColumns';
 import { AppHeader } from '@/shared/ui/components/AppHeader';
 import { AppFooter } from '@/shared/ui/components/AppFooter';
 import { HeroSection } from '@/modules/templates/components/HeroSection';
@@ -22,7 +20,7 @@ interface EditorialFeedProps {
 }
 
 export const EditorialFeed: React.FC<EditorialFeedProps> = ({ 
-  pinnedTemplates, otherTemplates, setSelectedTemplate, selectedCategory, onPin, pinnedIds, scrollRef,
+  pinnedTemplates, otherTemplates, setSelectedTemplate, selectedCategory, onPin, pinnedIds,
   searchQuery, setSearchQuery, searchInputRef
 }) => {
   const isAllCategory = selectedCategory === 'all';
@@ -44,28 +42,15 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({
   }, [isAllCategory, pinnedTemplates, otherTemplates, heroTemplates]);
 
   const categoryName = isAllCategory 
-    ? 'The Archive.' 
+    ? 'The Archive' 
     : CATEGORIES.find(c => c.id === selectedCategory)?.name || 'Coleção';
 
-  // --- VIRTUALIZATION LOGIC ---
-  const cols = useWindowColumns();
   const feedItems = isAllCategory ? listTemplates.slice(3) : listTemplates;
-  const rowCount = Math.ceil(feedItems.length / cols);
-  
-  const gapY = cols >= 3 ? 80 : 64; // Reduced from 112/96
-  
-  // eslint-disable-next-line react-hooks/incompatible-library
-  const virtualizer = useVirtualizer({
-    count: rowCount,
-    getScrollElement: () => scrollRef?.current || null,
-    estimateSize: () => 350 + gapY, // Reduced from 400
-    overscan: 2,
-  });
 
   return (
     <div className="flex flex-col w-full bg-editorial-bg min-h-screen">
       {/* Main Content (Header + Feed) */}
-      <div className="flex-1 flex flex-col p-6 md:p-10 lg:p-12 xl:p-20 w-full mx-auto relative">
+      <div className="flex-1 flex flex-col p-6 md:p-10 lg:p-12 xl:p-16 2xl:p-20 3xl:p-24 4xl:p-32 w-full max-w-[2400px] mx-auto relative">
         
         <AppHeader 
           categoryInfo={{
@@ -88,48 +73,21 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({
           />
         )}
 
-        {/* Virtualized Grid Feed */}
-        <div 
-          style={{
-            height: `${virtualizer.getTotalSize()}px`,
-            width: '100%',
-            position: 'relative',
-          }}
-        >
-          {virtualizer.getVirtualItems().map((virtualRow) => {
-            const rowIndex = virtualRow.index;
-            const itemsInRow = feedItems.slice(rowIndex * cols, rowIndex * cols + cols);
+        {/* Grid Feed - Cinema Style Fluid Expansion */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-6 gap-6 md:gap-8 xl:gap-10 3xl:gap-12 py-4 2xl:py-8 3xl:py-12">
+          {feedItems.map((template, idx) => {
+            const displayIdx = isAllCategory ? idx + 3 : idx;
             
             return (
-              <div
-                key={virtualRow.key}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: `${virtualRow.size - gapY}px`, // Subtract gap from size if we want
-                  transform: `translateY(${virtualRow.start}px)`,
-                }}
-                className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-12 gap-y-0 xl:gap-x-16`}
-              >
-                {itemsInRow.map((template, colIdx) => {
-                  const absoluteIdx = rowIndex * cols + colIdx;
-                  const displayIdx = isAllCategory ? absoluteIdx + 3 : absoluteIdx;
-                  
-                  return (
-                    <EditorialCard 
-                      key={template.id} 
-                      template={template} 
-                      onClick={() => setSelectedTemplate(template)} 
-                      onPin={onPin}
-                      isPinned={pinnedIds.includes(template.id)}
-                      index={displayIdx}
-                      isHero={false}
-                    />
-                  );
-                })}
-              </div>
+              <EditorialCard 
+                key={template.id} 
+                template={template} 
+                onClick={() => setSelectedTemplate(template)} 
+                onPin={onPin}
+                isPinned={pinnedIds.includes(template.id)}
+                index={displayIdx}
+                isHero={false}
+              />
             );
           })}
         </div>

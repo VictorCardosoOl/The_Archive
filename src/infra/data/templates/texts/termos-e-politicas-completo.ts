@@ -5,7 +5,7 @@ export const termos_e_politicas_completo: Template = {
   title: "Termos de Uso e Políticas de Privacidade",
   category: 'texts',
   channel: CommunicationChannel.PROMPT,
-  description: "Documento completo de políticas de privacidade e termos de uso com base em LGPD e proteção do desenvolvedor.",
+  description: "Políticas de privacidade e termos de uso em conformidade com a LGPD.",
   content: `Termos de Uso e Políticas de Privacidade
 
 A presente Política de Privacidade e Termos de Uso tem como objetivo esclarecer como coletamos, tratamos e protegemos seus dados, bem como estabelecer as regras de uso dos nossos serviços, aplicações e sites desenvolvidos. Ao utilizar nossas plataformas, você concorda com os termos aqui descritos.

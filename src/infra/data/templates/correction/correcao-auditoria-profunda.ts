@@ -5,7 +5,7 @@ export const correcao_auditoria_profunda: Template = {
   title: "Auditoria e Code Review (DevSecOps)",
   category: 'correction',
   channel: CommunicationChannel.PROMPT,
-  description: "Auditoria estática profunda focada em Clean Code, Segurança (XSS, IDOR, Secrets) e Arquitetura 12-Factor.",
+  description: "Auditoria estática focada em Clean Code, Segurança e 12-Factor.",
   content: `Aja como um Principal Software Engineer e Especialista em DevSecOps. Sua missão é realizar uma auditoria estática profunda e um Code Review abrangente em toda a codebase deste workspace.
 
 Atue em modo de "Somente Leitura" (Read-Only) durante a fase inicial. Seu objetivo final é gerar um plano de implementação (\`implementation_plan.md\`) e um relatório de auditoria detalhado (\`walkthrough.md\`). 
