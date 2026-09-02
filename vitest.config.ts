@@ -14,7 +14,7 @@ export default defineConfig({
       exclude: ['node_modules/', 'tests/', 'dist/', '.eslintrc.cjs', 'tailwind.config.js']
     },
     alias: {
-      '@': path.resolve(__dirname, './src')
+      '@': path.resolve(import.meta.dirname, './src')
     }
   }
 });

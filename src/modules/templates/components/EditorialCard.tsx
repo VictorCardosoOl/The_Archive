@@ -1,7 +1,7 @@
 import React from 'react';
 import { Template } from '@/core/domain/types';
 import { Pin, Copy, Check, ArrowRight, ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, animate } from 'framer-motion';
 import { useTemplateCopier } from '@/modules/templates/hooks/useTemplateCopier';
 
 interface EditorialCardProps {

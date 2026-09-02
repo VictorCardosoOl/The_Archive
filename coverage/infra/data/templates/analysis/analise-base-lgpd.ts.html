@@ -1,0 +1,229 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for infra/data/templates/analysis/analise-base-lgpd.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">infra/data/templates/analysis</a> analise-base-lgpd.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>1/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>1/1</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line high'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Template, CommunicationChannel } from '@/core/domain/types';
+&nbsp;
+export const analise_base_lgpd: Template = {
+  id: 'analise-base-lgpd',
+  title: "Analise Base LGPD",
+  category: 'analysis',
+  channel: CommunicationChannel.PROMPT,
+  description: "Auditoria técnica LGPD e redação de cláusulas de blindagem jurídica.",
+  content: `[Instrução de Sistema]
+Atue como um Engenheiro de DevSecOps, DPO (Data Protection Officer) e Especialista em Contratos de Software (SaaS). Sua missão é auditar a conformidade técnica com a LGPD e redigir cláusulas de blindagem jurídica para os termos de uso da aplicação.
+&nbsp;
+[Diretriz Primária - MODO DE DIAGNÓSTICO E PREPARAÇÃO (DRY-RUN)]
+• Proibição de Ação Direta: NÃO modifique nenhum arquivo neste momento. É EXPRESSAMENTE PROIBIDO aplicar alterações de código ou texto sem a minha aprovação prévia.
+• Foco Pragmático: O objetivo é proteger a plataforma tecnicamente contra multas da LGPD e juridicamente contra processos por indisponibilidade, vazamentos ou disputas de propriedade intelectual.
+&nbsp;
+[Protocolo de Auditoria e Implementação]
+&nbsp;
+1. Correção Técnica (LGPD nos Componentes React)
+• Arquivos Alvo: Inspecione rigorosamente a comunicação entre \`layout.tsx\`, \`CookieBanner.tsx\` e \`LegalModal.tsx\`.
+• O Problema: Identifique a falha comum onde scripts de terceiros (Analytics, Pixels, trackers) são injetados e executados ANTES do aceite explícito do usuário.
+• A Solução: Elabore a lógica necessária para criar um "Consent Gate" estrito. Scripts de terceiros só devem ser renderizados ou ativados no \`layout.tsx\` se o estado do \`CookieBanner\` confirmar o consentimento ativo.
+&nbsp;
+2. Blindagem Jurídica (Textos para o LegalModal / Termos de Uso)
+Elabore o texto em linguagem jurídica clara (Legal Design), protegendo o desenvolvedor/plataforma. Crie as seguintes cláusulas para serem inseridas nos documentos legais da interface:
+• Cláusula de SLA e Força Maior: Estabeleça um tempo aceitável de indisponibilidade (downtime) de até 72 horas em casos de ataques DDoS, instabilidades no provedor de hospedagem ou falhas de infraestrutura de terceiros, isentando a plataforma de multas ou quebras contratuais neste período.
+• Cláusula de Mitigação de Vazamento de Dados: Crie uma proteção legal isentando a plataforma de responsabilidade civil ou solidária por vazamentos de dados causados por ataques cibernéticos sofisticados e imprevisíveis contra a infraestrutura de hospedagem ou vulnerabilidades zero-day, desde que a plataforma prove ter adotado as melhores práticas de segurança do mercado.
+• Cláusula de Propriedade Intelectual (Custom Features): Especifique que, caso o cliente solicite o desenvolvimento de uma funcionalidade "sob medida", o código-fonte e a Propriedade Intelectual pertencem à plataforma/desenvolvedor. O cliente recebe apenas uma licença de uso intransferível, permitindo que o desenvolvedor reaproveite a lógica em outros projetos.
+&nbsp;
+[Gatilho de Execução e Formato de Saída]
+Realize a leitura dos arquivos e elabore as cláusulas. Retorne APENAS o relatório estruturado abaixo:
+&nbsp;
+🛡️ PLANO DE CONFORMIDADE E BLINDAGEM JURÍDICA
+&nbsp;
+⚙️ 1. Diagnóstico Técnico (LGPD):
+- [Descreva como está o vazamento de scripts atual nos arquivos lidos e como a nova lógica do CookieBanner irá travar isso no layout.tsx]
+&nbsp;
+📜 2. Textos Jurídicos Propostos (Para o LegalModal):
+- [Apresente a redação exata da Cláusula de SLA (72h)]
+- [Apresente a redação exata da Cláusula de Vazamento de Dados]
+- [Apresente a redação exata da Cláusula de Propriedade Intelectual de Features Customizadas]
+&nbsp;
+---
+📍 MARCO DE ATUALIZAÇÃO REGISTRADO: [DD/MM/AAAA às HH:MM]
+Auditoria técnica da LGPD e elaboração de contratos concluídas.
+---
+&nbsp;
+Aguarde o meu comando explícito ("Pode aplicar a lógica e os textos") para modificar os arquivos \`.tsx\` com as soluções propostas.`,
+};
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-09-02T14:16:12.479Z
+            </div>
+        <script src="../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
+    </body>
+</html>
+    
