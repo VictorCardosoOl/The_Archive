@@ -28,12 +28,12 @@ export const useSmoothScroll = ({
     const lenis = new Lenis({
         wrapper: scrollContainerRef.current,
         content: contentWrapperRef.current,
-        duration: 0.9, 
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        lerp: 0.08,
         orientation: 'vertical',
         gestureOrientation: 'vertical',
         smoothWheel: true,
         touchMultiplier: 2,
+        wheelMultiplier: 1.2,
     });
 
     lenisRef.current = lenis;

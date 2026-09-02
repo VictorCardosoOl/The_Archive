@@ -4,7 +4,6 @@ import { useKeyboardShortcuts } from '@/core/application/useKeyboardShortcuts';
 import { CATEGORIES } from '@/core/domain/constants';
 import { CommandMenu } from '@/modules/search/components/CommandMenu';
 import { StaggeredMenu } from '@/shared/ui/components/StaggeredMenu';
-import { captureException } from '@/shared/utils/telemetry';
 import { AppRouter } from '@/core/application/components/AppRouter';
 
 class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean, error: Error | null}> {
@@ -19,7 +18,6 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasErr
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error("Uncaught error:", error, errorInfo);
-    captureException(error, errorInfo);
   }
 
   render() {
@@ -28,7 +26,7 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasErr
         <div className="flex flex-col items-center justify-center h-screen bg-[#FDFCFB] text-[#1C1C1E] p-8 text-center">
           <h1 className="text-2xl font-serif italic mb-4">Tivemos um desvio de rota no acervo.</h1>
           <p className="text-sm font-mono bg-red-50 text-red-600 p-4 rounded-lg max-w-2xl overflow-auto mb-2">
-            {this.state.error?.message}
+             {this.state.error?.message}
           </p>
           <p className="text-sm text-editorial-gray mb-6">Tentando restaurar a coleção...</p>
           <button 
@@ -65,7 +63,6 @@ const AppContent: React.FC = () => {
       
       <CommandMenu />
 
-      
       <StaggeredMenu
         items={[
           { id: 'all', label: 'Visão Geral' },
@@ -83,7 +80,6 @@ const AppContent: React.FC = () => {
            setSelectedTemplate(null);
         }}
         position="left"
-        accentColor="#0a0a0a"
       />
 
       <main className="flex-1 flex flex-col h-full overflow-hidden relative w-full">

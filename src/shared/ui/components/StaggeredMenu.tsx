@@ -1,9 +1,8 @@
-import React, { useCallback, useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { Home, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useAppStore } from '@/core/application/useAppStore';
 
-export interface StaggeredMenuItem {
+interface StaggeredMenuItem {
   id: string;
   label: string;
   link?: string;
@@ -20,7 +19,7 @@ export interface StaggeredMenuProps {
 }
 
 export const StaggeredMenu = forwardRef<{ toggle: () => void; open: () => void; close: () => void; isOpen: boolean }, StaggeredMenuProps>(
-  ({ items = [], activeId, onSelectItem, onGoHome, position = 'left', accentColor }, ref) => {
+  ({ items = [], activeId, onSelectItem, onGoHome, position = 'left' }, ref) => {
     const [isOpen, setIsOpen] = useState(false);
     
     // Imperative handle for parent

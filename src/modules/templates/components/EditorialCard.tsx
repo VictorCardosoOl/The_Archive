@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Template } from '@/core/domain/types';
 import { Pin, Copy, Check, ArrowRight, ExternalLink } from 'lucide-react';
-import { motion, animate } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTemplateCopier } from '@/modules/templates/hooks/useTemplateCopier';
 
 interface EditorialCardProps {
@@ -45,78 +45,17 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
     }
   };
 
-  const buttonsRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLElement>(null);
-  const exploreTextRef = useRef<HTMLSpanElement>(null);
-  const exploreIconRef = useRef<HTMLDivElement>(null);
-  const arrowRef = useRef<SVGSVGElement>(null);
-  
-  const handleMouseEnter = () => {
-    const ease = [0.16, 1, 0.3, 1]; // Expo out for snappy 120hz feel
-    const duration = 0.3;
-
-    if (cardRef.current) {
-      animate(cardRef.current, { scale: 1.015, boxShadow: "0 30px 60px -12px rgba(0,0,0,0.08)" }, { duration: 0.4, ease });
-    }
-
-    if (buttonsRef.current) {
-      animate(buttonsRef.current, { opacity: 1, x: 0 }, { duration, ease });
-    }
-
-    if (exploreTextRef.current) {
-      animate(exploreTextRef.current, { opacity: 1, x: 0 }, { duration, ease });
-    }
-
-    if (exploreIconRef.current) {
-      animate(exploreIconRef.current, { backgroundColor: "#111111", borderColor: "#111111" }, { duration, ease });
-    }
-
-    if (arrowRef.current) {
-      animate(arrowRef.current, { rotate: 0, color: "#ffffff" }, { duration, ease });
-    }
-  };
-
-  const handleMouseLeave = () => {
-    const ease = [0.16, 1, 0.3, 1];
-    const duration = 0.25;
-
-    if (cardRef.current) {
-      animate(cardRef.current, { scale: 1, boxShadow: "0 0px 0px 0px rgba(0,0,0,0)" }, { duration, ease });
-    }
-
-    if (buttonsRef.current) {
-      animate(buttonsRef.current, { opacity: 0, x: -16 }, { duration, ease });
-    }
-
-    if (exploreTextRef.current) {
-      animate(exploreTextRef.current, { opacity: 0, x: 48 }, { duration, ease });
-    }
-
-    if (exploreIconRef.current) {
-      animate(exploreIconRef.current, { backgroundColor: "transparent", borderColor: "rgba(74, 74, 74, 0.3)" }, { duration, ease });
-    }
-
-    if (arrowRef.current) {
-      animate(arrowRef.current, { rotate: -45, color: "#111111" }, { duration, ease });
-    }
-  };
-
   if (isHero) {
     return (
       <motion.article 
-        ref={cardRef as React.Ref<HTMLElement>}
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         onClick={onClick}
         onKeyDown={handleKeyDown}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onFocus={handleMouseEnter}
-        onBlur={handleMouseLeave}
         tabIndex={0}
         aria-label={`Visualizar modelo em destaque: ${template.title}`}
-        className="group relative flex flex-col w-full h-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-editorial-black"
+        className="group relative flex flex-col w-full h-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-editorial-black transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.015] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)]"
         style={{ willChange: "transform, opacity" }}
       >
         <div aria-hidden="true" className="absolute -inset-10 bg-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-[100px] shadow-[0_0_80px_rgba(255,255,255,0.4)]"></div>
@@ -144,8 +83,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
              </p>
              
              <div 
-               ref={buttonsRef}
-               className="flex items-center gap-3 shrink-0 opacity-100 lg:opacity-0 lg:-translate-x-4"
+               className="flex items-center gap-3 shrink-0 opacity-100 lg:opacity-0 lg:-translate-x-4 lg:group-hover:opacity-100 lg:group-hover:translate-x-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
                style={{ willChange: "transform, opacity" }}
              >
                 <button 
@@ -188,16 +126,11 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
 
   return (
     <article 
-      ref={cardRef as React.Ref<HTMLElement>}
       onClick={onClick}
       onKeyDown={handleKeyDown}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onFocus={handleMouseEnter}
-      onBlur={handleMouseLeave}
       tabIndex={0}
       aria-label={`Visualizar modelo: ${template.title}`}
-      className="group editorial-card justify-between"
+      className="group editorial-card justify-between transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.015] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)] cursor-pointer"
       style={{ willChange: "transform, box-shadow" }}
     >
       <div aria-hidden="true" className="absolute inset-0 bg-editorial-black transform scale-y-0 origin-bottom group-hover:scale-y-[0.02] transition-transform duration-[400ms] ease-out pointer-events-none"></div>
@@ -226,8 +159,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
 
       <div className="mt-auto flex items-center justify-between pt-3 relative z-10 border-t border-black/[0.06]">
         <div 
-          ref={buttonsRef}
-          className="flex items-center gap-2 opacity-100 lg:opacity-0 lg:-translate-x-4"
+          className="flex items-center gap-2 opacity-100 lg:opacity-0 lg:-translate-x-4 lg:group-hover:opacity-100 lg:group-hover:translate-x-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
           style={{ willChange: "transform, opacity" }}
         >
            <button 
@@ -259,21 +191,18 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
         
         <div aria-hidden="true" className="flex items-center gap-3 overflow-hidden ml-auto">
            <span 
-             ref={exploreTextRef}
-             className="hidden lg:inline-block font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-editorial-black transform lg:translate-x-12 opacity-0"
+             className="hidden lg:inline-block font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-editorial-black transform lg:translate-x-12 opacity-0 lg:group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
              style={{ willChange: "transform, opacity" }}
            >
              Explorar
            </span>
            <div 
-             ref={exploreIconRef}
-             className="w-9 h-9 rounded-full border border-editorial-gray/30 flex items-center justify-center transition-colors duration-500"
+             className="w-9 h-9 rounded-full border border-editorial-gray/30 flex items-center justify-center transition-colors duration-300 group-hover:bg-[#111111] group-hover:border-[#111111]"
              style={{ willChange: "background-color, border-color" }}
            >
                <ArrowRight 
-                 ref={arrowRef as React.Ref<SVGSVGElement>}
                  size={15} 
-                 className="text-editorial-black -rotate-45" 
+                 className="text-editorial-black -rotate-45 group-hover:rotate-0 group-hover:text-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" 
                  style={{ willChange: "transform, color" }}
                />
            </div>

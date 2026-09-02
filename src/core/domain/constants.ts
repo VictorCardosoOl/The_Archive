@@ -1,4 +1,4 @@
-import { Category, CommunicationChannel, Template } from '@/core/domain/types';
+import { Category } from '@/core/domain/types';
 
 export const CATEGORIES: Category[] = [
   { id: 'analysis', name: 'Análise', icon: 'Search' },

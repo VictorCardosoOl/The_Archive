@@ -41,7 +41,7 @@ const initialTemplate = initialTemplateId
   ? INITIAL_TEMPLATES.find(t => t.id === initialTemplateId) || null 
   : null;
 
-export const useAppStore = create<AppState>((set, get) => ({
+export const useAppStore = create<AppState>((set) => ({
   // UI State
   selectedCategory: 'all',
   setSelectedCategory: (category) => set({ selectedCategory: category }),
