@@ -7,7 +7,9 @@ export const useFavorites = () => {
     if (typeof window === 'undefined') return [];
     try {
       const savedPins = localStorage.getItem(FAVORITES_KEY);
-      return savedPins ? JSON.parse(savedPins) : [];
+      if (!savedPins) return [];
+      const parsed = JSON.parse(savedPins);
+      return Array.isArray(parsed) ? parsed.filter((id): id is string => typeof id === 'string') : [];
     } catch (e) {
       console.error("Failed to parse favorites", e);
       return [];

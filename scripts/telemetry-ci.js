@@ -4,19 +4,20 @@
  */
 
 async function fetchWorkflowRuns(owner, repo, token) {
-  const url = `https://api.github.com/repos/${owner}/${repo}/actions/runs?per_page=100`;
+  const url = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/runs?per_page=100`;
   const headers = {
     'Accept': 'application/vnd.github.v3+json',
     'User-Agent': 'SRE-Telemetry-Script'
   };
   
-  if (token) {
-    headers['Authorization'] = `token ${token}`;
+  const authToken = token || process.env.GITHUB_TOKEN;
+  if (authToken) {
+    headers['Authorization'] = `token ${authToken}`;
   }
 
   const response = await fetch(url, { headers });
   if (!response.ok) {
-    throw new Error(`Failed to fetch workflow runs: ${response.statusText}`);
+    throw new Error(`Failed to fetch workflow runs: HTTP ${response.status}`);
   }
 
   return response.json();

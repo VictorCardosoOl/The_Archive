@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Template } from '@/core/domain/types';
-import { Pin, Copy, Check, ArrowRight } from 'lucide-react';
+import { Pin, Copy, Check, ArrowRight, ExternalLink } from 'lucide-react';
 import { motion, animate } from 'framer-motion';
 import { useTemplateCopier } from '@/modules/templates/hooks/useTemplateCopier';
 
@@ -30,6 +30,12 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
     if (icon) {
       animate(icon, { scale: [1, 1.35, 1] }, { duration: 0.3, ease: "easeInOut" });
     }
+  };
+
+  const handleOpenInNewTab = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const url = `${window.location.origin}${window.location.pathname}?template=${encodeURIComponent(template.id)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -108,7 +114,6 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
         onMouseLeave={handleMouseLeave}
         onFocus={handleMouseEnter}
         onBlur={handleMouseLeave}
-        role="button"
         tabIndex={0}
         aria-label={`Visualizar modelo em destaque: ${template.title}`}
         className="group relative flex flex-col w-full h-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-editorial-black"
@@ -160,11 +165,19 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
                 >
                   {isCopied(template.id) ? <Check size={20} /> : <Copy size={20} />}
                 </button>
+                <button 
+                  onClick={handleOpenInNewTab}
+                  aria-label="Abrir modelo em nova guia"
+                  className="icon-btn-hero"
+                  title="Abrir em nova guia"
+                >
+                  <ExternalLink size={20} />
+                </button>
                 <span 
                   aria-hidden="true"
                   className="flex items-center gap-3 font-sans text-xs font-bold uppercase tracking-[0.1em] bg-editorial-black text-white px-7 py-3.5 rounded-full hover:bg-editorial-gray transition-colors duration-500"
                 >
-                  Editar <ArrowRight size={16} />
+                  Visualizar <ArrowRight size={16} />
                 </span>
              </div>
           </div>
@@ -182,7 +195,6 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
       onMouseLeave={handleMouseLeave}
       onFocus={handleMouseEnter}
       onBlur={handleMouseLeave}
-      role="button"
       tabIndex={0}
       aria-label={`Visualizar modelo: ${template.title}`}
       className="group editorial-card justify-between"
@@ -234,6 +246,14 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
              title="Copiar"
            >
              {isCopied(template.id) ? <Check size={16} /> : <Copy size={16} />}
+           </button>
+           <button 
+             onClick={handleOpenInNewTab}
+             aria-label="Abrir modelo em nova guia"
+             className="p-2.5 bg-editorial-bg hover:bg-editorial-gray/10 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-editorial-black"
+             title="Abrir em nova guia"
+           >
+             <ExternalLink size={16} />
            </button>
         </div>
         

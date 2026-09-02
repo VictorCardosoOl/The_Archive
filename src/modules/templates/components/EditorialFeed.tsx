@@ -25,12 +25,12 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({
 }) => {
   const isAllCategory = selectedCategory === 'all';
   
-  // Get up to 2 hero templates if in 'all' category
+  // Get up to 3 hero templates if in 'all' category
   const heroTemplates = useMemo(() => {
     if (!isAllCategory) return [];
-    if (pinnedTemplates.length >= 2) return pinnedTemplates.slice(0, 2);
-    if (pinnedTemplates.length === 1) return [pinnedTemplates[0], otherTemplates[0]];
-    return otherTemplates.slice(0, 2);
+    if (pinnedTemplates.length >= 3) return pinnedTemplates.slice(0, 3);
+    const combined = [...pinnedTemplates, ...otherTemplates];
+    return combined.slice(0, 3);
   }, [isAllCategory, pinnedTemplates, otherTemplates]);
 
   const listTemplates = useMemo(() => {
@@ -50,7 +50,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({
   return (
     <div className="flex flex-col w-full bg-editorial-bg min-h-screen">
       {/* Main Content (Header + Feed) */}
-      <div className="flex-1 flex flex-col p-6 md:p-10 lg:p-12 xl:p-16 2xl:p-20 3xl:p-24 4xl:p-32 w-full max-w-[2400px] mx-auto relative">
+      <div className="flex-1 flex flex-col p-4 sm:p-6 md:p-10 lg:p-12 xl:p-16 2xl:p-20 3xl:p-24 4xl:p-32 w-full max-w-[2400px] mx-auto relative">
         
         <AppHeader 
           categoryInfo={{
@@ -74,7 +74,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({
         )}
 
         {/* Grid Feed - Cinema Style Fluid Expansion */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-6 gap-6 md:gap-8 xl:gap-10 3xl:gap-12 py-4 2xl:py-8 3xl:py-12">
+        <div id="editorial-grid" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-6 gap-6 md:gap-8 xl:gap-10 3xl:gap-12 py-4 2xl:py-8 3xl:py-12">
           {feedItems.map((template, idx) => {
             const displayIdx = isAllCategory ? idx + 3 : idx;
             

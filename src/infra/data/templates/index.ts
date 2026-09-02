@@ -12,6 +12,7 @@ import { analise_integracao_dependencias } from './production/analise-integracao
 import { analise_seo } from './production/analise-seo';
 import { auditoria_estrategia_qualidade } from './production/auditoria-estrategia-qualidade';
 import { utilitario_commit } from './utility/utilitario-commit';
+import { utilitario_readme } from './utility/utilitario-readme';
 import { correcao_auditoria_profunda } from './correction/correcao-auditoria-profunda';
 import { auditoria_arquitetural_roadmap } from './correction/auditoria-arquitetural-roadmap';
 import { design_layout_ultrawide } from './design/design-layout-ultrawide';
@@ -35,6 +36,7 @@ export const INITIAL_TEMPLATES = [
   analise_seo,
   auditoria_estrategia_qualidade,
   utilitario_commit,
+  utilitario_readme,
   correcao_auditoria_profunda,
   auditoria_arquitetural_roadmap,
   design_layout_ultrawide,

@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppStore } from '@/core/application/useAppStore';
 import { useFavorites } from '@/core/application/hooks/useFavorites';
@@ -29,7 +29,7 @@ const pageVariants = {
     transition: { duration: 0.35, ease: TRANSITION_EASE } 
   },
   editorExit: { 
-    opacity: 0,
+    opacity: 0, 
     y: "20px", 
     transition: { duration: 0.25, ease: "easeIn" } 
   }
@@ -49,6 +49,19 @@ export const AppRouter: React.FC = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const contentWrapperRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Sync back/forward browser navigation safely with cleanup
+  useEffect(() => {
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search);
+      const templateId = params.get('template') || params.get('t');
+      const matched = templateId ? templates.find(t => t.id === templateId) || null : null;
+      setSelectedTemplate(matched);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [templates, setSelectedTemplate]);
 
   // Smooth scroll logic hooked directly into router's view
   useSmoothScroll({

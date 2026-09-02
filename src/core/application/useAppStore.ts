@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { Template } from '@/core/domain/types';
-import { LocalTemplateRepository } from '@/infra/data/repositories/LocalTemplateRepository';
-import { ITemplateRepository } from '@/core/domain/repositories/ITemplateRepository';
+import { INITIAL_TEMPLATES } from '@/core/domain/constants';
 
 interface AppState {
   // UI State
@@ -16,19 +15,46 @@ interface AppState {
 
   // Data State
   templates: Template[];
-  loadDefaults: () => Promise<void>;
+  loadDefaults: () => void;
 }
 
-// In a real application, this repository instance might be injected via Context or a DI container
-const templateRepository: ITemplateRepository = new LocalTemplateRepository();
+const getInitialTemplateIdFromUrl = (): string | null => {
+  if (typeof window === 'undefined') return null;
+  const params = new URLSearchParams(window.location.search);
+  return params.get('template') || params.get('t') || null;
+};
 
-export const useAppStore = create<AppState>((set) => ({
+const updateUrlTemplateId = (templateId: string | null) => {
+  if (typeof window === 'undefined') return;
+  const url = new URL(window.location.href);
+  if (templateId) {
+    url.searchParams.set('template', templateId);
+  } else {
+    url.searchParams.delete('template');
+    url.searchParams.delete('t');
+  }
+  window.history.pushState({}, '', url.toString());
+};
+
+const initialTemplateId = getInitialTemplateIdFromUrl();
+const initialTemplate = initialTemplateId 
+  ? INITIAL_TEMPLATES.find(t => t.id === initialTemplateId) || null 
+  : null;
+
+export const useAppStore = create<AppState>((set, get) => ({
   // UI State
   selectedCategory: 'all',
   setSelectedCategory: (category) => set({ selectedCategory: category }),
   
-  selectedTemplate: null,
-  setSelectedTemplate: (template) => set({ selectedTemplate: template }),
+  selectedTemplate: initialTemplate,
+  setSelectedTemplate: (template) => {
+    const currentParam = getInitialTemplateIdFromUrl();
+    const newId = template ? template.id : null;
+    if (currentParam !== newId) {
+      updateUrlTemplateId(newId);
+    }
+    set({ selectedTemplate: template });
+  },
   
   searchQuery: '',
   setSearchQuery: (query) => set({ searchQuery: query }),
@@ -37,14 +63,10 @@ export const useAppStore = create<AppState>((set) => ({
   setIsSearchModalOpen: (isOpen) => set({ isSearchModalOpen: isOpen }),
 
   // Data State
-  templates: [],
-  loadDefaults: async () => {
-    try {
-      const templates = await templateRepository.getTemplates();
-      set({ templates });
-    } catch (e) {
-      console.error(e);
-      set({ templates: [] });
-    }
+  templates: INITIAL_TEMPLATES,
+  loadDefaults: () => {
+    const templateId = getInitialTemplateIdFromUrl();
+    const matched = templateId ? INITIAL_TEMPLATES.find(t => t.id === templateId) || null : null;
+    set({ templates: INITIAL_TEMPLATES, selectedTemplate: matched });
   },
 }));

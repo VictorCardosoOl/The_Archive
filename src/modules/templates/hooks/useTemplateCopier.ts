@@ -24,7 +24,7 @@ const formatForHtmlClipboard = (text: string): string => {
     .replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;")
     .replace(/\n/g, "<br>")
     .replace(/\*([\s\S]*?)\*/g, "<b>$1</b>") // Bold
-    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>'); // Links
+    .replace(/\[(.*?)\]\(((?:https?:\/\/|mailto:|tel:|\/)[^\s)"']+)\)/gi, '<a href="$2">$1</a>'); // Safe links only
 };
 
 /**

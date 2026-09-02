@@ -16,6 +16,7 @@ export interface Template {
   secondaryContent?: string;
   secondaryLabel?: string; 
   tertiaryContent?: string; // Future proofing
+  _searchIndex?: string; // Optional indexed search cache
 }
 
 export interface Category {
